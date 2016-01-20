@@ -180,8 +180,8 @@ typedef struct pmemoid {
 #define	TOID_NULL(t)	((TOID(t))OID_NULL)
 #define	OID_IS_NULL(o)	((o).off == 0)
 #define	OID_EQUALS(lhs, rhs)\
-((lhs).off == (rhs).off // &&\
-//	(lhs).pool_uuid_lo == (rhs).pool_uuid_lo)
+((lhs).off == (rhs).off /* &&\
+	(lhs).pool_uuid_lo == (rhs).pool_uuid_lo)*/
 
 /*
  * Type safety macros
