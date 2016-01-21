@@ -172,7 +172,7 @@ int pmemobj_cond_wait(PMEMobjpool *pop, PMEMcond *condp,
  * Object handle
  */
 typedef struct pmemoid {
-//	uint64_t pool_uuid_lo;
+	uint64_t pool_uuid_lo;
 	uint64_t off;
 } PMEMoid;
 
