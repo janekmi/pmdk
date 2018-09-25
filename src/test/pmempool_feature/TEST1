@@ -46,4 +46,5 @@ setup
 pmempool_feature_test "CKSUM_2K"
 
 check
+
 pass

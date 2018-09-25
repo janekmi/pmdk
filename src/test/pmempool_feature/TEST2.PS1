@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
 #
 # Copyright 2018, Intel Corporation
 #
@@ -43,8 +42,8 @@ require_fs_type any
 setup
 . .\common.PS1
 
-create_pool
-toggle_feature("SHUTDOWN_STATE")
+pmempool_feature_test "SHUTDOWN_STATE"
 
 check
+
 pass

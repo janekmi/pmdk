@@ -50,7 +50,7 @@ function pmempool_feature_query() {
 
 # pmempool_feature_enable -- enable feature
 #
-# usage: pmempool_feature_enable <feature>
+# usage: pmempool_feature_enable <feature> [no-query]
 function pmempool_feature_enable() {
 	$exit_func $PMEMPOOL$EXESUFFIX feature -e $1 $DIR/pool.obj &>> $LOG
 	if [ "x$2" != "xno-query" ]; then
@@ -60,7 +60,7 @@ function pmempool_feature_enable() {
 
 # pmempool_feature_disable -- disable feature
 #
-# usage: pmempool_feature_disable <feature>
+# usage: pmempool_feature_disable <feature> [no-query]
 function pmempool_feature_disable() {
 	$exit_func $PMEMPOOL$EXESUFFIX feature -d $1 $DIR/pool.obj &>> $LOG
 	if [ "x$2" != "xno-query" ]; then

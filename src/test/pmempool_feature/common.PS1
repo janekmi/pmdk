@@ -34,23 +34,79 @@
 # src/test/pmempool_feature/common.ps1 -- common part of pmempool_feature tests
 #
 
-# create_obj -- create obj pool
-function create_pool() {
-	expect_normal_exit $PMEMPOOL create obj $DIR\pool.obj
+$LOG = "grep${Env:UNITTEST_NUM}.log"
+remove_files $LOG
+
+
+$exit_func="expect_normal_exit"
+
+# pmempool_feature_query -- query feature
+#
+# usage: pmempool_feature_query <feature>
+function pmempool_feature_query($arg1) {
+	$val=$(expect_normal_exit $PMEMPOOL feature -q $arg1 $DIR\pool.obj)
+	echo "query $arg1 result is $val" >> $LOG
 }
 
-# toggle_feature -- enable/ disablefeature
-function toggle_feature($arg1) {
-	$feature = $args[3]
-	expect_normal_exit $PMEMPOOL feature -e $arg1 $DIR\pool.obj
+# pmempool_feature_enable -- enable feature
+#
+# usage: pmempool_feature_enable <feature> [no-query]
+function pmempool_feature_enable($arg1, $arg2) {
+	& $exit_func $PMEMPOOL feature -e $arg1 $DIR\pool.obj 2>&1 | Select-String "$arg1" | %{$_.Line} >> $LOG
+	if ( "x$arg2" -ne "xno-query" ){
+		pmempool_feature_query $arg1
+	}
+}
 
-	expect_normal_exit $PMEMPOOL feature -q $arg1 $DIR\pool.obj
+# pmempool_feature_disable -- disable feature
+#
+# usage: pmempool_feature_disable <feature> [no-query]
+function pmempool_feature_disable($arg1, $arg2) {
+	& $exit_func $PMEMPOOL feature -d $arg1 $DIR\pool.obj 2>&1 | Select-String "$arg1" | %{$_.Line} >> $LOG
+	if ( "x$arg2" -ne "xno-query" ){
+		pmempool_feature_query $arg1
+	}
+}
 
-	expect_normal_exit $PMEMPOOL check $DIR\pool.obj | out-null
+# pmempool_feature_test -- misc scenarios for each feature value
+function pmempool_feature_test($arg1) {
+	# create pool
+	expect_normal_exit $PMEMPOOL create obj $DIR\pool.obj
 
-	expect_normal_exit $PMEMPOOL feature -d $arg1 $DIR\pool.obj
+	switch($arg1)
+	{
+	"SINGLEHDR"{
+		$exit_func="expect_abnormal_exit"
+		pmempool_feature_enable $arg1 "no-query" # UNSUPPORTED
+		pmempool_feature_disable $arg1 "no-query" # UNSUPPORTED
+		pmempool_feature_query $arg1
+		}
+	"CKSUM_2K"{
+		# PMEMPOOL_FEAT_CHCKSUM_2K is enabled by default
+		pmempool_feature_query $arg1
 
-	expect_normal_exit $PMEMPOOL feature -q $arg1 $DIR\pool.obj
+		# disable PMEMPOOL_FEAT_SHUTDOWN_STATE prior to success
+		$exit_func="expect_abnormal_exit"
+		pmempool_feature_disable $arg1 "" # should fail
+		$exit_func="expect_normal_exit"
+		pmempool_feature_disable "SHUTDOWN_STATE" ""
+		pmempool_feature_disable $arg1 "" # should succeed
 
-	expect_normal_exit $PMEMPOOL check $DIR\pool.obj | out-null
+		pmempool_feature_enable $arg1 ""
+		}
+	"SHUTDOWN_STATE"{
+		# PMEMPOOL_FEAT_SHUTDOWN_STATE is enabled by default
+		pmempool_feature_query $arg1
+
+		pmempool_feature_disable $arg1
+
+		# PMEMPOOL_FEAT_SHUTDOWN_STATE requires PMEMPOOL_FEAT_CHCKSUM_2K
+		pmempool_feature_disable "CKSUM_2K" ""
+		$exit_func="expect_abnormal_exit"
+		pmempool_feature_enable $arg1 "" # should fail
+		$exit_func="expect_normal_exit"
+		pmempool_feature_enable "CKSUM_2K" ""
+		pmempool_feature_enable $arg1 "" # should succeed
+		}
+	}
 }

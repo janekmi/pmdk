@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
 #
 # Copyright 2018, Intel Corporation
 #
@@ -43,10 +42,8 @@ require_fs_type any
 setup
 . .\common.PS1
 
-echo 1
-
-create_pool
-toggle_feature("SINGLEHDR")
+pmempool_feature_test "SINGLEHDR"
 
 check
+
 pass

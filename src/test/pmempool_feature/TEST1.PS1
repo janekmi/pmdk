@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
 #
 # Copyright 2018, Intel Corporation
 #
@@ -43,8 +42,8 @@ require_fs_type any
 setup
 . .\common.PS1
 
-create_pool
-toggle_feature("CKSUM_2K")
+pmempool_feature_test "CKSUM_2K"
 
 check
+
 pass

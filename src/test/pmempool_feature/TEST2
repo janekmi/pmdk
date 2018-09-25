@@ -46,4 +46,5 @@ setup
 pmempool_feature_test "SHUTDOWN_STATE"
 
 check
+
 pass
