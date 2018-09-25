@@ -78,15 +78,13 @@ pool part internal metadata. This value can be used only with
 + **PMEMPOOL_FEAT_CKSUM_2K** - only the first 2KiB of pool part internal metadata
 is checksummed. Other features may depend on this one to store additional metadata
 in otherwise unused second 2KiB part of a header.
+**PMEMPOOL_FEAT_CKSUM_2K** has to be enabled prior to dependent features.
 When **PMEMPOOL_FEAT_CKSUM_2K** is disabled whole 4KiB is checksummed.
 
 + **PMEMPOOL_FEAT_SHUTDOWN_STATE** - enables additional check performed during
 opening the pool which checks if pool consistency was not harmed by faulty
 hardware in case of power failure.
-This feature depends on **PMEMPOOL_FEAT_CKSUM_2K** to be enabled since it stores additional
-metadata in the second 2KiB of pool part internal metadata.
-**PMEMPOOL_FEAT_CKSUM_2K** has to be enabled prior to **PMEMPOOL_FEAT_SHUTDOWN_STATE**
-otherwise enabling **PMEMPOOL_FEAT_SHUTDOWN_STATE** will fail.
+This feature depends on **PMEMPOOL_FEAT_CKSUM_2K**.
 
 The _UW(pmempool_feature_query) function checks state of *feature* in the
 pool set pointed by *path*.
