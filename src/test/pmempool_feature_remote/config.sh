@@ -31,23 +31,11 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 #
-# pmempool_feature/TEST11 -- unit test for SHUTDOWN_STATE
+# pmempool_feature_remote/config.sh -- test configuration
 #
 
-. ../unittest/unittest.sh
+CONF_GLOBAL_FS_TYPE=any
+CONF_GLOBAL_BUILD_TYPE="debug nondebug"
 
-require_test_type medium
-require_fs_type any
-require_dax_devices 1
-
-configure_valgrind force-disable
-
-setup
-. ./common.sh
-
-pmempool_feature_create_poolset "dax_device"
-pmempool_feature_test "SHUTDOWN_STATE"
-
-check
-
-pass
+CONF_GLOBAL_RPMEM_PROVIDER=all
+CONF_GLOBAL_RPMEM_PMETHOD=all

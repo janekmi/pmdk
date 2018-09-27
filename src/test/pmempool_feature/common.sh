@@ -37,17 +37,23 @@
 # for feature values please see: pmempool feature help
 
 PART_SIZE=$((10 * 1024 * 1024)) # 10MiB
+
+# define files and directories
 POOLSET=$DIR/testset
+
+TEST_SET_LOCAL=testset_local
+TEST_SET_REMOTE=testset_remote
 
 LOG=grep${UNITTEST_NUM}.log
 
+pmempool_exe=$PMEMPOOL$EXESUFFIX
 exit_func=expect_normal_exit
 
 # pmempool_feature_query -- query feature
 #
 # usage: pmempool_feature_query <feature>
 function pmempool_feature_query() {
-	val=$(expect_normal_exit $PMEMPOOL$EXESUFFIX feature -q $1 $POOLSET)
+	val=$(expect_normal_exit $pmempool_exe feature -q $1 $POOLSET)
 	echo "query $1 result is $val" &>> $LOG
 }
 
@@ -55,7 +61,7 @@ function pmempool_feature_query() {
 #
 # usage: pmempool_feature_enable <feature> [no-query]
 function pmempool_feature_enable() {
-	$exit_func $PMEMPOOL$EXESUFFIX feature -e $1 $POOLSET &>> $LOG
+	$exit_func $pmempool_exe feature -e $1 $POOLSET &>> $LOG
 	if [ "x$2" != "xno-query" ]; then
 		pmempool_feature_query $1
 	fi
@@ -65,7 +71,7 @@ function pmempool_feature_enable() {
 #
 # usage: pmempool_feature_disable <feature> [no-query]
 function pmempool_feature_disable() {
-	$exit_func $PMEMPOOL$EXESUFFIX feature -d $1 $POOLSET &>> $LOG
+	$exit_func $pmempool_exe feature -d $1 $POOLSET &>> $LOG
 	if [ "x$2" != "xno-query" ]; then
 		pmempool_feature_query $1
 	fi
@@ -90,14 +96,33 @@ function pmempool_feature_create_poolset() {
 		create_poolset $POOLSET \
 			AUTO:$DEVICE_DAX_PATH
 			;;
+	"remote")
+		create_poolset $DIR/$TEST_SET_LOCAL \
+			$PART_SIZE:${NODE_DIR[1]}/testfile_local11:x \
+			$PART_SIZE:${NODE_DIR[1]}/testfile_local12:x \
+			m ${NODE_ADDR[0]}:$TEST_SET_REMOTE
+		create_poolset $DIR/$TEST_SET_REMOTE \
+			$PART_SIZE:${NODE_DIR[0]}/testfile_remote21:x \
+			$PART_SIZE:${NODE_DIR[0]}/testfile_remote22:x
+
+		copy_files_to_node 0 ${NODE_DIR[0]} $DIR/$TEST_SET_REMOTE
+		copy_files_to_node 1 ${NODE_DIR[1]} $DIR/$TEST_SET_LOCAL
+
+		rm_files_from_node 1 \
+			${NODE_DIR[1]}testfile_local11 ${NODE_DIR[1]}testfile_local12
+		rm_files_from_node 0 \
+			${NODE_DIR[0]}testfile_remote21 ${NODE_DIR[0]}testfile_remote22
+			
+		POOLSET="${NODE_DIR[1]}/$TEST_SET_LOCAL"
+		;;
 	esac
 }
 
 # pmempool_feature_test -- misc scenarios for each feature value
 function pmempool_feature_test() {
 	# create pool
-	expect_normal_exit $PMEMPOOL$EXESUFFIX rm $POOLSET
-	expect_normal_exit $PMEMPOOL$EXESUFFIX create obj $POOLSET
+	expect_normal_exit $pmempool_exe rm -f $POOLSET
+	expect_normal_exit $pmempool_exe create obj $POOLSET
 
 	case "$1" in
 	"SINGLEHDR")
@@ -134,4 +159,20 @@ function pmempool_feature_test() {
 		pmempool_feature_enable $1 # should succeed
 		;;
 	esac
+}
+
+# pmempool_feature_remote_init -- initialization remote replics
+function pmempool_feature_remote_init() {
+	require_nodes 2
+
+	require_node_libfabric 0 $RPMEM_PROVIDER
+	require_node_libfabric 1 $RPMEM_PROVIDER
+
+	init_rpmem_on_node 1 0
+}
+
+# pmempool_feature_test_remote -- XXX
+function pmempool_feature_test_remote() {
+	pmempool_exe="run_on_node 1 ../pmempool"
+	pmempool_feature_test $1
 }

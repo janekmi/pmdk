@@ -1,6 +1,5 @@
-#!/usr/bin/env bash
 #
-# Copyright 2018, Intel Corporation
+# Copyright 2017, Intel Corporation
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -30,24 +29,11 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
+
 #
-# pmempool_feature/TEST11 -- unit test for SHUTDOWN_STATE
+# src/test/pmempool_info_remote/Makefile -- build unittest for pmempool
+# info with remote replicas
 #
+SCP_TO_REMOTE_NODES = y
 
-. ../unittest/unittest.sh
-
-require_test_type medium
-require_fs_type any
-require_dax_devices 1
-
-configure_valgrind force-disable
-
-setup
-. ./common.sh
-
-pmempool_feature_create_poolset "dax_device"
-pmempool_feature_test "SHUTDOWN_STATE"
-
-check
-
-pass
+include ../Makefile.inc
