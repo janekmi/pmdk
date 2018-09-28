@@ -38,12 +38,6 @@ $OUT = "out${Env:UNITTEST_NUM}.log"
 $LOG = "grep${Env:UNITTEST_NUM}.log"
 remove_files $LOG
 
-# enum pmempool_feature values
-$PMEMPOOL_FEAT_SINGLEHDR="SINGLEHDR"
-$PMEMPOOL_FEAT_CHCKSUM_2K="CKSUM_2K"
-$PMEMPOOL_FEAT_SHUTDOWN_STATE="SHUTDOWN_STATE"
-$PMEMPOOL_FEAT_INVALID="INVALID"
-
 $QUERY_PATTERN="query"
 
 $exit_func="expect_normal_exit"
@@ -87,50 +81,5 @@ function libpmempool_feature_disable($arg1, $arg2) {
 		| Select-String "$arg1" | %{$_.Line} >> $LOG
 	if ( "$arg2" -ne "no-query" ){
 		libpmempool_feature_query $arg1
-	}
-}
-
-# libpmempool_feature_test -- misc scenarios for each PMEMPOOL_FEAT_* value
-#
-#	libpmempool_feature_test <enum-pmempool_feature>
-function libpmempool_feature_test($arg1) {
-	# create pool
-	expect_normal_exit $PMEMPOOL create obj $DIR\pool.obj
-
-	switch ($arg1)
-	{
-	$PMEMPOOL_FEAT_SINGLEHDR {
-		$exit_func="expect_abnormal_exit"
-		libpmempool_feature_enable $arg1 "no-query" # UNSUPPORTED
-		libpmempool_feature_disable $arg1 "no-query" # UNSUPPORTED
-		libpmempool_feature_query $arg1
-		}
-	$PMEMPOOL_FEAT_CHCKSUM_2K {
-		# PMEMPOOL_FEAT_CHCKSUM_2K is enabled by default
-		libpmempool_feature_query $arg1
-
-		# disable PMEMPOOL_FEAT_SHUTDOWN_STATE prior to success
-		$exit_func="expect_abnormal_exit"
-		libpmempool_feature_disable $arg1 # should fail
-		$exit_func="expect_normal_exit"
-		libpmempool_feature_disable $PMEMPOOL_FEAT_SHUTDOWN_STATE
-		libpmempool_feature_disable $arg1 # should succeed
-
-		libpmempool_feature_enable $arg1
-		}
-	$PMEMPOOL_FEAT_SHUTDOWN_STATE {
-		# PMEMPOOL_FEAT_SHUTDOWN_STATE is enabled by default
-		libpmempool_feature_query $arg1
-
-		libpmempool_feature_disable $arg1
-
-		# PMEMPOOL_FEAT_SHUTDOWN_STATE requires PMEMPOOL_FEAT_CHCKSUM_2K
-		libpmempool_feature_disable $PMEMPOOL_FEAT_CHCKSUM_2K
-		$exit_func="expect_abnormal_exit"
-		libpmempool_feature_enable $arg1 # should fail
-		$exit_func="expect_normal_exit"
-		libpmempool_feature_enable $PMEMPOOL_FEAT_CHCKSUM_2K
-		libpmempool_feature_enable $arg1 # should succeed
-		}
 	}
 }

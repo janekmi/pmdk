@@ -115,7 +115,7 @@ function pmempool_feature_create_poolset() {
 			${NODE_DIR[1]}testfile_local11 ${NODE_DIR[1]}testfile_local12
 		rm_files_from_node 0 \
 			${NODE_DIR[0]}testfile_remote21 ${NODE_DIR[0]}testfile_remote22
-			
+
 		POOLSET="${NODE_DIR[1]}/$TEST_SET_LOCAL"
 		;;
 	esac
@@ -178,7 +178,7 @@ function pmempool_feature_remote_init() {
 # pmempool_feature_test_remote -- run remote tests
 function pmempool_feature_test_remote() {
 	pmempool_exe="run_on_node 1 ../pmempool"
-	
+
 	# create pool
 	expect_normal_exit $pmempool_exe rm -f $POOLSET
 	expect_normal_exit $pmempool_exe create obj $POOLSET
