@@ -57,7 +57,7 @@ $ pmempool feature (-e|-d|-q feature-name) [options] <file>
 
 # DESCRIPTION #
 
-The **pmempool feature** command enables / disables or query pool set features.
+The **pmempool feature** command enables / disables or queries pool set features.
 
 Available pool *feature-names* are:
 
@@ -66,23 +66,28 @@ internal metadata. This value can be used only with **-q**. It can not be
 enabled or disabled. For details see **poolset**(5).
 
 + **CHECKSUM_2K** - only the first 2KiB of pool part internal metadata
-is checksummed. It is required to use other features e.g. **SHUTDOWN_STATE**.
+is checksummed. Other features may depend on this one to store additional metadata
+in otherwise unused second 2KiB part of a header.
 When **CHECKSUM_2K** is disabled whole 4KiB is checksummed.
 
-+ **SHUTDOWN_STATE** - check if pool consistency was not harmed
-by power failure. It requires **CHECKSUM_2K** to be enabled since it stores
-additional metadata in the second 2KiB of pool part internal metadata.
++ **SHUTDOWN_STATE** - enables additional check performed during
+opening the pool which checks if pool consistency was not harmed by faulty
+hardware in case of power failure.
+This feature depends on **CHECKSUM_2K** to be enabled since it stores additional
+metadata in the second 2KiB of pool part internal metadata.
+**CHECKSUM_2K** has to be enabled prior to **SHUTDOWN_STATE**
+otherwise enabling **SHUTDOWN_STATE** will fail.
 
 
 ##### Available options: #####
 
 `-h, --help`
 
-Print help message
+Print help message.
 
 `-v, --verbose`
 
-Set verbosity level.
+Increase verbosity level.
 
 `-e, --enable feature-name`
 
