@@ -41,6 +41,7 @@
 #include <sys/mman.h>
 
 #include "libpmempool.h"
+#include "util_pmem.h"
 #include "pool.h"
 
 #define RW	0
@@ -54,14 +55,12 @@ poolset_close(struct pool_set *set)
 {
 	for (unsigned r = 0; r < set->nreplicas; ++r) {
 		struct pool_replica *rep = REP(set, r);
-		if (rep->remote) {
-			continue;
-		} else {
-			for (unsigned p = 0; p < rep->nparts; ++p) {
-				util_unmap_hdr(PART(rep, p));
-			}
+		ASSERT(!rep->remote);
+		for (unsigned p = 0; p < rep->nparts; ++p) {
+			util_unmap_hdr(PART(rep, p));
 		}
 	}
+
 	util_poolset_close(set, DO_NOT_DELETE_PARTS);
 }
 
@@ -98,6 +97,19 @@ incompat_features_check(uint32_t *incompat_features, struct pool_hdr *hdrp)
 }
 
 /*
+ * get_pool_open_flags -- (internal) generate pool open flags
+ */
+static inline unsigned
+get_pool_open_flags(struct pool_set *set, int rdonly)
+{
+	unsigned flags = 0;
+	if (rdonly == RDONLY && !util_pool_has_device_dax(set))
+		flags = POOL_OPEN_COW;
+	flags |= POOL_OPEN_IGNORE_BAD_BLOCKS;
+	return flags;
+}
+
+/*
  * get_mmap_flags -- (internal) generate mmap flags
  */
 static inline int
@@ -124,35 +136,37 @@ poolset_open(const char *path, int rdonly)
 		ERR("cannot open pool set -- '%s'", path);
 		goto err_poolset;
 	}
+	if (set->remote) {
+		fprintf(stderr, "poolsets with remote replicas "
+				"are not supported\n");
+		errno = EINVAL;
+		goto err_open;
+	}
 
 	/* open a memory pool */
-	unsigned flags = (rdonly ? POOL_OPEN_COW : 0) |
-			POOL_OPEN_IGNORE_BAD_BLOCKS;
+	unsigned flags = get_pool_open_flags(set, rdonly);
 	if (util_pool_open_nocheck(set, flags))
 		goto err_open;
 
 	/* map all headers and check incompat features */
 	for (unsigned r = 0; r < set->nreplicas; ++r) {
 		struct pool_replica *rep = REP(set, r);
-		if (rep->remote) {
-			ERR("poolsets with remote replicas are not supported");
-			goto err_open;
-		} else {
-			for (unsigned p = 0; p < rep->nparts; ++p) {
-				struct pool_set_part *part = PART(rep, p);
-				int mmap_flags = get_mmap_flags(part, rdonly);
-				if (util_map_hdr(part, mmap_flags, rdonly)) {
-					part->hdr = NULL;
-					goto err_map_hdr;
-				}
+		ASSERT(!rep->remote);
 
-				if (incompat_features_check(&incompat_features,
-						HDR(rep, p))) {
-					ERR("invalid incompat features - "
-							"replica #%d part #%d",
-							r, p);
-					goto err_open;
-				}
+		for (unsigned p = 0; p < rep->nparts; ++p) {
+			struct pool_set_part *part = PART(rep, p);
+			int mmap_flags = get_mmap_flags(part, rdonly);
+			if (util_map_hdr(part, mmap_flags, rdonly)) {
+				part->hdr = NULL;
+				goto err_map_hdr;
+			}
+
+			if (incompat_features_check(&incompat_features,
+					HDR(rep, p))) {
+				ERR("invalid incompat features - "
+						"replica #%d part #%d",
+						r, p);
+				goto err_open;
 			}
 		}
 	}
@@ -162,12 +176,9 @@ err_map_hdr:
 	/* unmap all headers */
 	for (unsigned r = 0; r < set->nreplicas; ++r) {
 		struct pool_replica *rep = REP(set, r);
-		if (rep->remote) {
-			continue;
-		} else {
-			for (unsigned p = 0; p < rep->nparts; ++p) {
-				util_unmap_hdr(PART(rep, p));
-			}
+		ASSERT(!rep->remote);
+		for (unsigned p = 0; p < rep->nparts; ++p) {
+			util_unmap_hdr(PART(rep, p));
 		}
 	}
 err_open:
@@ -206,8 +217,10 @@ set_hdr(struct pool_set *set, unsigned rep, unsigned part, struct pool_hdr *src)
 	util_checksum(src, sizeof(*src), &src->checksum, 1, skip_off);
 
 	/* write header */
-	struct pool_hdr *dst = HDR(REP(set, rep), part);
+	struct pool_replica *replica = REP(set, rep);
+	struct pool_hdr *dst = HDR(replica, part);
 	memcpy(dst, src, sizeof(*src));
+	util_persist_auto(PART(replica, part)->is_dev_dax, dst, sizeof(*src));
 }
 
 #define FEATURE_IS_ENABLED(set, feature) \
