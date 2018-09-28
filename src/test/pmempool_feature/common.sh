@@ -53,8 +53,10 @@ exit_func=expect_normal_exit
 #
 # usage: pmempool_feature_query <feature>
 function pmempool_feature_query() {
-	val=$(expect_normal_exit $pmempool_exe feature -q $1 $POOLSET)
-	echo "query $1 result is $val" &>> $LOG
+	val=$($exit_func $pmempool_exe feature -q $1 $POOLSET 2> $LOG)
+	if [ "$exit_func" == "expect_normal_exit" ]; then
+		echo "query $1 result is $val" &>> $LOG
+	fi
 }
 
 # pmempool_feature_enable -- enable feature
@@ -81,6 +83,7 @@ function pmempool_feature_disable() {
 #
 # usage: pmempool_feature_create_poolset <poolset-type>
 function pmempool_feature_create_poolset() {
+	POOLSET_TYPE=$1
 	case "$1" in
 	"no_dax_device")
 		create_poolset $POOLSET \
@@ -129,6 +132,7 @@ function pmempool_feature_test() {
 		exit_func=expect_abnormal_exit
 		pmempool_feature_enable $1 no-query # UNSUPPORTED
 		pmempool_feature_disable $1 no-query # UNSUPPORTED
+		exit_func=expect_normal_exit
 		pmempool_feature_query $1
 		;;
 	"CKSUM_2K")
@@ -171,8 +175,16 @@ function pmempool_feature_remote_init() {
 	init_rpmem_on_node 1 0
 }
 
-# pmempool_feature_test_remote -- XXX
+# pmempool_feature_test_remote -- run remote tests
 function pmempool_feature_test_remote() {
 	pmempool_exe="run_on_node 1 ../pmempool"
-	pmempool_feature_test $1
+	
+	# create pool
+	expect_normal_exit $pmempool_exe rm -f $POOLSET
+	expect_normal_exit $pmempool_exe create obj $POOLSET
+
+	exit_func=expect_abnormal_exit
+	pmempool_feature_enable $1 no-query # UNSUPPORTED
+	pmempool_feature_disable $1 no-query # UNSUPPORTED
+	pmempool_feature_query $1 # UNSUPPORTED
 }

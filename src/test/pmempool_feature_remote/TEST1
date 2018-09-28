@@ -31,7 +31,7 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 #
-# pmempool_feature/TEST14 -- unit test for SHUTDOWN_STATE
+# pmempool_feature/TEST1 -- unit test for CKSUM_2K
 #
 
 . ../unittest/unittest.sh
@@ -46,7 +46,7 @@ setup
 
 pmempool_feature_remote_init
 pmempool_feature_create_poolset "remote"
-pmempool_feature_test_remote "SHUTDOWN_STATE"
+pmempool_feature_test_remote "CKSUM_2K"
 
 check
 
