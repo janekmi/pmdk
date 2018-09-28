@@ -85,7 +85,7 @@ manual pages:
 
 + pool set management functions: **pmempool_rm**(3)
 
-+ toggle or query pool set features: **pmempool_feature**(3)
++ toggle or query pool set features: **pmempool_feature_query**(3)
 
 
 # DESCRIPTION #
