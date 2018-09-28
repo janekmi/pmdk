@@ -73,8 +73,6 @@ When **CHECKSUM_2K** is disabled whole 4KiB is checksummed.
 + **SHUTDOWN_STATE** - enables additional check performed during
 opening the pool which checks if pool consistency was not harmed by faulty
 hardware in case of power failure.
-This feature depends on **CHECKSUM_2K** to be enabled since it stores additional
-metadata in the second 2KiB of pool part internal metadata.
 **CHECKSUM_2K** has to be enabled prior to **SHUTDOWN_STATE**
 otherwise enabling **SHUTDOWN_STATE** will fail.
 

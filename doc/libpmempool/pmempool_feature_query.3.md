@@ -83,11 +83,8 @@ When **PMEMPOOL_FEAT_CKSUM_2K** is disabled whole 4KiB is checksummed.
 + **PMEMPOOL_FEAT_SHUTDOWN_STATE** - enables additional check performed during
 opening the pool which checks if pool consistency was not harmed by faulty
 hardware in case of power failure.
-This feature depends on **PMEMPOOL_FEAT_CKSUM_2K** to be enabled since it stores additional
-metadata in the second 2KiB of pool part internal metadata.
 **PMEMPOOL_FEAT_CKSUM_2K** has to be enabled prior to
-**PMEMPOOL_FEAT_SHUTDOWN_STATE**
-otherwise enabling **PMEMPOOL_FEAT_SHUTDOWN_STATE** will fail.
+**PMEMPOOL_FEAT_SHUTDOWN_STATE** otherwise enabling **PMEMPOOL_FEAT_SHUTDOWN_STATE** will fail.
 
 The _UW(pmempool_feature_query) function checks state of *feature* in the
 pool set pointed by *path*.
