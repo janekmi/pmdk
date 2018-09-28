@@ -1,5 +1,5 @@
 #
-# Copyright 2018, Intel Corporation
+# Copyright 2017, Intel Corporation
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -29,21 +29,11 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
+
 #
-# pmempool_feature/TEST1 -- unit test for CKSUM_2K
+# src/test/pmempool_info_remote/Makefile -- build unittest for pmempool
+# info with remote replicas
 #
+SCP_TO_REMOTE_NODES = y
 
-. ..\unittest\unittest.ps1
-
-require_test_type medium
-
-require_fs_type any
-
-setup
-. .\common.PS1
-
-pmempool_feature_test "CKSUM_2K"
-
-check
-
-pass
+include ../Makefile.inc

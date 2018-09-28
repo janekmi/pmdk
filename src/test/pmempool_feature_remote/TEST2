@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 #
 # Copyright 2018, Intel Corporation
 #
@@ -30,19 +31,22 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 #
-# pmempool_feature/TEST1 -- unit test for CKSUM_2K
+# pmempool_feature/TEST2 -- unit test for SHUTDOWN_STATE
 #
 
-. ..\unittest\unittest.ps1
+. ../unittest/unittest.sh
 
 require_test_type medium
-
 require_fs_type any
 
-setup
-. .\common.PS1
+configure_valgrind force-disable
 
-pmempool_feature_test "CKSUM_2K"
+setup
+. ../pmempool_feature/common.sh
+
+pmempool_feature_remote_init
+pmempool_feature_create_poolset "remote"
+pmempool_feature_test_remote "SHUTDOWN_STATE"
 
 check
 

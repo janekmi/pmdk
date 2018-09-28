@@ -43,7 +43,13 @@ require_fs_type any
 setup
 . ./common.sh
 
-libpmempool_feature_test $PMEMPOOL_FEAT_SINGLEHDR
+expect_normal_exit $PMEMPOOL$EXESUFFIX create obj $DIR/pool.obj
+
+exit_func=expect_abnormal_exit
+
+libpmempool_feature_enable SINGLEHDR no-query # UNSUPPORTED
+libpmempool_feature_disable SINGLEHDR no-query # UNSUPPORTED
+libpmempool_feature_query SINGLEHDR
 
 check
 pass

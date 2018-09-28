@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 #
 # Copyright 2018, Intel Corporation
 #
@@ -33,16 +34,19 @@
 # pmempool_feature/TEST1 -- unit test for CKSUM_2K
 #
 
-. ..\unittest\unittest.ps1
+. ../unittest/unittest.sh
 
 require_test_type medium
-
 require_fs_type any
 
-setup
-. .\common.PS1
+configure_valgrind force-disable
 
-pmempool_feature_test "CKSUM_2K"
+setup
+. ../pmempool_feature/common.sh
+
+pmempool_feature_remote_init
+pmempool_feature_create_poolset "remote"
+pmempool_feature_test_remote "CKSUM_2K"
 
 check
 

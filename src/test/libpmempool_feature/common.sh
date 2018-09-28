@@ -38,12 +38,6 @@
 OUT=out${UNITTEST_NUM}.log
 LOG=grep${UNITTEST_NUM}.log
 
-# enum pmempool_feature values
-PMEMPOOL_FEAT_SINGLEHDR=SINGLEHDR
-PMEMPOOL_FEAT_CHCKSUM_2K=CKSUM_2K
-PMEMPOOL_FEAT_SHUTDOWN_STATE=SHUTDOWN_STATE
-PMEMPOOL_FEAT_INVALID=INVALID
-
 QUERY_PATTERN="query"
 
 exit_func=expect_normal_exit
@@ -88,48 +82,4 @@ function libpmempool_feature_disable() {
 	if [ "x$2" != "xno-query" ]; then
 		libpmempool_feature_query $1
 	fi
-}
-
-# libpmempool_feature_test -- misc scenarios for each PMEMPOOL_FEAT_* value
-#
-#	libpmempool_feature_test <enum-pmempool_feature>
-function libpmempool_feature_test() {
-	# create pool
-	expect_normal_exit $PMEMPOOL$EXESUFFIX create obj $DIR/pool.obj
-
-	case "$1" in
-	$PMEMPOOL_FEAT_SINGLEHDR)
-		exit_func=expect_abnormal_exit
-		libpmempool_feature_enable $1 no-query # UNSUPPORTED
-		libpmempool_feature_disable $1 no-query # UNSUPPORTED
-		libpmempool_feature_query $1
-		;;
-	$PMEMPOOL_FEAT_CHCKSUM_2K)
-		# PMEMPOOL_FEAT_CHCKSUM_2K is enabled by default
-		libpmempool_feature_query $1
-
-		# disable PMEMPOOL_FEAT_SHUTDOWN_STATE prior to success
-		exit_func=expect_abnormal_exit
-		libpmempool_feature_disable $1 # should fail
-		exit_func=expect_normal_exit
-		libpmempool_feature_disable $PMEMPOOL_FEAT_SHUTDOWN_STATE
-		libpmempool_feature_disable $1 # should succeed
-
-		libpmempool_feature_enable $1
-		;;
-	$PMEMPOOL_FEAT_SHUTDOWN_STATE)
-		# PMEMPOOL_FEAT_SHUTDOWN_STATE is enabled by default
-		libpmempool_feature_query $1
-
-		libpmempool_feature_disable $1
-
-		# PMEMPOOL_FEAT_SHUTDOWN_STATE requires PMEMPOOL_FEAT_CHCKSUM_2K
-		libpmempool_feature_disable $PMEMPOOL_FEAT_CHCKSUM_2K
-		exit_func=expect_abnormal_exit
-		libpmempool_feature_enable $1 # should fail
-		exit_func=expect_normal_exit
-		libpmempool_feature_enable $PMEMPOOL_FEAT_CHCKSUM_2K
-		libpmempool_feature_enable $1 # should succeed
-		;;
-	esac
 }
