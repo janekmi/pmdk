@@ -31,13 +31,14 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 #
-# pmempool_feature/TEST5 -- unit test (memcheck) for SHUTDOWN_STATE
+# pmempool_feature/TEST5 -- unit test for SHUTDOWN_STATE + memcheck
 #
 
 . ../unittest/unittest.sh
 
 require_test_type medium
 require_fs_type any
+require_sds $PMEMPOOL$EXESUFFIX
 
 configure_valgrind memcheck force-enable $PMEMPOOL$EXESUFFIX
 

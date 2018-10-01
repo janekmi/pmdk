@@ -31,7 +31,7 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 #
-# pmempool_feature/TEST9 -- unit test for SINGLEHDR
+# pmempool_feature/TEST9 -- unit test for SINGLEHDR + dax_device
 #
 
 . ../unittest/unittest.sh

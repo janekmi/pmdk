@@ -31,13 +31,14 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 #
-# pmempool_feature/TEST11 -- unit test for SHUTDOWN_STATE
+# pmempool_feature/TEST11 -- unit test for SHUTDOWN_STATE + dax_device
 #
 
 . ../unittest/unittest.sh
 
 require_test_type medium
 require_fs_type any
+require_sds $PMEMPOOL$EXESUFFIX
 require_dax_devices 1
 
 configure_valgrind force-disable
