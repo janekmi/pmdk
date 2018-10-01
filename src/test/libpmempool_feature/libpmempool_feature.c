@@ -36,10 +36,8 @@
  */
 
 #include <stddef.h>
-#include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <getopt.h>
 
 #include "libpmempool.h"
 #include "out.h"
@@ -52,7 +50,7 @@ static void
 print_usage(const char *name)
 {
 	UT_OUT("usage: %s <pool_path> (e|d|q) <feature-name>", name);
-	UT_OUT("feature-name: SINGLEHDR, CKSUM_2K, SHUTDOWN_STATE>");
+	UT_OUT("feature-name: SINGLEHDR, CKSUM_2K, SHUTDOWN_STATE");
 }
 
 /*
@@ -91,12 +89,10 @@ main(int argc, char *argv[])
 		return pmempool_feature_disable(path, feature);
 	case 'q':
 		ret = pmempool_feature_query(path, feature);
-		if (ret < 0) {
+		if (ret < 0)
 			return 1;
-		} else {
 			UT_OUT("query %s result is %d", argv[3], ret);
 			return 0;
-		}
 	default:
 		print_usage(argv[0]);
 		UT_FATAL("unknown command: %c", cmd);

@@ -34,6 +34,11 @@
     <ClCompile Include="libpmempool.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\common\file.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\common\file_windows.c">
+      <Filter>Source Files</Filter>
     <ClCompile Include="libpmempool_main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
