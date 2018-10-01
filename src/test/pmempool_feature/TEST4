@@ -31,13 +31,14 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 #
-# pmempool_feature/TEST4 -- unit test (memcheck) for CKSUM_2K
+# pmempool_feature/TEST4 -- unit test for CKSUM_2K + memcheck
 #
 
 . ../unittest/unittest.sh
 
 require_test_type medium
 require_fs_type any
+require_sds $PMEMPOOL$EXESUFFIX
 
 configure_valgrind memcheck force-enable $PMEMPOOL$EXESUFFIX
 
