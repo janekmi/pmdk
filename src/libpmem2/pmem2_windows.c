@@ -36,6 +36,7 @@
 
 #include "libpmem2.h"
 #include "pmem2.h"
+#include "pmem2_utils.h"
 
 /*
  * pmem2_map -- XXX
@@ -43,6 +44,61 @@
 int
 pmem2_map(struct pmem2_config *cfg, struct pmem2_map **mapp)
 {
-	/* XXX placeholder */
-	return PMEM2_E_NOSUPP;
+	int ret = PMEM2_E_OK;
+	struct pmem2_map *map;
+	map = (struct pmem2_map *)pmem2_zalloc(&ret, sizeof(*map));
+	if (!map)
+		ret;
+	map->cfg = (struct pmem2_config *)pmem2_zalloc(&ret, sizeof(*map->cfg));
+	if (!map->cfg) {
+		goto err_free_map;
+	}
+	memcpy(map->cfg, cfg, sizeof(*cfg));
+	map->addr = NULL;
+	*mapp = map;
+
+	DWORD access = FILE_MAP_ALL_ACCESS;
+	HANDLE fh = CreateFileMapping(cfg->handle,
+		NULL, /* security attributes */
+		PAGE_READWRITE,
+		(DWORD)((cfg->length + cfg->offset) >> 32),
+		(DWORD)((cfg->length + cfg->offset) & 0xFFFFFFFF),
+		NULL);
+
+	if (!(fh) || fh == INVALID_HANDLE_VALUE) {
+		ret = GetLastError();
+		if (ret == ERROR_ACCESS_DENIED) {
+			fh = CreateFileMapping(cfg->handle,
+				NULL, /* security attributes */
+				PAGE_READONLY,
+				(DWORD)((cfg->length + cfg->offset) >> 32),
+				(DWORD)((cfg->length + cfg->offset) & 0xFFFFFFFF),
+				NULL);
+			access = FILE_MAP_READ;
+		}
+		if (!(fh) || fh == INVALID_HANDLE_VALUE) {
+			ret = PMEM2_E_INVALID_HANDLE;
+			goto err_free_map_cfg;
+		}
+	}
+
+	void *base = MapViewOfFileEx(fh,
+		access,
+		(DWORD)(cfg->offset >> 32),
+		(DWORD)(cfg->offset & 0xFFFFFFFF),
+		cfg->length,
+		(*mapp)->addr); /* hint address */
+
+	if (base == NULL) {
+		ret = PMEM2_E_MAP_FAILED;
+		goto err_free_map_cfg;
+	}
+
+	return ret;
+
+err_free_map_cfg:
+	free(map->cfg);
+err_free_map:
+	free(map);
+	return ret;
 }

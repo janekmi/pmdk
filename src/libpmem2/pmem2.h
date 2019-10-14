@@ -52,7 +52,11 @@ extern "C" {
 #define PMEM2_LOG_FILE_VAR "PMEM2_LOG_FILE"
 
 struct pmem2_config {
+#ifdef _WIN32
+	HANDLE handle;
+#else
 	int fd;
+#endif
 	size_t offset;
 	size_t length;
 };
