@@ -49,7 +49,11 @@
 HANDLE
 create_mapping(const struct pmem2_config *cfg, DWORD protect, int *err)
 {
-	size_t max_size = cfg->length + cfg->offset;
+	size_t length = cfg->length;
+	if (!cfg->length)
+		length = GetFileSize(cfg->handle, NULL);
+
+	size_t max_size = length + cfg->offset;
 	HANDLE mh = CreateFileMapping(cfg->handle,
 		NULL, /* security attributes */
 		protect,
@@ -64,6 +68,18 @@ create_mapping(const struct pmem2_config *cfg, DWORD protect, int *err)
 	return mh;
 }
 
+void
+error_handling(int err, int *ret)
+{
+	switch (err) {
+		case ERROR_INVALID_HANDLE:
+			*ret = PMEM2_E_INVALID_HANDLE;
+			break;
+		default:
+			*ret = PMEM2_E_UNKNOWN;
+	}
+}
+
 /*
  * pmem2_map -- map memory according to provided config
  */
@@ -73,6 +89,14 @@ pmem2_map(const struct pmem2_config *cfg, struct pmem2_map **mapp)
 	int ret = PMEM2_E_OK;
 	int err = 0;
 
+	if (cfg->handle == INVALID_HANDLE_VALUE)
+		return PMEM2_E_INVALID_HANDLE;
+
+	size_t file_size = GetFileSize(cfg->handle, NULL);
+	if ((cfg->length + cfg->offset) > file_size) {
+		ret = PMEM2_E_MAP_RANGE;
+		return ret;
+	}
 	/* create a file mapping handle */
 	DWORD access = FILE_MAP_ALL_ACCESS;
 	HANDLE mh = create_mapping(cfg, PAGE_READWRITE, &err);
@@ -82,7 +106,7 @@ pmem2_map(const struct pmem2_config *cfg, struct pmem2_map **mapp)
 	}
 
 	if (!mh) {
-		ret = PMEM2_E_EXTERNAL;
+		error_handling(err, &ret);
 		return ret;
 	}
 
@@ -121,7 +145,12 @@ pmem2_map(const struct pmem2_config *cfg, struct pmem2_map **mapp)
 	map->addr = base;
 	map->file_type = TYPE_NORMAL;
 	map->map_sync = 0; /* no MAP_SYNC on Windows */
-	map->length = cfg->length; /* XXX */
+	/* XXX */
+	if (!cfg->length)
+		map->length = GetFileSize(cfg->handle, NULL);
+	else
+		map->length = cfg->length;
+
 	map->alignment = cfg->alignment; /* XXX */
 
 	/* return a pointer to the pmem2_map structure */
