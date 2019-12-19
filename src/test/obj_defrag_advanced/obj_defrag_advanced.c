@@ -48,7 +48,7 @@ struct node
 	unsigned *edges;
 };
 
-struct Graph
+struct graph
 {
 	unsigned nodes_num;
 	struct node node[];
@@ -74,11 +74,12 @@ create_node(struct node *node, unsigned v)
 	node->edges = (unsigned *)malloc(sizeof(int) * edges_num);
 }
 
-static struct Graph
-*create_graph(unsigned nodes_num)
+static struct graph *
+create_graph(unsigned nodes_num)
 {
-	struct Graph *graph = (Graph *)malloc(sizeof(struct Graph) +
-			sizeof(struct node) * nodes_num);
+	struct graph *graph =
+			malloc(sizeof(struct graph) +
+					sizeof(struct node) * nodes_num);
 	graph->nodes_num = nodes_num;
 
 	for (unsigned i = 0; i < nodes_num; i++) {
@@ -87,8 +88,8 @@ static struct Graph
 	return graph;
 }
 
-static struct node
-*get_node(struct Graph *graph, unsigned id_node)
+static struct node *
+get_node(struct graph *graph, unsigned id_node)
 {
 	struct node *node;
 
@@ -97,7 +98,7 @@ static struct node
 }
 
 static void
-add_edge(struct Graph *graph)
+add_edge(struct graph *graph)
 {
 	unsigned nodes_count = 0;
 	unsigned edges_count = 0;
@@ -114,7 +115,7 @@ add_edge(struct Graph *graph)
 }
 
 static void
-print_graph(struct Graph *graph)
+print_graph(struct graph *graph)
 {
 	struct node *node;
 	for (unsigned i = 0; i < graph->nodes_num; i++) {
@@ -136,7 +137,7 @@ main()
 	unsigned nodes_num = rand_nonzero(MAX_NODES);
 	printf("nodes_num: %d \n", nodes_num);
 
-	struct Graph *graph = create_graph(nodes_num);
+	struct graph *graph = create_graph(nodes_num);
 	add_edge(graph);
 	print_graph(graph);
 
