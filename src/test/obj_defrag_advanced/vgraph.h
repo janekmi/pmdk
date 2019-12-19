@@ -40,6 +40,7 @@
 struct vnode
 {
 	unsigned node_id;
+	size_t size;
 	unsigned edges_num;
 	unsigned *edges;
 };

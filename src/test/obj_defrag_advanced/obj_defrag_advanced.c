@@ -34,19 +34,35 @@
  * obj_defrag_advanced.c -- test for defragmentation feature
  */
 
+#include "unittest.h"
+
 #include<stdio.h>
 #include<stdlib.h>
 #include <time.h>
 
 #include "vgraph.h"
+#include "pgraph.h"
 
 int
-main()
+main(int argc, char *argv[])
 {
+	START(argc, argv, "obj_defrag_advanced");
+
+	const char *path = argv[1];
+	PMEMobjpool *pop = NULL;
+
+	pop = pmemobj_create(path, POBJ_LAYOUT_NAME(basic),
+		PMEMOBJ_MIN_POOL * 2, S_IWUSR | S_IRUSR);
+	if (pop == NULL) {
+		UT_FATAL("!pmemobj_create: %s", path);
+	}
+
 	srand((unsigned)time(NULL));
 
 	struct vgraph *vgraph = vgraph_create();
 	vgraph_print(vgraph);
+
+	pgraph_new(pop, vgraph);
 
 	/*
 	 * mix
@@ -57,4 +73,8 @@ main()
 	 */
 
 	vgraph_delete(vgraph);
+
+	pmemobj_close(pop);
+
+	DONE(NULL);
 }

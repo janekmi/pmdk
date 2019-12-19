@@ -36,8 +36,11 @@
 
 #include "vgraph.h"
 
+/* XXX */
 #define MAX_NODES 50
 #define MAX_EDGES 10
+#define MIN_NODE_SIZE 8
+#define MAX_NODE_SIZE 1024
 
 /*
  * rand_nonzero -- XXX
@@ -63,6 +66,7 @@ vnode_new(struct vnode *node, unsigned v)
 	node->node_id = v;
 	node->edges_num = edges_num;
 	node->edges = (unsigned *)malloc(sizeof(int) * edges_num);
+	node->size = rand_nonzero(MAX_NODE_SIZE) + MIN_NODE_SIZE;
 }
 
 static void

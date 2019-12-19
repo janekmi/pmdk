@@ -34,24 +34,38 @@
  * pgraph.c -- persistent graph representation
  */
 
+#include "vgraph.h"
 #include "pgraph.h"
 
 /*
  * pgraph_new -- XXX
  */
-void
-pgraph_new()
+struct pgraph *
+pgraph_new(PMEMobjpool *pop, struct vgraph *vgraph)
 {
+	size_t root_size = sizeof(struct pgraph) + sizeof(PMEMoid) * vgraph->nodes_num;
+	PMEMoid root_oid = pmemobj_root(pop, root_size);
+	struct pgraph *pgraph = pmemobj_direct(root_oid);
+	pgraph->nodes_num = vgraph->nodes_num;
+	int ret;
 
+	for (unsigned i = 0; i < pgraph->nodes_num; ++i) {
+		 ret = pmemobj_alloc(pop, &pgraph->nodes[i], vgraph->node[i].size, 0, NULL, NULL);
+		 UT_ASSERTeq(ret, 0);
+	}
+
+	return pgraph;
 }
 
 /*
  * pgraph_delete -- XXX
  */
 void
-pgraph_delete(struct pgraph *graph)
+pgraph_delete(PMEMobjpool *pop, struct pgraph *pgraph)
 {
-
+	for (unsigned i = 0; pgraph->nodes_num; ++i) {
+		pmemobj_free(&pgraph->nodes[i]);
+	}
 }
 
 /*

@@ -50,7 +50,7 @@ struct pgraph
 	PMEMoid nodes[];
 };
 
-void pgraph_new();
+struct pgraph *pgraph_new(PMEMobjpool *pop, struct vgraph *vgraph);
 void pgraph_delete(struct pgraph *graph);
 
 void pgraph_print(struct pgraph *graph);
