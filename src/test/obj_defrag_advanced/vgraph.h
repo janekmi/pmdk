@@ -31,30 +31,28 @@
  */
 
 /*
- * obj_defrag_advanced.c -- test for defragmentation feature
+ * vgraph.h -- volatile graph representation
  */
 
-#include<stdio.h>
-#include<stdlib.h>
-#include <time.h>
+#ifndef OBJ_DEFRAG_ADV_VGRAPH
+#define OBJ_DEFRAG_ADV_VGRAPH
 
-#include "vgraph.h"
-
-int
-main()
+struct vnode
 {
-	srand((unsigned)time(NULL));
+	unsigned node_id;
+	unsigned edges_num;
+	unsigned *edges;
+};
 
-	struct vgraph *vgraph = vgraph_create();
-	vgraph_print(vgraph);
+struct vgraph
+{
+	unsigned nodes_num;
+	struct vnode node[];
+};
 
-	/*
-	 * mix
-	 * add edge
-	 * dump
-	 * defrag
-	 * dump
-	 */
+struct vgraph *vgraph_new();
+void vgraph_delete(struct vgraph *graph);
 
-	vgraph_delete(vgraph);
-}
+void vgraph_print(struct vgraph *graph);
+
+#endif

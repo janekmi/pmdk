@@ -34,7 +34,7 @@
 # src/test/obj_defrag_advanced/Makefile -- build obj_defrag_advanced test
 #
 TARGET = obj_defrag_advanced
-OBJS = obj_defrag_advanced.o
+OBJS = vgraph.o pgraph.o obj_defrag_advanced.o
 
 LIBPMEMOBJ=y
 

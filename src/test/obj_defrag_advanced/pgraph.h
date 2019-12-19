@@ -31,30 +31,28 @@
  */
 
 /*
- * obj_defrag_advanced.c -- test for defragmentation feature
+ * pgraph.h -- persistent graph representation
  */
 
-#include<stdio.h>
-#include<stdlib.h>
-#include <time.h>
+#ifndef OBJ_DEFRAG_ADV_PGRAPH
+#define OBJ_DEFRAG_ADV_PGRAPH
 
-#include "vgraph.h"
-
-int
-main()
+struct pnode
 {
-	srand((unsigned)time(NULL));
+	unsigned node_id;
+	unsigned edges_num;
+	unsigned edges[];
+};
 
-	struct vgraph *vgraph = vgraph_create();
-	vgraph_print(vgraph);
+struct pgraph
+{
+	unsigned nodes_num;
+	PMEMoid nodes[];
+};
 
-	/*
-	 * mix
-	 * add edge
-	 * dump
-	 * defrag
-	 * dump
-	 */
+void pgraph_new();
+void pgraph_delete(struct pgraph *graph);
 
-	vgraph_delete(vgraph);
-}
+void pgraph_print(struct pgraph *graph);
+
+#endif /* pgraph.h */
