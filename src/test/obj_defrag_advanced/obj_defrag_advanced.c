@@ -34,14 +34,28 @@
  * obj_defrag_advanced.c -- test for defragmentation feature
  */
 
-#include "unittest.h"
-
+#include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
 #include "vgraph.h"
 #include "pgraph.h"
+#include "unittest.h"
+
+enum op {
+	OP_CREATE,
+	OP_MAX
+};
+
+struct task {
+	enum op op;
+	const char *path;
+	unsigned seed;
+
+	struct vgraph_params vgraph_params;
+	struct pgraph_params pgraph_params;
+};
 
 static void
 graph_defrag(PMEMobjpool *pop, struct pgraph *pgraph)
@@ -77,12 +91,12 @@ graph_defrag(PMEMobjpool *pop, struct pgraph *pgraph)
 	UT_ASSERTeq(ret, 0);
 }
 
-int
-main(int argc, char *argv[])
+void
+create_op(struct task *task)
 {
-	START(argc, argv, "obj_defrag_advanced");
+	struct vgraph *vgraph = vgraph_new(&task->vgraph_params);
+	size_t pgraph_size = pgraph_size_estimate(vgraph, &task->pgraph_params);
 
-	const char *path = argv[1];
 	PMEMobjpool *pop = NULL;
 
 	pop = pmemobj_create(path, POBJ_LAYOUT_NAME(basic),
@@ -91,14 +105,105 @@ main(int argc, char *argv[])
 		UT_FATAL("!pmemobj_create: %s", path);
 	}
 
-	srand(0);
+	srand(task->seed);
 
-	struct vgraph *vgraph = vgraph_new();
 	struct pgraph *pgraph = pgraph_new(pop, vgraph);
 	vgraph_delete(vgraph);
 	pgraph_print(pgraph);
 
 	graph_defrag(pop, pgraph);
+
+
+	pmemobj_close(pop);
+}
+
+/*
+ * long_options -- command line options
+ */
+static const struct option long_options[] = {
+	{"create",	no_argument,		NULL,	'c'},
+	{"path",	required_argument,	NULL,	'p'},
+	{"seed",	required_argument,	NULL,	's'},
+	{"help",	no_argument,		NULL,	'h'},
+	{NULL,		0,			NULL,	 0 },
+};
+
+#define OPT_STR "cp:s:h"
+
+/*
+ * parse_args -- parse command line arguments
+ */
+static void
+parse_args(int argc, char *argv[], struct task *task)
+{
+	int opt;
+	while ((opt = getopt_long(argc, argv, OPT_STR,
+			long_options, NULL)) != -1) {
+		switch (opt) {
+		case 'c':
+				task->op = OP_CREATE;
+			break;
+		case 'c':
+				task->op = OP_CREATE;
+			break;
+		case 'p':
+				task->path = optarg;
+			break;
+		case 's':
+				task->seed = strtoul(optarg, NULL, 10);
+			break;
+		case 'h':
+			print_usage(argv[0]);
+			exit(EXIT_SUCCESS);
+		default:
+			print_usage(argv[0]);
+			exit(EXIT_FAILURE);
+		}
+	}
+
+	if (optind >= argc) {
+		print_usage(argv[0]);
+		exit(EXIT_FAILURE);
+	}
+}
+
+/*
+ * task_init -- XXX
+ */
+static void
+task_init(struct task *task)
+{
+	task->op = OP_MAX;
+	task->path = NULL;
+	task->seed = 0;
+
+	task->vgraph_params.max_nodes = 50;
+	task->vgraph_params.max_edges = 10;
+	task->vgraph_params.min_pattern_size = 8;
+	task->vgraph_params.max_pattern_size = 1024;
+
+	task->pgraph_params.max_graph_copies = 10;
+}
+
+int
+main(int argc, char *argv[])
+{
+	START(argc, argv, "obj_defrag_advanced");
+
+	struct task task;
+	task_init(&task);
+
+	parse_args(argc, argv, &task);
+
+	switch (task.op) {
+	case OP_CREATE:
+		create_op(&task);
+		break;
+	case OP_MAX:
+	default:
+		print_usage(argv[0]);
+		exit(EXIT_FAILURE);
+	}
 
 	/*
 	 * mix
@@ -107,8 +212,6 @@ main(int argc, char *argv[])
 	 * defrag
 	 * dump
 	 */
-
-	pmemobj_close(pop);
 
 	DONE(NULL);
 }

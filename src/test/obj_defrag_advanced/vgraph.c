@@ -36,13 +36,8 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "vgraph.h"
 
-/* XXX */
-#define MAX_NODES 50
-#define MAX_EDGES 10
-#define MIN_PATTERN_SIZE 8
-#define MAX_PATTERN_SIZE 1024
+#include "vgraph.h"
 
 /*
  * rand_range -- generate pseudo-random number from given interval [min, max]
@@ -62,13 +57,13 @@ rand_range(unsigned min, unsigned max)
  * vnode_new -- allocate a new volatile node
  */
 static void
-vnode_new(struct vnode *node, unsigned v)
+vnode_new(struct vnode *node, unsigned v, struct vgraph_params *params)
 {
-	unsigned edges_num = rand_range(1, MAX_EDGES);
+	unsigned edges_num = rand_range(1, params->max_edges);
 	node->node_id = v;
 	node->edges_num = edges_num;
 	node->edges = (unsigned *)malloc(sizeof(int) * edges_num);
-	node->pattern_size = rand_range(MIN_PATTERN_SIZE, MAX_PATTERN_SIZE);
+	node->pattern_size = rand_range(params->min_pattern_size, params->max_pattern_size);
 }
 
 /*
@@ -116,9 +111,9 @@ vgraph_add_edges(struct vgraph *graph)
  * vgraph_new -- allocate a new volatile graph
  */
 struct vgraph *
-vgraph_new()
+vgraph_new(struct vgraph_params *params)
 {
-	unsigned nodes_num = rand_range(1, MAX_NODES);
+	unsigned nodes_num = rand_range(1, params->max_nodes);
 
 	struct vgraph *graph =
 			(struct vgraph *)malloc(sizeof(struct vgraph) +
@@ -126,7 +121,7 @@ vgraph_new()
 	graph->nodes_num = nodes_num;
 
 	for (unsigned i = 0; i < nodes_num; i++) {
-		vnode_new(&graph->node[i], i);
+		vnode_new(&graph->node[i], i, params);
 	}
 
 	vgraph_add_edges(graph);

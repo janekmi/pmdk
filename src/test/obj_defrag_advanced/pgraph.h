@@ -37,6 +37,11 @@
 #ifndef OBJ_DEFRAG_ADV_PGRAPH
 #define OBJ_DEFRAG_ADV_PGRAPH
 
+struct pgraph_params
+{
+	unsigned max_graph_copies;
+};
+
 struct pnode
 {
 	unsigned node_id;

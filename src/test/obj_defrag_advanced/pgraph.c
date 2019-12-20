@@ -39,7 +39,6 @@
 #include "vgraph.h"
 #include "pgraph.h"
 
-#define MAX_GRAPH_COPIES 10
 #define PATTERN 'g'
 
 /*
@@ -151,14 +150,22 @@ pgraph_copy_delete(PMEMoid *nodes, unsigned num)
 }
 
 /*
+ * pgraph_size -- XXX
+ */
+size_t
+pgraph_size(unsigned nodes_num)
+{
+	return sizeof(struct pgraph) + sizeof(PMEMoid) * nodes_num;
+}
+
+/*
  * pgraph_new -- allocate a new persistent graph in such a way
  * that the fragmentation is as large as possible
  */
 struct pgraph *
 pgraph_new(PMEMobjpool *pop, struct vgraph *vgraph)
 {
-	size_t pgraph_size = sizeof(struct pgraph) +
-			sizeof(PMEMoid) * vgraph->nodes_num;
+	size_t pgraph_size =
 	PMEMoid root_oid = pmemobj_root(pop, pgraph_size);
 	if (OID_IS_NULL(root_oid))
 		UT_FATAL("!pmemobj_root:");
@@ -229,4 +236,14 @@ pgraph_print(struct pgraph *pgraph)
 		}
 		printf("\n");
 	}
+}
+
+/*
+ * pgraph_size_estimate -- XXX
+ */
+size_t
+pgraph_size_estimate(struct vgraph *vgraph, struct pgraph_params *params)
+{
+	size_t total = 0;
+	total +=
 }

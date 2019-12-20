@@ -37,6 +37,14 @@
 #ifndef OBJ_DEFRAG_ADV_VGRAPH
 #define OBJ_DEFRAG_ADV_VGRAPH
 
+struct vgraph_params
+{
+	unsigned max_nodes;
+	unsigned max_edges;
+	unsigned min_pattern_size;
+	unsigned max_pattern_size;
+};
+
 struct vnode
 {
 	unsigned node_id;
@@ -56,7 +64,7 @@ struct vgraph
 
 unsigned rand_range(unsigned min, unsigned max);
 
-struct vgraph *vgraph_new(void);
+struct vgraph *vgraph_new(struct vgraph_params *params);
 void vgraph_delete(struct vgraph *graph);
 
 void vgraph_print(struct vgraph *graph);
