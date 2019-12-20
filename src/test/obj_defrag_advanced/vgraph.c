@@ -39,8 +39,8 @@
 /* XXX */
 #define MAX_NODES 50
 #define MAX_EDGES 10
-#define MIN_NODE_SIZE 8
-#define MAX_NODE_SIZE 1024
+#define MIN_PATTERN_SIZE 8
+#define MAX_PATTERN_SIZE 1024
 
 /*
  * rand_nonzero -- XXX
@@ -66,7 +66,7 @@ vnode_new(struct vnode *node, unsigned v)
 	node->node_id = v;
 	node->edges_num = edges_num;
 	node->edges = (unsigned *)malloc(sizeof(int) * edges_num);
-	node->size = rand_nonzero(MAX_NODE_SIZE) + MIN_NODE_SIZE;
+	node->pattern_size = rand() % (MAX_PATTERN_SIZE - MIN_PATTERN_SIZE) + MIN_PATTERN_SIZE;
 }
 
 static void

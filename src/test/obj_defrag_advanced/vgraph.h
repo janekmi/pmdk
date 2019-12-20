@@ -40,9 +40,12 @@
 struct vnode
 {
 	unsigned node_id;
-	size_t size;
 	unsigned edges_num;
 	unsigned *edges;
+	size_t pattern_size;
+
+	/* for convenience */
+	size_t psize;
 };
 
 struct vgraph

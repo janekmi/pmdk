@@ -41,7 +41,9 @@ struct pnode
 {
 	unsigned node_id;
 	unsigned edges_num;
-	unsigned edges[];
+	size_t pattern_size;
+	size_t size;
+	PMEMoid edges[];
 };
 
 struct pgraph

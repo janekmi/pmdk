@@ -38,6 +38,37 @@
 #include "pgraph.h"
 
 #define MAX_GRAPH_COPIES 10
+#define PATTERN 'g'
+
+static size_t
+pnode_size(unsigned edges_num, size_t pattern_size)
+{
+	size_t node_size = sizeof(struct pnode);
+	node_size += sizeof(PMEMoid) * edges_num;
+	node_size += pattern_size;
+	return node_size;
+}
+
+static void
+pnode_init(PMEMobjpool *pop, PMEMoid pnode_oid, struct vnode *vnode, PMEMoid pnodes[])
+{
+	struct pnode *pnode = pmemobj_direct(pnode_oid);
+	pnode->node_id = vnode->node_id;
+	pnode->size = vnode->psize;
+
+	/* set edges */
+	pnode->edges_num = vnode->edges_num;
+	for (unsigned i = 0; i < vnode->edges_num; ++i)
+		pnode->edges[i] = pnodes[vnode->edges[i]];
+
+	/* initialize pattern */
+	pnode->pattern_size = vnode->pattern_size;
+	void *pattern = (void *)pnode->edges[pnode->edges_num];
+	pmemobj_memset(pop, pattern, PATTERN, pnode->pattern_size, PMEMOBJ_F_MEM_NOFLUSH);
+
+	/* persist the whole node state */
+	pmemobj_persist(pop, (const void *)pnode, pnode->size);
+}
 
 /*
  * order_shuffle -- XXX
@@ -80,7 +111,7 @@ pgraph_copy_new(PMEMobjpool *pop, struct vgraph *vgraph)
 	for (unsigned i = 0; i < vgraph->nodes_num; ++i) {
 		struct vnode *vnode = vgraph->node[order[i]];
 		PMEMoid *node = *nodes[order[i]];
-		ret = pmemobj_alloc(pop, nodes, vnode->size, 0, NULL, NULL);
+		ret = pmemobj_alloc(pop, nodes, vnode->psize, 0, NULL, NULL);
 		UT_ASSERTeq(ret, 0);
 	}
 
@@ -89,6 +120,9 @@ pgraph_copy_new(PMEMobjpool *pop, struct vgraph *vgraph)
 	return nodes;
 }
 
+/*
+ * pgraph_copy_delete -- XXX
+ */
 static void
 pgraph_copy_delete(PMEMoid *nodes, unsigned num)
 {
@@ -113,6 +147,12 @@ pgraph_new(PMEMobjpool *pop, struct vgraph *vgraph)
 	struct pgraph *pgraph = pmemobj_direct(root_oid);
 	pgraph->nodes_num = vgraph->nodes_num;
 
+	/* calculate size of pnodes */
+	for (unsigned i = 0; i < vgraph->node; ++i) {
+		struct vnode *vnode = &vgraph->node[i];
+		vnode->psize = pnode_size(vnode->edges, vnode->pattern_size);
+	}
+
 	/* prepare multiple copies of the nodes */
 	unsigned copies_num = rand() % MAX_GRAPH_COPIES + 1; /* XXX */
 	PMEMoid **copies = malloc(sizeof(PMEMoid *) * copies_num);
@@ -131,6 +171,10 @@ pgraph_new(PMEMobjpool *pop, struct vgraph *vgraph)
 		pgraph_copy_delete(copies[i], vgraph->nodes_num);
 
 	free(copies);
+
+	/* initialize pnodes */
+	for (unsigned i = 0; i < pgraph->nodes; ++i)
+		pnode_init(pop, pgraph->nodes[i], &vgraph->node[i], pgraph->nodes);
 }
 
 /*
