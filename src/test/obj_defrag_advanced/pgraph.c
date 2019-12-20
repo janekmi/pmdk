@@ -42,6 +42,9 @@
 #define MAX_GRAPH_COPIES 10
 #define PATTERN 'g'
 
+/*
+ * pnode_size --returns the entire of node size
+ */
 static size_t
 pnode_size(unsigned edges_num, size_t pattern_size)
 {
@@ -51,6 +54,9 @@ pnode_size(unsigned edges_num, size_t pattern_size)
 	return node_size;
 }
 
+/*
+ * pnode_init -- initializes the node
+ */
 static void
 pnode_init(PMEMobjpool *pop, PMEMoid pnode_oid, struct vnode *vnode,
 		PMEMoid pnodes[])
@@ -75,13 +81,13 @@ pnode_init(PMEMobjpool *pop, PMEMoid pnode_oid, struct vnode *vnode,
 }
 
 /*
- * order_shuffle -- XXX
+ * order_shuffle -- shuffle the nodes in graph
  */
 static void
 order_shuffle(unsigned *order, unsigned num)
 {
 	for (unsigned i = 0; i < num; ++i) {
-		unsigned j = (unsigned)rand() % num;
+		unsigned j = rand_range(0, num);
 		unsigned temp = order[j];
 		order[j] = order[i];
 		order[i] = temp;
@@ -106,6 +112,9 @@ order_new(struct vgraph *vgraph)
 	return order;
 }
 
+/*
+ * pgraph_copy_new -- copy the graph
+ */
 static PMEMoid *
 pgraph_copy_new(PMEMobjpool *pop, struct vgraph *vgraph)
 {
@@ -126,7 +135,7 @@ pgraph_copy_new(PMEMobjpool *pop, struct vgraph *vgraph)
 }
 
 /*
- * pgraph_copy_delete -- XXX
+ * pgraph_copy_delete -- free copies of the graph
  */
 static void
 pgraph_copy_delete(PMEMoid *nodes, unsigned num)
@@ -142,7 +151,8 @@ pgraph_copy_delete(PMEMoid *nodes, unsigned num)
 }
 
 /*
- * pgraph_new -- allocates a new persistent graph structure
+ * pgraph_new -- allocate a new persistent graph in such a way
+ * that the fragmentation is as large as possible
  */
 struct pgraph *
 pgraph_new(PMEMobjpool *pop, struct vgraph *vgraph)
@@ -150,6 +160,8 @@ pgraph_new(PMEMobjpool *pop, struct vgraph *vgraph)
 	size_t pgraph_size = sizeof(struct pgraph) +
 			sizeof(PMEMoid) * vgraph->nodes_num;
 	PMEMoid root_oid = pmemobj_root(pop, pgraph_size);
+	if (OID_IS_NULL(root_oid))
+		UT_FATAL("!pmemobj_root:");
 
 	struct pgraph *pgraph = (struct pgraph *)pmemobj_direct(root_oid);
 	pgraph->nodes_num = vgraph->nodes_num;
@@ -162,14 +174,14 @@ pgraph_new(PMEMobjpool *pop, struct vgraph *vgraph)
 	}
 
 	/* prepare multiple copies of the nodes */
-	unsigned copies_num = (unsigned)rand() % MAX_GRAPH_COPIES + 1; /* XXX */
+	unsigned copies_num = rand_range(1, MAX_GRAPH_COPIES);
 	PMEMoid **copies = (PMEMoid **)malloc(sizeof(PMEMoid *) * copies_num);
 	for (unsigned i = 0; i < copies_num; ++i)
 		copies[i] = pgraph_copy_new(pop, vgraph);
 
 	/* peek exactly the one copy of each node */
 	for (unsigned i = 0; i < pgraph->nodes_num; ++i) {
-		unsigned copy_id = (unsigned)rand() % copies_num; /* XXX */
+		unsigned copy_id = rand_range(1, copies_num);
 		pgraph->nodes[i] = copies[copy_id][i];
 		copies[copy_id][i] = OID_NULL;
 	}
@@ -189,7 +201,7 @@ pgraph_new(PMEMobjpool *pop, struct vgraph *vgraph)
 }
 
 /*
- * pgraph_delete -- destroy and free a persistent graph structure
+ * pgraph_delete -- free a persistent graph
  */
 void
 pgraph_delete(struct pgraph *pgraph)
@@ -200,7 +212,7 @@ pgraph_delete(struct pgraph *pgraph)
 }
 
 /*
- * pgraph_print --  print graph structure in human readable format
+ * pgraph_print --  print graph in human readable format
  */
 void
 pgraph_print(struct pgraph *pgraph)

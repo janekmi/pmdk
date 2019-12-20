@@ -10,6 +10,9 @@
     <Filter Include="Source Files">
       <UniqueIdentifier>{06b70714-04ff-4d74-8f1d-eb33a3318a3c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{06b70714-04ff-4d74-8f1d-eb33a3318a3c}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Test Scripts">
       <UniqueIdentifier>{f6970093-c229-475a-a462-7718dc17b32e}</UniqueIdentifier>
     </Filter>
@@ -24,5 +27,13 @@
     <ClCompile Include="vgraph.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pgraph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vgraph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
