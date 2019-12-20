@@ -54,6 +54,8 @@ struct vgraph
 	struct vnode node[];
 };
 
+unsigned rand_range(unsigned min, unsigned max);
+
 struct vgraph *vgraph_new(void);
 void vgraph_delete(struct vgraph *graph);
 

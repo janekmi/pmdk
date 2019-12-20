@@ -45,21 +45,21 @@
 #define MAX_PATTERN_SIZE 1024
 
 /*
- * rand_range -- generate pseudo-random number from given interval
+ * rand_range -- generate pseudo-random number from given interval [min, max]
  */
-static unsigned
-rand_range(int min, int max)
+unsigned
+rand_range(unsigned min, unsigned max)
 {
-	int ret;
+	unsigned ret;
 	do {
-		ret = (rand() % (max - min + 1)) + min;
+		ret = ((unsigned)rand() % (max - min)) + min;
 	} while (ret == 0);
 
-	return (unsigned)ret;
+	return ret;
 }
 
 /*
- * vnode_new -- allocates a new volatile node structure
+ * vnode_new -- allocate a new volatile node
  */
 static void
 vnode_new(struct vnode *node, unsigned v)
@@ -72,7 +72,7 @@ vnode_new(struct vnode *node, unsigned v)
 }
 
 /*
- * vnode_delete -- destroy and free a volatile node structure
+ * vnode_delete -- free a volatile node
  */
 static void
 vnode_delete(struct vnode *node)
@@ -93,8 +93,8 @@ vgraph_get_node(struct vgraph *graph, unsigned id_node)
 }
 
 /*
- * vgraph_add_edges -- adds pseudo-random number of edged to given node
- * (randomly generated dest nodes)
+ * vgraph_add_edges -- adds pseudo-random number of edges to given node
+ * (destination nodes are picked randomly)
  */
 static void
 vgraph_add_edges(struct vgraph *graph)
@@ -106,15 +106,14 @@ vgraph_add_edges(struct vgraph *graph)
 		node = vgraph_get_node(graph, nodes_count);
 		unsigned edges_num = node->edges_num;
 		for (edges_count = 0; edges_count < edges_num; edges_count++) {
-			unsigned node_link =
-					(unsigned)rand() % graph->nodes_num;
+			unsigned node_link = rand_range(0, graph->nodes_num);
 			node->edges[edges_count] = node_link;
 		}
 	}
 }
 
 /*
- * vgraph_new -- allocates a new volatile graph structure
+ * vgraph_new -- allocate a new volatile graph
  */
 struct vgraph *
 vgraph_new()
@@ -136,7 +135,7 @@ vgraph_new()
 }
 
 /*
- * vgraph_delete -- recursively free (to malloc) a subtree
+ * vgraph_delete -- free the volatile graph
  */
 void
 vgraph_delete(struct vgraph *graph)
@@ -148,7 +147,7 @@ vgraph_delete(struct vgraph *graph)
 }
 
 /*
- * vgraph_print --  print graph structure in human readable format
+ * vgraph_print --  print graph in human readable format
  */
 void
 vgraph_print(struct vgraph *graph)

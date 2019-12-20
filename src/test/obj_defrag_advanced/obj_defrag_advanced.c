@@ -67,6 +67,11 @@ graph_defrag(PMEMobjpool *pop, struct pgraph *pgraph)
 
 	UT_ASSERTeq(oidi, oidcnt);
 
+	for (unsigned i = 0; i < oidcnt; ++i) {
+		void *ptr = pmemobj_direct(*oidv[i]);
+		UT_ASSERTne(ptr, NULL);
+	}
+
 	struct pobj_defrag_result result;
 	int ret = pmemobj_defrag(pop, oidv, oidcnt, &result);
 	UT_ASSERTeq(ret, 0);
