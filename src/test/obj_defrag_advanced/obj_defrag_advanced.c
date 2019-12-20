@@ -45,12 +45,15 @@
 
 enum op {
 	OP_CREATE,
+	OP_DUMP,
+	OP_DEFRAG,
 	OP_MAX
 };
 
 struct task {
 	enum op op;
 	const char *path;
+	const char *dump;
 	unsigned seed;
 
 	struct vgraph_params vgraph_params;
@@ -91,28 +94,95 @@ graph_defrag(PMEMobjpool *pop, struct pgraph *pgraph)
 	UT_ASSERTeq(ret, 0);
 }
 
-void
+#define TEST_NAME "obj_defrag_advanced"
+
+/*
+ * print_usage -- XXX
+ */
+static void
+print_usage()
+{
+	printf(TEST_NAME "\n");
+}
+
+#define GRAPH_LAYOUT POBJ_LAYOUT_NAME(graph)
+
+/*
+ * create_op -- XXX
+ */
+static void
 create_op(struct task *task)
 {
-	struct vgraph *vgraph = vgraph_new(&task->vgraph_params);
-	size_t pgraph_size = pgraph_size_estimate(vgraph, &task->pgraph_params);
+	if (task->path == NULL) {
+		print_usage();
+		exit(EXIT_FAILURE);
+	}
 
 	PMEMobjpool *pop = NULL;
 
-	pop = pmemobj_create(path, POBJ_LAYOUT_NAME(basic),
-		0, S_IWUSR | S_IRUSR);
+	pop = pmemobj_create(task->path, GRAPH_LAYOUT, 0, S_IWUSR | S_IRUSR);
 	if (pop == NULL) {
-		UT_FATAL("!pmemobj_create: %s", path);
+		UT_FATAL("!pmemobj_create: %s", task->path);
 	}
 
 	srand(task->seed);
 
-	struct pgraph *pgraph = pgraph_new(pop, vgraph);
+	struct vgraph *vgraph = vgraph_new(&task->vgraph_params);
+	struct pgraph *pgraph = pgraph_new(pop, vgraph, &task->pgraph_params);
 	vgraph_delete(vgraph);
-	pgraph_print(pgraph);
+
+	pgraph_print(pgraph, task->dump);
+
+	pmemobj_close(pop);
+}
+
+/*
+ * dump_op -- XXX
+ */
+static void
+dump_op(struct task *task)
+{
+	if (task->path == NULL) {
+		print_usage();
+		exit(EXIT_FAILURE);
+	}
+
+	PMEMobjpool *pop = NULL;
+
+	pop = pmemobj_open(task->path, GRAPH_LAYOUT);
+	if (pop == NULL) {
+		UT_FATAL("!pmemobj_open: %s", task->path);
+	}
+
+	struct pgraph *pgraph = pgraph_open(pop);
+
+	pgraph_print(pgraph, task->dump);
+
+	pmemobj_close(pop);
+}
+
+/*
+ * defrag_op -- XXX
+ */
+static void
+defrag_op(struct task *task)
+{
+	if (task->path == NULL) {
+		print_usage();
+		exit(EXIT_FAILURE);
+	}
+
+	PMEMobjpool *pop = NULL;
+
+	pop = pmemobj_open(task->path, GRAPH_LAYOUT);
+	if (pop == NULL) {
+		UT_FATAL("!pmemobj_open: %s", task->path);
+	}
+
+	struct pgraph *pgraph = pgraph_open(pop);
 
 	graph_defrag(pop, pgraph);
-
+	pgraph_print(pgraph, task->dump);
 
 	pmemobj_close(pop);
 }
@@ -122,7 +192,10 @@ create_op(struct task *task)
  */
 static const struct option long_options[] = {
 	{"create",	no_argument,		NULL,	'c'},
+	{"dump",	no_argument,		NULL,	'd'},
+	{"defrag",	no_argument,		NULL,	'f'},
 	{"path",	required_argument,	NULL,	'p'},
+	{"dumppath",required_argument,	NULL,	'e'},
 	{"seed",	required_argument,	NULL,	's'},
 	{"help",	no_argument,		NULL,	'h'},
 	{NULL,		0,			NULL,	 0 },
@@ -143,26 +216,32 @@ parse_args(int argc, char *argv[], struct task *task)
 		case 'c':
 				task->op = OP_CREATE;
 			break;
-		case 'c':
-				task->op = OP_CREATE;
+		case 'd':
+				task->op = OP_DUMP;
+			break;
+		case 'f':
+				task->op = OP_DEFRAG;
 			break;
 		case 'p':
 				task->path = optarg;
+			break;
+		case 'e':
+				task->dump = optarg;
 			break;
 		case 's':
 				task->seed = strtoul(optarg, NULL, 10);
 			break;
 		case 'h':
-			print_usage(argv[0]);
+			print_usage();
 			exit(EXIT_SUCCESS);
 		default:
-			print_usage(argv[0]);
+			print_usage();
 			exit(EXIT_FAILURE);
 		}
 	}
 
-	if (optind >= argc) {
-		print_usage(argv[0]);
+	if (optind > argc) {
+		print_usage();
 		exit(EXIT_FAILURE);
 	}
 }
@@ -175,6 +254,7 @@ task_init(struct task *task)
 {
 	task->op = OP_MAX;
 	task->path = NULL;
+	task->dump = NULL;
 	task->seed = 0;
 
 	task->vgraph_params.max_nodes = 50;
@@ -188,7 +268,7 @@ task_init(struct task *task)
 int
 main(int argc, char *argv[])
 {
-	START(argc, argv, "obj_defrag_advanced");
+	START(argc, argv, TEST_NAME);
 
 	struct task task;
 	task_init(&task);
@@ -198,6 +278,12 @@ main(int argc, char *argv[])
 	switch (task.op) {
 	case OP_CREATE:
 		create_op(&task);
+		break;
+	case OP_DUMP:
+		dump_op(&task);
+		break;
+	case OP_DEFRAG:
+		defrag_op(&task);
 		break;
 	case OP_MAX:
 	default:

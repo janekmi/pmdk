@@ -152,7 +152,7 @@ pgraph_copy_delete(PMEMoid *nodes, unsigned num)
 /*
  * pgraph_size -- XXX
  */
-size_t
+static size_t
 pgraph_size(unsigned nodes_num)
 {
 	return sizeof(struct pgraph) + sizeof(PMEMoid) * nodes_num;
@@ -163,10 +163,10 @@ pgraph_size(unsigned nodes_num)
  * that the fragmentation is as large as possible
  */
 struct pgraph *
-pgraph_new(PMEMobjpool *pop, struct vgraph *vgraph)
+pgraph_new(PMEMobjpool *pop, struct vgraph *vgraph, struct pgraph_params *params)
 {
-	size_t pgraph_size =
-	PMEMoid root_oid = pmemobj_root(pop, pgraph_size);
+	size_t root_size = pgraph_size(vgraph->nodes_num);
+	PMEMoid root_oid = pmemobj_root(pop, root_size);
 	if (OID_IS_NULL(root_oid))
 		UT_FATAL("!pmemobj_root:");
 
@@ -181,7 +181,7 @@ pgraph_new(PMEMobjpool *pop, struct vgraph *vgraph)
 	}
 
 	/* prepare multiple copies of the nodes */
-	unsigned copies_num = rand_range(1, MAX_GRAPH_COPIES);
+	unsigned copies_num = rand_range(1, params->max_graph_copies);
 	PMEMoid **copies = (PMEMoid **)malloc(sizeof(PMEMoid *) * copies_num);
 	for (unsigned i = 0; i < copies_num; ++i)
 		copies[i] = pgraph_copy_new(pop, vgraph);
@@ -208,6 +208,27 @@ pgraph_new(PMEMobjpool *pop, struct vgraph *vgraph)
 }
 
 /*
+ * pgraph_open -- XXX
+ */
+struct pgraph *
+pgraph_open(PMEMobjpool *pop)
+{
+	PMEMoid root_oid = pmemobj_root(pop, sizeof(struct pgraph));
+	if (OID_IS_NULL(root_oid))
+		UT_FATAL("!pmemobj_root:");
+
+	struct pgraph *pgraph = (struct pgraph *)pmemobj_direct(root_oid);
+	size_t root_size = pgraph_size(pgraph->nodes_num);
+	root_oid = pmemobj_root(pop, root_size);
+	if (OID_IS_NULL(root_oid))
+		UT_FATAL("!pmemobj_root:");
+
+	pgraph = (struct pgraph *)pmemobj_direct(root_oid);
+
+	return pgraph;
+}
+
+/*
  * pgraph_delete -- free a persistent graph
  */
 void
@@ -222,21 +243,29 @@ pgraph_delete(struct pgraph *pgraph)
  * pgraph_print --  print graph in human readable format
  */
 void
-pgraph_print(struct pgraph *pgraph)
+pgraph_print(struct pgraph *pgraph, const char *dump)
 {
+	UT_ASSERTne(dump, NULL);
+
+	FILE *out = FOPEN(dump, "w");
+
 	for (unsigned i = 0; i < pgraph->nodes_num; ++i) {
 		PMEMoid node_oid = pgraph->nodes[i];
 		struct pnode *pnode = (struct pnode *)pmemobj_direct(node_oid);
-		printf("%u:", pnode->node_id);
+		fprintf(out, "%u:", pnode->node_id);
 		for (unsigned j = 0; j < pnode->edges_num; ++j) {
 			PMEMoid edge_oid = pnode->edges[j];
 			struct pnode *edge =
 				(struct pnode *)pmemobj_direct(edge_oid);
-			printf("%u, ", edge->node_id);
+			fprintf(out, "%u, ", edge->node_id);
 		}
-		printf("\n");
+		fprintf(out, "\n");
 	}
+
+	FCLOSE(out);
 }
+
+#define ALLOCATION_FACTOR 2
 
 /*
  * pgraph_size_estimate -- XXX
@@ -245,5 +274,18 @@ size_t
 pgraph_size_estimate(struct vgraph *vgraph, struct pgraph_params *params)
 {
 	size_t total = 0;
-	total +=
+
+	/* all nodes from all graph copies */
+	for (unsigned i = 0; i < vgraph->nodes_num; ++i) {
+		struct vnode *vnode = &vgraph->node[i];
+		total += pnode_size(vnode->edges_num, vnode->pattern_size);
+	}
+
+	total *= params->max_graph_copies;
+
+	total += pgraph_size(vgraph->nodes_num); /* root object size */
+
+	total *= ALLOCATION_FACTOR;
+
+	return total;
 }

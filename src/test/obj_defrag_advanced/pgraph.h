@@ -37,6 +37,8 @@
 #ifndef OBJ_DEFRAG_ADV_PGRAPH
 #define OBJ_DEFRAG_ADV_PGRAPH
 
+#include <libpmemobj/base.h>
+
 struct pgraph_params
 {
 	unsigned max_graph_copies;
@@ -57,9 +59,12 @@ struct pgraph
 	PMEMoid nodes[];
 };
 
-struct pgraph *pgraph_new(PMEMobjpool *pop, struct vgraph *vgraph);
-void pgraph_delete(struct pgraph *graph);
+size_t pgraph_size_estimate(struct vgraph *vgraph, struct pgraph_params *params);
 
-void pgraph_print(struct pgraph *graph);
+struct pgraph *pgraph_new(PMEMobjpool *pop, struct vgraph *vgraph, struct pgraph_params *params);
+void pgraph_delete(struct pgraph *graph);
+struct pgraph *pgraph_open(PMEMobjpool *pop);
+
+void pgraph_print(struct pgraph *graph, const char *dump);
 
 #endif /* pgraph.h */

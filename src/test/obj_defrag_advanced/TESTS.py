@@ -31,6 +31,8 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
+import os
+import sys
 
 import testframework as t
 
@@ -40,4 +42,8 @@ class TEST0(t.BaseTest):
 
     def run(self, ctx):
         filepath = ctx.create_holey_file(500 * t.MiB, 'testfile',)
-        ctx.exec('obj_defrag_advanced', filepath)
+        dumppath1 = os.path.join(ctx.testdir, 'dump1')
+        dumppath2 = os.path.join(ctx.testdir, 'dump2')
+        ctx.exec('obj_defrag_advanced', '--create', '--path=' + filepath, '--dumppath=' + dumppath1)
+        ctx.exec('obj_defrag_advanced', '--defrag', '--path=' + filepath, '--dumppath=' + dumppath2)
+        sys.exit(1)
