@@ -43,6 +43,35 @@
 #include "vgraph.h"
 #include "pgraph.h"
 
+static void
+graph_defrag(PMEMobjpool *pop, struct pgraph *pgraph)
+{
+	/* count number of oids */
+	unsigned oidcnt = pgraph->nodes_num;
+	for (unsigned i = 0; i < pgraph->nodes_num; ++i) {
+		struct pnode *pnode = pmemobj_direct(pgraph->nodes[i]);
+		oidcnt += pnode->edges_num;
+	}
+
+	/* create array of oid pointers */
+	PMEMoid **oidv = malloc(sizeof(PMEMoid *) * oidcnt);
+	unsigned oidi = 0;
+	for (unsigned i = 0; i < pgraph->nodes_num; ++i) {
+		oidv[oidi++] = &pgraph->nodes[i];
+
+		struct pnode *pnode = pmemobj_direct(pgraph->nodes[i]);
+		for (unsigned j = 0; j < pnode->edges_num; ++j) {
+			oidv[oidi++] = &pnode->edges[j];
+		}
+	}
+
+	UT_ASSERTeq(oidi, oidcnt);
+
+	struct pobj_defrag_result result;
+	int ret = pmemobj_defrag(pop, oidv, oidcnt, &result);
+	UT_ASSERTeq(ret, 0);
+}
+
 int
 main(int argc, char *argv[])
 {
@@ -63,6 +92,8 @@ main(int argc, char *argv[])
 	struct pgraph *pgraph = pgraph_new(pop, vgraph);
 	vgraph_delete(vgraph);
 	pgraph_print(pgraph);
+
+	graph_defrag(pop, pgraph);
 
 	/*
 	 * mix
