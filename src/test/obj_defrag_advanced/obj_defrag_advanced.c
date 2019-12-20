@@ -60,9 +60,9 @@ main(int argc, char *argv[])
 	srand((unsigned)time(NULL));
 
 	struct vgraph *vgraph = vgraph_create();
-	vgraph_print(vgraph);
-
-	pgraph_new(pop, vgraph);
+	struct pgraph *pgraph = pgraph_new(pop, vgraph);
+	vgraph_delete(vgraph);
+	pgraph_print(pgraph);
 
 	/*
 	 * mix
@@ -71,8 +71,6 @@ main(int argc, char *argv[])
 	 * defrag
 	 * dump
 	 */
-
-	vgraph_delete(vgraph);
 
 	pmemobj_close(pop);
 

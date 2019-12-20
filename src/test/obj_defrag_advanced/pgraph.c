@@ -142,8 +142,8 @@ pgraph_copy_delete(PMEMoid *nodes, unsigned num)
 struct pgraph *
 pgraph_new(PMEMobjpool *pop, struct vgraph *vgraph)
 {
-	size_t root_size = sizeof(struct pgraph) + sizeof(PMEMoid) * vgraph->nodes_num;
-	PMEMoid root_oid = pmemobj_root(pop, root_size);
+	size_t pgraph_size = sizeof(struct pgraph) + sizeof(PMEMoid) * vgraph->nodes_num;
+	PMEMoid root_oid = pmemobj_root(pop, pgraph_size);
 	struct pgraph *pgraph = pmemobj_direct(root_oid);
 	pgraph->nodes_num = vgraph->nodes_num;
 
@@ -175,6 +175,11 @@ pgraph_new(PMEMobjpool *pop, struct vgraph *vgraph)
 	/* initialize pnodes */
 	for (unsigned i = 0; i < pgraph->nodes; ++i)
 		pnode_init(pop, pgraph->nodes[i], &vgraph->node[i], pgraph->nodes);
+
+	/* persist persistent graph representation */
+	pmemobj_persist(pop, pgraph, pgraph_size);
+
+	return pgraph;
 }
 
 /*
@@ -192,7 +197,17 @@ pgraph_delete(PMEMobjpool *pop, struct pgraph *pgraph)
  * pgraph_print -- XXX
  */
 void
-pgraph_print(struct pgraph *graph)
+pgraph_print(struct pgraph *pgraph)
 {
-
+	for (unsigned i = 0; i < pgraph->nodes_num; ++i) {
+		PMEMoid node_oid = pgraph->nodes[i];
+		struct pnode *pnode = pmemobj_direct(node_oid);
+		printf("%u:", pnode->node_id);
+		for (unsigned j = 0; j < pnode->edges_num; ++j) {
+			PMEMoid edge_oid = pnode->edges[j];
+			struct pnode *edge = pmemobj_direct(edge_oid);
+			printf("%u, ", edge->node_id);
+		}
+		printf("\n");
+	}
 }
