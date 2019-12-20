@@ -37,6 +37,71 @@
 #include "vgraph.h"
 #include "pgraph.h"
 
+#define MAX_GRAPH_COPIES 10
+
+/*
+ * order_shuffle -- XXX
+ */
+static void
+order_shuffle(unsigned *order, unsigned num)
+{
+	for (unsigned i = 0; i < num; ++i) {
+		unsigned j = rand() % num;
+		unsigned temp = order[j];
+		order[j] = order[i];
+		order[i] = temp;
+	}
+}
+
+/*
+ * order_new -- XXX
+ */
+static unsigned *
+order_new(struct vgraph *vgraph)
+{
+	unsigned *order = malloc(sizeof(unsigned) * vgraph->nodes_num);
+
+	/* initialize id list */
+	for (unsigned i = 0; i < vgraph->nodes_num; ++i)
+		order[i] = i;
+
+	order_shuffle(order, vgraph->nodes_num);
+
+	return order;
+}
+
+static PMEMoid *
+pgraph_copy_new(PMEMobjpool *pop, struct vgraph *vgraph)
+{
+	PMEMoid *nodes = malloc(sizeof(PMEMoid) * vgraph->nodes_num);
+	unsigned *order = order_new(vgraph);
+
+	int ret;
+	for (unsigned i = 0; i < vgraph->nodes_num; ++i) {
+		struct vnode *vnode = vgraph->node[order[i]];
+		PMEMoid *node = *nodes[order[i]];
+		ret = pmemobj_alloc(pop, nodes, vnode->size, 0, NULL, NULL);
+		UT_ASSERTeq(ret, 0);
+	}
+
+	free(order);
+
+	return nodes;
+}
+
+static void
+pgraph_copy_delete(PMEMoid *nodes, unsigned num)
+{
+	for (unsigned i = 0; i < num; ++i) {
+		if (nodes[i] == OID_NULL)
+			continue;
+
+		pmemobj_free(&nodes[i]);
+	}
+
+	free(nodes);
+}
+
 /*
  * pgraph_new -- XXX
  */
@@ -47,14 +112,25 @@ pgraph_new(PMEMobjpool *pop, struct vgraph *vgraph)
 	PMEMoid root_oid = pmemobj_root(pop, root_size);
 	struct pgraph *pgraph = pmemobj_direct(root_oid);
 	pgraph->nodes_num = vgraph->nodes_num;
-	int ret;
 
+	/* prepare multiple copies of the nodes */
+	unsigned copies_num = rand() % MAX_GRAPH_COPIES + 1; /* XXX */
+	PMEMoid **copies = malloc(sizeof(PMEMoid *) * copies_num);
+	for (unsigned i = 0; i < copies_num; ++i)
+		copies[i] = pgraph_copy_new(pop, vgraph);
+
+	/* peek exactly the one copy of each node */
 	for (unsigned i = 0; i < pgraph->nodes_num; ++i) {
-		 ret = pmemobj_alloc(pop, &pgraph->nodes[i], vgraph->node[i].size, 0, NULL, NULL);
-		 UT_ASSERTeq(ret, 0);
+		unsigned copy_id = rand() % copies_num; /* XXX */
+		pgraph->nodes[i] = copies[copy_id][i];
+		copies[copy_id][i] = OID_NULL;
 	}
 
-	return pgraph;
+	/* free unused copies of the nodes */
+	for (unsigned i = 0; i < copies_num; ++i)
+		pgraph_copy_delete(copies[i], vgraph->nodes_num);
+
+	free(copies);
 }
 
 /*
