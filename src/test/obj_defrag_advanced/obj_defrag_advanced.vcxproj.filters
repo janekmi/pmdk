@@ -18,5 +18,11 @@
     <ClCompile Include="obj_defrag_advanced.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="pgraph.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vgraph.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
