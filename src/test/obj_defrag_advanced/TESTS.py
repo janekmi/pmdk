@@ -39,5 +39,5 @@ class TEST0(t.BaseTest):
     test_type = t.Short
 
     def run(self, ctx):
-        filepath = ctx.create_holey_file(16 * t.MiB, 'testfile',)
+        filepath = ctx.create_holey_file(500 * t.MiB, 'testfile',)
         ctx.exec('obj_defrag_advanced', filepath)
