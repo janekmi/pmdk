@@ -34,6 +34,8 @@
  * vgraph.c -- volatile graph representation
  */
 
+#include <stdlib.h>
+#include <stdio.h>
 #include "vgraph.h"
 
 /* XXX */
@@ -43,47 +45,57 @@
 #define MAX_PATTERN_SIZE 1024
 
 /*
- * rand_nonzero -- XXX
+ * rand_range -- generate pseudo-random number from given interval
  */
 static unsigned
-rand_nonzero(int max)
+rand_range(int min, int max)
 {
 	int ret;
 	do {
-		ret = rand() % max;
+		ret = (rand() % (max - min + 1)) + min;
 	} while (ret == 0);
 
 	return (unsigned)ret;
 }
 
 /*
- * vnode_new -- XXX
+ * vnode_new -- allocates a new volatile node structure
  */
 static void
 vnode_new(struct vnode *node, unsigned v)
 {
-	unsigned edges_num = rand_nonzero(MAX_EDGES);
+	unsigned edges_num = rand_range(1, MAX_EDGES);
 	node->node_id = v;
 	node->edges_num = edges_num;
 	node->edges = (unsigned *)malloc(sizeof(int) * edges_num);
-	node->pattern_size = rand() % (MAX_PATTERN_SIZE - MIN_PATTERN_SIZE) + MIN_PATTERN_SIZE;
+	node->pattern_size = rand_range(MIN_PATTERN_SIZE, MAX_PATTERN_SIZE);
 }
 
+/*
+ * vnode_delete -- destroy and free a volatile node structure
+ */
 static void
 vnode_delete(struct vnode *node)
 {
 	free(node->edges);
 }
 
+/*
+ * vgraph_get_node -- return node in graph based on given id_node
+ */
 static struct vnode *
 vgraph_get_node(struct vgraph *graph, unsigned id_node)
 {
-	struct node *node;
+	struct vnode *node;
 
 	node = &graph->node[id_node];
 	return node;
 }
 
+/*
+ * vgraph_add_edges -- adds pseudo-random number of edged to given node
+ * (randomly generated dest nodes)
+ */
 static void
 vgraph_add_edges(struct vgraph *graph)
 {
@@ -101,13 +113,16 @@ vgraph_add_edges(struct vgraph *graph)
 	}
 }
 
+/*
+ * vgraph_new -- allocates a new volatile graph structure
+ */
 struct vgraph *
 vgraph_new()
 {
-	unsigned nodes_num = rand_nonzero(MAX_NODES);
+	unsigned nodes_num = rand_range(1, MAX_NODES);
 
 	struct vgraph *graph =
-			malloc(sizeof(struct vgraph) +
+			(struct vgraph *)malloc(sizeof(struct vgraph) +
 					sizeof(struct vnode) * nodes_num);
 	graph->nodes_num = nodes_num;
 
@@ -120,22 +135,28 @@ vgraph_new()
 	return graph;
 }
 
+/*
+ * vgraph_delete -- recursively free (to malloc) a subtree
+ */
 void
 vgraph_delete(struct vgraph *graph)
 {
 	for (unsigned i = 0; i < graph->nodes_num; i++)
-		vnode_delete(&graph->node[i], i);
+		vnode_delete(&graph->node[i]);
 
 	free(graph);
 }
 
+/*
+ * vgraph_print --  print graph structure in human readable format
+ */
 void
 vgraph_print(struct vgraph *graph)
 {
 	struct vnode *node;
 	for (unsigned i = 0; i < graph->nodes_num; i++) {
-		node = get_node(graph, i);
-		unsigned edges_num = node ->edges_num;
+		node = vgraph_get_node(graph, i);
+		unsigned edges_num = node->edges_num;
 		printf("\nNode: %d\n", node->node_id);
 		for (unsigned i = 0; i < edges_num; i++) {
 			printf("%d, ", node->edges[i]);

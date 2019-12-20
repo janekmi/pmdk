@@ -36,8 +36,8 @@
 
 #include "unittest.h"
 
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
 
 #include "vgraph.h"
@@ -52,14 +52,14 @@ main(int argc, char *argv[])
 	PMEMobjpool *pop = NULL;
 
 	pop = pmemobj_create(path, POBJ_LAYOUT_NAME(basic),
-		PMEMOBJ_MIN_POOL * 2, S_IWUSR | S_IRUSR);
+		0, S_IWUSR | S_IRUSR);
 	if (pop == NULL) {
 		UT_FATAL("!pmemobj_create: %s", path);
 	}
 
 	srand((unsigned)time(NULL));
 
-	struct vgraph *vgraph = vgraph_create();
+	struct vgraph *vgraph = vgraph_new();
 	struct pgraph *pgraph = pgraph_new(pop, vgraph);
 	vgraph_delete(vgraph);
 	pgraph_print(pgraph);

@@ -54,7 +54,7 @@ struct vgraph
 	struct vnode node[];
 };
 
-struct vgraph *vgraph_new();
+struct vgraph *vgraph_new(void);
 void vgraph_delete(struct vgraph *graph);
 
 void vgraph_print(struct vgraph *graph);
