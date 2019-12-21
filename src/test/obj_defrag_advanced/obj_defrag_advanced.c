@@ -139,8 +139,6 @@ create_op(struct task *task)
 	struct pgraph *pgraph = pgraph_new(pop, vgraph, &task->pgraph_params);
 	vgraph_delete(vgraph);
 
-	pgraph_print(pgraph, task->dump);
-
 	pmemobj_close(pop);
 }
 
@@ -150,7 +148,7 @@ create_op(struct task *task)
 static void
 dump_op(struct task *task)
 {
-	if (task->path == NULL) {
+	if (task->path == NULL || task->dump == NULL) {
 		print_usage();
 		exit(EXIT_FAILURE);
 	}
@@ -190,7 +188,6 @@ defrag_op(struct task *task)
 	struct pgraph *pgraph = pgraph_open(pop);
 
 	graph_defrag(pop, pgraph);
-	pgraph_print(pgraph, task->dump);
 
 	pmemobj_close(pop);
 }
@@ -199,17 +196,19 @@ defrag_op(struct task *task)
  * long_options -- command line options
  */
 static const struct option long_options[] = {
-	{"create",	no_argument,		NULL,	'c'},
-	{"dump",	no_argument,		NULL,	'd'},
-	{"defrag",	no_argument,		NULL,	'f'},
-	{"path",	required_argument,	NULL,	'p'},
-	{"dumppath",required_argument,	NULL,	'e'},
-	{"seed",	required_argument,	NULL,	's'},
-	{"help",	no_argument,		NULL,	'h'},
-	{NULL,		0,			NULL,	 0 },
+	{"create",		no_argument,		NULL,	'c'},
+	{"dump",		no_argument,		NULL,	'd'},
+	{"defrag",		no_argument,		NULL,	'f'},
+	{"path",		required_argument,	NULL,	'p'},
+	{"dumppath",	required_argument,	NULL,	'q'},
+	{"seed",		required_argument,	NULL,	's'},
+	{"max-nodes",	required_argument,	NULL,	'n'},
+	{"max-edges",	required_argument,	NULL,	'e'},
+	{"help",		no_argument,		NULL,	'h'},
+	{NULL,			0,			NULL,	 0 },
 };
 
-#define OPT_STR "cp:s:h"
+#define OPT_STR "cdfp:q:s:n:e:h"
 
 /*
  * parse_args -- parse command line arguments
@@ -233,11 +232,19 @@ parse_args(int argc, char *argv[], struct task *task)
 		case 'p':
 				task->path = optarg;
 			break;
-		case 'e':
+		case 'q':
 				task->dump = optarg;
 			break;
 		case 's':
 				task->seed = strtoul(optarg, NULL, 10);
+			break;
+		case 'n':
+				task->vgraph_params.max_nodes =
+						strtoul(optarg, NULL, 10);
+			break;
+		case 'e':
+				task->vgraph_params.max_edges =
+						strtoul(optarg, NULL, 10);
 			break;
 		case 'h':
 			print_usage();

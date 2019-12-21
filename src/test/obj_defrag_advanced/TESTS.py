@@ -37,13 +37,21 @@ import sys
 import testframework as t
 
 
-class TEST0(t.BaseTest):
-    test_type = t.Short
+class OBJ_DEFRAG_ADVANCED(t.BaseTest):
+    test_type = t.Medium
+    max_nodes = 50
+    max_edges = 10
 
     def run(self, ctx):
         filepath = ctx.create_holey_file(500 * t.MiB, 'testfile',)
         dumppath1 = os.path.join(ctx.testdir, 'dump1')
         dumppath2 = os.path.join(ctx.testdir, 'dump2')
-        ctx.exec('obj_defrag_advanced', '--create', '--path=' + filepath, '--dumppath=' + dumppath1)
-        ctx.exec('obj_defrag_advanced', '--defrag', '--path=' + filepath, '--dumppath=' + dumppath2)
-        sys.exit(1)
+        ctx.exec('obj_defrag_advanced', '--create', '--path=' + filepath)
+        ctx.exec('obj_defrag_advanced', '--dump', '--path=' + filepath, '--dumppath=' + dumppath1)
+        ctx.exec('obj_defrag_advanced', '--defrag', '--path=' + filepath)
+        ctx.exec('obj_defrag_advanced', '--dump', '--path=' + filepath, '--dumppath=' + dumppath2)
+
+
+class TEST0(OBJ_DEFRAG_ADVANCED):
+    max_nodes = 50
+    max_edges = 10
