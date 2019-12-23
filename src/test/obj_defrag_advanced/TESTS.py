@@ -31,10 +31,11 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
+import difflib
 import os
-import sys
 
 import testframework as t
+import futils
 
 
 class OBJ_DEFRAG_ADVANCED(t.BaseTest):
@@ -42,16 +43,24 @@ class OBJ_DEFRAG_ADVANCED(t.BaseTest):
     max_nodes = 50
     max_edges = 10
 
+    def match_dumps(self, path1, path2):
+        with open(path1, 'r') as file1, open(path2, 'r') as file2:
+            diff = list(difflib.ndiff(file1.readlines(), file2.readlines()))
+            delta = [x for x in diff if x.startswith('- ') or x.startswith('+ ')]
+            if len(delta) > 0:
+                futils.fail(''.join(diff))
+
     def run(self, ctx):
-        filepath = ctx.create_holey_file(500 * t.MiB, 'testfile',)
-        dumppath1 = os.path.join(ctx.testdir, 'dump1')
-        dumppath2 = os.path.join(ctx.testdir, 'dump2')
-        ctx.exec('obj_defrag_advanced', '--create', '--path=' + filepath)
-        ctx.exec('obj_defrag_advanced', '--dump', '--path=' + filepath, '--dumppath=' + dumppath1)
+        filepath = ctx.create_holey_file(500 * t.MiB, 'testfile')
+        dump1 = os.path.join(ctx.testdir, 'dump1')
+        dump2 = os.path.join(ctx.testdir, 'dump2')
+        ctx.exec('obj_defrag_advanced', '--create', '--path=' + filepath, '--max-nodes=' + str(self.max_nodes), '--max-edges=' + str(self.max_edges))
+        ctx.exec('obj_defrag_advanced', '--dump=' + dump1, '--path=' + filepath)
         ctx.exec('obj_defrag_advanced', '--defrag', '--path=' + filepath)
-        ctx.exec('obj_defrag_advanced', '--dump', '--path=' + filepath, '--dumppath=' + dumppath2)
+        ctx.exec('obj_defrag_advanced', '--dump=' + dump2, '--path=' + filepath)
+        self.match_dumps(dump1, dump2)
 
 
 class TEST0(OBJ_DEFRAG_ADVANCED):
-    max_nodes = 50
-    max_edges = 10
+    max_nodes = 5
+    max_edges = 5

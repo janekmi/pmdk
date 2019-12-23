@@ -136,7 +136,7 @@ create_op(struct task *task)
 	srand(task->seed);
 
 	struct vgraph *vgraph = vgraph_new(&task->vgraph_params);
-	struct pgraph *pgraph = pgraph_new(pop, vgraph, &task->pgraph_params);
+	(void)pgraph_new(pop, vgraph, &task->pgraph_params);
 	vgraph_delete(vgraph);
 
 	pmemobj_close(pop);
@@ -197,10 +197,9 @@ defrag_op(struct task *task)
  */
 static const struct option long_options[] = {
 	{"create",		no_argument,		NULL,	'c'},
-	{"dump",		no_argument,		NULL,	'd'},
+	{"dump",		required_argument,	NULL,	'd'},
 	{"defrag",		no_argument,		NULL,	'f'},
 	{"path",		required_argument,	NULL,	'p'},
-	{"dumppath",	required_argument,	NULL,	'q'},
 	{"seed",		required_argument,	NULL,	's'},
 	{"max-nodes",	required_argument,	NULL,	'n'},
 	{"max-edges",	required_argument,	NULL,	'e'},
@@ -225,15 +224,13 @@ parse_args(int argc, char *argv[], struct task *task)
 			break;
 		case 'd':
 				task->op = OP_DUMP;
+				task->dump = optarg;
 			break;
 		case 'f':
 				task->op = OP_DEFRAG;
 			break;
 		case 'p':
 				task->path = optarg;
-			break;
-		case 'q':
-				task->dump = optarg;
 			break;
 		case 's':
 				task->seed = strtoul(optarg, NULL, 10);
