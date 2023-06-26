@@ -26,14 +26,6 @@ MAGIC=../../../utils/pmdk.magic
 rm -f $LOG && touch $LOG
 
 rm -f $POOL
-expect_normal_exit $PMEMPOOL create blk 512 $POOL
-expect_normal_exit file -m $MAGIC $POOL >> $LOG
-
-rm -f $POOL
-expect_normal_exit $PMEMPOOL create log $POOL
-expect_normal_exit file -m $MAGIC $POOL >> $LOG
-
-rm -f $POOL
 expect_normal_exit $PMEMPOOL create obj $POOL
 expect_normal_exit file -m $MAGIC $POOL >> $LOG
 
