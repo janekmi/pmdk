@@ -6,7 +6,7 @@
  */
 
 #ifndef PMDK_BADBLOCKS_H
-#define PMDK_BADBLOCKS_H 1
+#define PMDK_BADBLOCKS_H 10
 
 #include <string.h>
 #include <stdint.h>
