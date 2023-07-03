@@ -9,22 +9,26 @@ jobs:
   src_checkers:
     name: Source checkers
     runs-on: ubuntu-latest
+    env:
+      NDCTL_ENABLE: n
     steps:
       - name: Clone the git repo
         uses: actions/checkout@v3
       - name: Check licenses
         run: make -j$(nproc) check-license
       - name: Check style
-        run: NDCTL_ENABLE=n make -j$(nproc) cstyle
+        run: make -j$(nproc) cstyle
 
   basic_build:
     name: Basic build
     runs-on: ubuntu-latest
+    env:
+      NDCTL_ENABLE: n
     steps:
       - name: Clone the git repo
         uses: actions/checkout@v3
       - name: Build sources
-        run: NDCTL_ENABLE=n make -j$(nproc) test
+        run: make -j$(nproc) test
 
   call-ubuntu:
     needs: [src_checkers, basic_build]
