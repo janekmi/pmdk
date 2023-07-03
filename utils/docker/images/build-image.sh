@@ -8,7 +8,7 @@
 #                designed for building PMDK project, according to
 #                the Dockerfile.<OS-VER> file located in the same directory.
 #
-# The script can be run locally. random
+# The script can be run locally. random random
 #
 
 set -e
