@@ -1,0 +1,41 @@
+# Rebuild docker images if needed.
+name: Docker rebuild
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'utils/docker/images/**'
+
+env:
+  # use org's Private Access Token to log in to GitHub Container Registry
+  GH_CR_USER: ${{ secrets.GH_CR_USER }}
+  GH_CR_PAT:  ${{ secrets.GH_CR_PAT }}
+
+  GITHUB_REPO: pmem/pmdk
+  DOCKER_REPO: ghcr.io/pmem/pmdk
+  WORKDIR:     utils/docker
+  PUSH_IMAGE:  1
+  FORCE:       ${{ github.event_name == 'workflow_dispatch' rebuild}}
+
+jobs:
+  image:
+    name: Image
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        CONFIG: [
+                 "OS=ubuntu OS_VER=22.04",
+                 "OS=centos OS_VER=7",
+                 "OS=centos OS_VER=stream",
+                ]
+    steps:
+      - name: Clone the git repo
+        uses: actions/checkout@v3
+
+      - name: Get system information
+        run: ./$WORKDIR/get-system-info.sh
+  
+      - name: Pull or rebuild the image
+        run: cd $WORKDIR && ${{ matrix.CONFIG }} ./pull-or-rebuild-image.sh
