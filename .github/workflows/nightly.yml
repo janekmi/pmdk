@@ -14,6 +14,7 @@ jobs:
   in-tree:
     name: In-tree
     runs-on: ubuntu-latest
+
     strategy:
       fail-fast: false
       matrix:
@@ -23,10 +24,12 @@ jobs:
                   "OS=rockylinux OS_VER=8",
                   "OS=rockylinux OS_VER=9",
                 ]
+        COMPILER: ["PMDK_CC=gcc PMDK_CXX=g++"]
         TEST_BUILD: [debug, nondebug]
         include:
           # Building with clang is tested in a limited scope
-          - CONFIG: OS=ubuntu OS_VER=22.04 PMDK_CC=clang PMDK_CXX=clang++
+          - CONFIG: OS=ubuntu OS_VER=22.04
+            COMPILER: PMDK_CC=clang PMDK_CXX=clang++
             TEST_BUILD: nondebug # just the production-ready library testing
     steps:
       - name: Clone the git repo
@@ -35,7 +38,8 @@ jobs:
       - name: Test procedure
         uses: ./.github/actions/docker_test_procedure
         with:
-          config: ${{ matrix.CONFIG }} TEST_BUILD=${{ matrix.TEST_BUILD }}
+          config: ${{ matrix.CONFIG }} ${{ matrix.COMPILER }}
+            TEST_BUILD=${{ matrix.TEST_BUILD }}
 
 
   make_pkg:
