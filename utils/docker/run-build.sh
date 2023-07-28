@@ -20,7 +20,8 @@ if [ "$SRC_CHECKERS" != "0" ]; then
 fi
 
 echo "## Running make"
-make -j$(nproc)
+make
+# make -j$(nproc)
 echo ""
 echo "## Running make test"
 make -j$(nproc) test
