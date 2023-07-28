@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        CONFIG: ${{ fromJSON(CONFIGS_JSON) }}
+        CONFIG: ${{ fromJSON(env.CONFIGS_JSON) }}
         TEST_BUILD: [debug, nondebug]
         include:
           # Building with clang is tested in a limited scope
@@ -47,7 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        CONFIG: ${{ fromJSON(CONFIGS_JSON) }}
+        CONFIG: ${{ fromJSON(env.CONFIGS_JSON) }}
     steps:
       - name: Clone the git repo
         uses: actions/checkout@v3
