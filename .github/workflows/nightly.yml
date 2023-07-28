@@ -10,22 +10,18 @@ on:
     tags:
       - '*'
 
-env:
-  CONFIGS_JSON: |
-    [
-      "OS=ubuntu OS_VER=22.04",
-      "OS=opensuse-leap OS_VER=15",
-      "OS=rockylinux OS_VER=8",
-      "OS=rockylinux OS_VER=9",
-    ]
-
 jobs:
   in-tree:
     name: In-tree
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        CONFIG: ${{ fromJSON(env.CONFIGS_JSON) }}
+        CONFIG: [
+                  "OS=ubuntu OS_VER=22.04",
+                  "OS=opensuse-leap OS_VER=15",
+                  "OS=rockylinux OS_VER=8",
+                  "OS=rockylinux OS_VER=9",
+                ]
         TEST_BUILD: [debug, nondebug]
         include:
           # Building with clang is tested in a limited scope
@@ -47,7 +43,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        CONFIG: ${{ fromJSON(env.CONFIGS_JSON) }}
+        CONFIG: [
+                  "OS=ubuntu OS_VER=22.04",
+                  "OS=opensuse-leap OS_VER=15",
+                  "OS=rockylinux OS_VER=8",
+                  "OS=rockylinux OS_VER=9",
+                ]
     steps:
       - name: Clone the git repo
         uses: actions/checkout@v3
