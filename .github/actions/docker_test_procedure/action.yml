@@ -29,7 +29,7 @@ runs:
       env:
         GITHUB_REPO: ${{ inputs.github_repo }}
         DOCKER_REPO: ${{ inputs.docker_repo }}
-      run: ${{ inputs.workdir }} ./pull-or-rebuild-image.sh
+      run: ${{ inputs.config }} ./pull-or-rebuild-image.sh
       shell: bash
 
     - name: Run the build
