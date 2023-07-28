@@ -1,0 +1,43 @@
+name: Docker test procedure
+description: PMDK testing procedure for virtual runners
+inputs:
+  config:
+    description: Complete config string e.g. "OS=ubuntu OS_VER=22.04"
+    required: true
+  workdir:
+    description: Handy variable providing a path to the scripts
+    required: false
+    default: utils/docker
+  github_repo:
+    description: Handy variable
+    required: false
+    default: pmem/pmdk
+  docker_repo:
+    description: Handy variable
+    required: false
+    default: ghcr.io/pmem/pmdk
+
+runs:
+  using: composite
+  steps:
+    - name: Get system information
+      run: ${{ inputs.workdir }}/get-system-info.sh
+      shell: bash
+
+    - name: Pull or rebuild the image
+      working-directory: ${{ inputs.workdir }}
+      env:
+        GITHUB_REPO: ${{ inputs.github_repo }}
+        DOCKER_REPO: ${{ inputs.docker_repo }}
+      run: ${{ inputs.workdir }} ./pull-or-rebuild-image.sh
+      shell: bash
+
+    - name: Run the build
+      working-directory: ${{ inputs.workdir }}
+      env:
+        GITHUB_REPO: ${{ inputs.github_repo }}
+        DOCKER_REPO: ${{ inputs.docker_repo }}
+        HOST_WORKDIR: /home/runner/work/pmdk/pmdk
+        SRC_CHECKERS: '0'
+      run: ${{ inputs.config }} ./build-CI.sh
+      shell: bash
