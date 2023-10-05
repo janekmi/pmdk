@@ -227,6 +227,7 @@ int
 pmem2_get_region_id(const struct pmem2_source *src, unsigned *region_id)
 {
 	LOG(3, "src %p region_id %p", src, region_id);
+	LOG(3, "NDCTL");
 
 	struct ndctl_region *region;
 	struct ndctl_namespace *ndns;

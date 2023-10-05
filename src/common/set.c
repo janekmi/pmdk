@@ -3942,6 +3942,7 @@ util_pool_open(struct pool_set **setp, const char *path, size_t minpartsize,
 	LOG(3, "setp %p path %s minpartsize %zu attr %p nlanes %p "
 		"addr %p flags 0x%x ", setp, path, minpartsize, attr, nlanes,
 		addr, flags);
+	LOG(3, "XXX");
 
 	int cow = flags & POOL_OPEN_COW;
 	int mmap_flags = cow ? MAP_PRIVATE|MAP_NORESERVE : MAP_SHARED;

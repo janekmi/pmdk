@@ -19,10 +19,27 @@
 #include "source.h"
 #include "region_namespace_ndctl.h"
 
+// Set USE_NDCTL environment variable to '1' to use functions with ndctl
+#define USE_NDCTL_VAR "USE_NDCTL"
+
+static int
+use_ndctl()
+{
+	char *env_config = os_getenv(USE_NDCTL_VAR);
+	return (env_config != NULL && env_config[0] == '1');
+}
+
 int
 pmem2_source_device_usc(const struct pmem2_source *src, uint64_t *usc)
 {
 	LOG(3, "type %d, uid %p", src->type, usc);
+	
+	if (!use_ndctl()) {
+		return PMEM2_E_NOSUPP;
+	}
+
+	LOG(3, "NDCTL");
+
 	PMEM2_ERR_CLR();
 
 	if (src->type == PMEM2_SOURCE_ANON) {
@@ -79,6 +96,12 @@ err:
 int
 pmem2_source_device_id(const struct pmem2_source *src, char *id, size_t *len)
 {
+	if (!use_ndctl()) {
+		return PMEM2_E_NOSUPP;
+	}
+
+	LOG(3, "NDCTL");
+
 	PMEM2_ERR_CLR();
 
 	struct ndctl_ctx *ctx;

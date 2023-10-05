@@ -17,6 +17,8 @@
 int
 pmem2_device_dax_alignment(const struct pmem2_source *src, size_t *alignment)
 {
+	LOG(3, "NDCTL");
+
 	int ret = 0;
 	size_t size = 0;
 	struct ndctl_ctx *ctx;
@@ -57,6 +59,8 @@ end:
 int
 pmem2_device_dax_size(const struct pmem2_source *src, size_t *size)
 {
+	LOG(3, "NDCTL");
+
 	int ret = 0;
 	struct ndctl_ctx *ctx;
 	struct ndctl_namespace *ndns;

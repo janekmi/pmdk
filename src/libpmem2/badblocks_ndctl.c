@@ -251,6 +251,7 @@ pmem2_badblock_context_new(struct pmem2_badblock_context **bbctx,
 	const struct pmem2_source *src)
 {
 	LOG(3, "src %p bbctx %p", src, bbctx);
+	LOG(3, "NDCTL");
 	PMEM2_ERR_CLR();
 
 	ASSERTne(bbctx, NULL);
@@ -363,6 +364,8 @@ void
 pmem2_badblock_context_delete(struct pmem2_badblock_context **bbctx)
 {
 	LOG(3, "bbctx %p", bbctx);
+	LOG(3, "NDCTL");
+
 	PMEM2_ERR_CLR();
 
 	ASSERTne(bbctx, NULL);
@@ -442,6 +445,7 @@ pmem2_badblock_next_namespace(struct pmem2_badblock_context *bbctx,
 				struct pmem2_badblock *bb)
 {
 	LOG(3, "bbctx %p bb %p", bbctx, bb);
+	LOG(3, "NDCTL");
 
 	ASSERTne(bbctx, NULL);
 	ASSERTne(bb, NULL);
@@ -677,6 +681,7 @@ static int
 pmem2_badblock_clear_fsdax(int fd, const struct pmem2_badblock *bb)
 {
 	LOG(3, "fd %i badblock %p", fd, bb);
+	LOG(3, "NDCTL");
 	PMEM2_ERR_CLR();
 
 	ASSERTne(bb, NULL);

@@ -17,6 +17,7 @@
 int
 pmem2_source_numa_node(const struct pmem2_source *src, int *numa_node)
 {
+	LOG(3, "NDCTL");
 	PMEM2_ERR_CLR();
 
 	LOG(3, "src %p numa_node %p", src, numa_node);
