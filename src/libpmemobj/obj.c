@@ -415,6 +415,16 @@ obj_remote_persist(PMEMobjpool *pop, const void *addr, size_t len,
  * if there are no replicas.  Verify the performance penalty.
  */
 
+// Set USE_PMEM environment variable to '1' to use the actual implementation
+#define USE_PMEM_VAR "USE_PMEM"
+
+static int
+use_pmem()
+{
+	char *env_config = os_getenv(USE_PMEM_VAR);
+	return (env_config != NULL && env_config[0] == '1');
+}
+
 /*
  * obj_norep_memcpy -- (internal) memcpy w/o replication
  */
@@ -422,12 +432,16 @@ static void *
 obj_norep_memcpy(void *ctx, void *dest, const void *src, size_t len,
 		unsigned flags)
 {
-	PMEMobjpool *pop = ctx;
-	LOG(15, "pop %p dest %p src %p len %zu flags 0x%x", pop, dest, src, len,
-			flags);
+	if (use_pmem()) {
+		PMEMobjpool *pop = ctx;
+		LOG(15, "pop %p dest %p src %p len %zu flags 0x%x", pop, dest, src, len,
+				flags);
 
-	return pop->memcpy_local(dest, src, len,
-					flags & PMEM_F_MEM_VALID_FLAGS);
+		return pop->memcpy_local(dest, src, len,
+						flags & PMEM_F_MEM_VALID_FLAGS);
+	} else {
+		return memcpy(dest, src, len);
+	}
 }
 
 /*
@@ -437,12 +451,16 @@ static void *
 obj_norep_memmove(void *ctx, void *dest, const void *src, size_t len,
 		unsigned flags)
 {
-	PMEMobjpool *pop = ctx;
-	LOG(15, "pop %p dest %p src %p len %zu flags 0x%x", pop, dest, src, len,
-			flags);
+	if (use_pmem()) {
+		PMEMobjpool *pop = ctx;
+		LOG(15, "pop %p dest %p src %p len %zu flags 0x%x", pop, dest, src, len,
+				flags);
 
-	return pop->memmove_local(dest, src, len,
-					flags & PMEM_F_MEM_VALID_FLAGS);
+		return pop->memmove_local(dest, src, len,
+						flags & PMEM_F_MEM_VALID_FLAGS);
+	} else {
+		return memmove(dest, src, len);
+	}
 }
 
 /*
@@ -451,11 +469,15 @@ obj_norep_memmove(void *ctx, void *dest, const void *src, size_t len,
 static void *
 obj_norep_memset(void *ctx, void *dest, int c, size_t len, unsigned flags)
 {
-	PMEMobjpool *pop = ctx;
-	LOG(15, "pop %p dest %p c 0x%02x len %zu flags 0x%x", pop, dest, c, len,
-			flags);
+	if (use_pmem()) {
+		PMEMobjpool *pop = ctx;
+		LOG(15, "pop %p dest %p c 0x%02x len %zu flags 0x%x", pop, dest, c, len,
+				flags);
 
-	return pop->memset_local(dest, c, len, flags & PMEM_F_MEM_VALID_FLAGS);
+		return pop->memset_local(dest, c, len, flags & PMEM_F_MEM_VALID_FLAGS);
+	} else {
+		return memset(dest, c, len);
+	}
 }
 
 /*
@@ -467,10 +489,12 @@ obj_norep_persist(void *ctx, const void *addr, size_t len, unsigned flags)
 	/* suppress unused-parameter errors */
 	SUPPRESS_UNUSED(flags);
 
-	PMEMobjpool *pop = ctx;
-	LOG(15, "pop %p addr %p len %zu", pop, addr, len);
+	if (use_pmem()) {
+		PMEMobjpool *pop = ctx;
+		LOG(15, "pop %p addr %p len %zu", pop, addr, len);
 
-	pop->persist_local(addr, len);
+		pop->persist_local(addr, len);
+	}
 
 	return 0;
 }
@@ -484,10 +508,12 @@ obj_norep_flush(void *ctx, const void *addr, size_t len, unsigned flags)
 	/* suppress unused-parameter errors */
 	SUPPRESS_UNUSED(flags);
 
-	PMEMobjpool *pop = ctx;
-	LOG(15, "pop %p addr %p len %zu", pop, addr, len);
+	if (use_pmem()) {
+		PMEMobjpool *pop = ctx;
+		LOG(15, "pop %p addr %p len %zu", pop, addr, len);
 
-	pop->flush_local(addr, len);
+		pop->flush_local(addr, len);
+	}
 
 	return 0;
 }
@@ -498,10 +524,12 @@ obj_norep_flush(void *ctx, const void *addr, size_t len, unsigned flags)
 static void
 obj_norep_drain(void *ctx)
 {
-	PMEMobjpool *pop = ctx;
-	LOG(15, "pop %p", pop);
+	if (use_pmem()) {
+		PMEMobjpool *pop = ctx;
+		LOG(15, "pop %p", pop);
 
-	pop->drain_local();
+		pop->drain_local();
+	}
 }
 
 static void obj_pool_cleanup(PMEMobjpool *pop);
