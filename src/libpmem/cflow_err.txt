@@ -1,0 +1,12 @@
+cflow:../core/out.c:110: Last_errormsg_key_alloc/1 redefined
+cflow:../core/out.c:56: this is the place of previous definition
+cflow:../core/out.c:115: Last_errormsg_fini/1 redefined
+cflow:../core/out.c:67: this is the place of previous definition
+cflow:../core/out.c:120: Last_errormsg_get/1 redefined
+cflow:../core/out.c:78: this is the place of previous definition
+cflow:../core/out.c:324: ret redefined
+cflow:../core/out.c:320: this is the place of previous definition
+cflow:../core/out.c:327: ret redefined
+cflow:../core/out.c:324: this is the place of previous definition
+cflow:../libpmem2/x86_64/cpu.c:42: cpuid/3 redefined
+cflow:../libpmem2/x86_64/cpu.c:31: this is the place of previous definition

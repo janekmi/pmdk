@@ -1,0 +1,1958 @@
+{
+    "out_common": {
+        "size": "8432",
+        "type": "dynamic,bounded"
+    },
+    "pmem2_get_type_from_stat": {
+        "size": "8224",
+        "type": "static"
+    },
+    "memmove_mov_avx512f_empty": {
+        "size": "7424",
+        "type": "static"
+    },
+    "ndctl_match_fsdax": {
+        "size": "4272",
+        "type": "static"
+    },
+    "ndctl_match_devdax": {
+        "size": "4272",
+        "type": "static"
+    },
+    "check_domain_in_region": {
+        "size": "4224",
+        "type": "dynamic,bounded"
+    },
+    "util_header_check": {
+        "size": "4176",
+        "type": "static"
+    },
+    "pmem2_deep_flush_write": {
+        "size": "4144",
+        "type": "static"
+    },
+    "memset_mov_avx512f_empty": {
+        "size": "3840",
+        "type": "static"
+    },
+    "util_map_hint_unused": {
+        "size": "2144",
+        "type": "static"
+    },
+    "memmove_mov_avx_empty": {
+        "size": "2016",
+        "type": "static"
+    },
+    "memset_mov_avx_empty": {
+        "size": "1088",
+        "type": "static"
+    },
+    "memmove_mov_sse2_empty": {
+        "size": "1088",
+        "type": "static"
+    },
+    "memset_mov_sse2_empty": {
+        "size": "592",
+        "type": "static"
+    },
+    "util_emit_log": {
+        "size": "464",
+        "type": "static"
+    },
+    "util_init": {
+        "size": "432",
+        "type": "static"
+    },
+    "out_err": {
+        "size": "384",
+        "type": "static"
+    },
+    "memset_movnt_movdir64b_empty": {
+        "size": "384",
+        "type": "static"
+    },
+    "memset_movnt_avx512f_empty": {
+        "size": "384",
+        "type": "static"
+    },
+    "memmove_movnt_movdir64b_empty": {
+        "size": "384",
+        "type": "static"
+    },
+    "memmove_movnt_avx_empty_wcbarrier": {
+        "size": "384",
+        "type": "static"
+    },
+    "memmove_movnt_avx_empty_nobarrier": {
+        "size": "384",
+        "type": "static"
+    },
+    "memmove_movnt_avx512f_empty": {
+        "size": "384",
+        "type": "static"
+    },
+    "util_poolset_parse": {
+        "size": "368",
+        "type": "dynamic,bounded"
+    },
+    "memmove_movnt_sse2_empty_wcbarrier": {
+        "size": "368",
+        "type": "static"
+    },
+    "memmove_movnt_sse2_empty_nobarrier": {
+        "size": "368",
+        "type": "static"
+    },
+    "util_tmpfile_mkstemp": {
+        "size": "336",
+        "type": "dynamic"
+    },
+    "util_parse_size": {
+        "size": "336",
+        "type": "static"
+    },
+    "pmem_msync": {
+        "size": "336",
+        "type": "static"
+    },
+    "util_compare_file_inodes": {
+        "size": "320",
+        "type": "static"
+    },
+    "memset_movnt_avx_empty_wcbarrier": {
+        "size": "320",
+        "type": "static"
+    },
+    "memset_movnt_avx_empty_nobarrier": {
+        "size": "320",
+        "type": "static"
+    },
+    "memset_movnt_avx512f_clwb": {
+        "size": "320",
+        "type": "static"
+    },
+    "memset_movnt_avx512f_clflush": {
+        "size": "320",
+        "type": "static"
+    },
+    "memset_movnt_avx512f_clflushopt": {
+        "size": "320",
+        "type": "static"
+    },
+    "util_replica_open": {
+        "size": "304",
+        "type": "static"
+    },
+    "pmem2_flush_file_buffers_os": {
+        "size": "288",
+        "type": "static"
+    },
+    "util_replica_map_local.constprop": {
+        "size": "272",
+        "type": "static"
+    },
+    "memset_movnt_sse2_empty_wcbarrier": {
+        "size": "256",
+        "type": "static"
+    },
+    "memset_movnt_sse2_empty_nobarrier": {
+        "size": "256",
+        "type": "static"
+    },
+    "memset_movnt_movdir64b_noflush": {
+        "size": "256",
+        "type": "static"
+    },
+    "memset_movnt_movdir64b_clwb": {
+        "size": "256",
+        "type": "static"
+    },
+    "memset_movnt_movdir64b_clflush": {
+        "size": "256",
+        "type": "static"
+    },
+    "memset_movnt_movdir64b_clflushopt": {
+        "size": "256",
+        "type": "static"
+    },
+    "memset_movnt_avx512f_noflush": {
+        "size": "256",
+        "type": "static"
+    },
+    "util_poolset_chmod": {
+        "size": "240",
+        "type": "dynamic,bounded"
+    },
+    "util_ddax_region_find": {
+        "size": "240",
+        "type": "static"
+    },
+    "pmem2_extents_create_get": {
+        "size": "240",
+        "type": "static"
+    },
+    "out": {
+        "size": "240",
+        "type": "dynamic,bounded"
+    },
+    "out_nonl": {
+        "size": "240",
+        "type": "dynamic,bounded"
+    },
+    "out_log": {
+        "size": "240",
+        "type": "dynamic,bounded"
+    },
+    "out_fatal": {
+        "size": "240",
+        "type": "dynamic,bounded"
+    },
+    "util_snprintf": {
+        "size": "224",
+        "type": "static"
+    },
+    "util_header_create": {
+        "size": "224",
+        "type": "static"
+    },
+    "out_snprintf": {
+        "size": "224",
+        "type": "static"
+    },
+    "pmem_map_file": {
+        "size": "208",
+        "type": "static"
+    },
+    "util_map_part": {
+        "size": "192",
+        "type": "dynamic,bounded"
+    },
+    "pmem2_source_from_fd": {
+        "size": "192",
+        "type": "static"
+    },
+    "pmem2_auto_flush": {
+        "size": "192",
+        "type": "static"
+    },
+    "memset_movnt_avx_noflush_wcbarrier": {
+        "size": "192",
+        "type": "static"
+    },
+    "memset_movnt_avx_noflush_nobarrier": {
+        "size": "192",
+        "type": "static"
+    },
+    "memset_movnt_avx_clwb_wcbarrier": {
+        "size": "192",
+        "type": "static"
+    },
+    "memset_movnt_avx_clwb_nobarrier": {
+        "size": "192",
+        "type": "static"
+    },
+    "memset_movnt_avx_clflush_wcbarrier": {
+        "size": "192",
+        "type": "static"
+    },
+    "memset_movnt_avx_clflushopt_wcbarrier": {
+        "size": "192",
+        "type": "static"
+    },
+    "memset_movnt_avx_clflushopt_nobarrier": {
+        "size": "192",
+        "type": "static"
+    },
+    "memset_movnt_avx_clflush_nobarrier": {
+        "size": "192",
+        "type": "static"
+    },
+    "memset_mov_avx512f_noflush": {
+        "size": "192",
+        "type": "static"
+    },
+    "memset_mov_avx512f_clwb": {
+        "size": "192",
+        "type": "static"
+    },
+    "memset_mov_avx512f_clflush": {
+        "size": "192",
+        "type": "static"
+    },
+    "memset_mov_avx512f_clflushopt": {
+        "size": "192",
+        "type": "static"
+    },
+    "memmove_movnt_avx512f_noflush": {
+        "size": "192",
+        "type": "static"
+    },
+    "memmove_movnt_avx512f_clwb": {
+        "size": "192",
+        "type": "static"
+    },
+    "memmove_movnt_avx512f_clflush": {
+        "size": "192",
+        "type": "static"
+    },
+    "memmove_movnt_avx512f_clflushopt": {
+        "size": "192",
+        "type": "static"
+    },
+    "util_pool_open": {
+        "size": "176",
+        "type": "static"
+    },
+    "util_map_hdr": {
+        "size": "176",
+        "type": "dynamic,bounded"
+    },
+    "util_file_get_type": {
+        "size": "176",
+        "type": "static"
+    },
+    "pmem_is_pmem": {
+        "size": "176",
+        "type": "static"
+    },
+    "pmem_init": {
+        "size": "176",
+        "type": "static"
+    },
+    "pmem2_source_size": {
+        "size": "176",
+        "type": "static"
+    },
+    "util_fd_get_type": {
+        "size": "160",
+        "type": "static"
+    },
+    "memmove_movnt_movdir64b_noflush": {
+        "size": "160",
+        "type": "static"
+    },
+    "memmove_movnt_movdir64b_clwb": {
+        "size": "160",
+        "type": "static"
+    },
+    "memmove_movnt_movdir64b_clflush": {
+        "size": "160",
+        "type": "static"
+    },
+    "memmove_movnt_movdir64b_clflushopt": {
+        "size": "160",
+        "type": "static"
+    },
+    "memmove_movnt_avx_noflush_wcbarrier": {
+        "size": "160",
+        "type": "static"
+    },
+    "memmove_movnt_avx_noflush_nobarrier": {
+        "size": "160",
+        "type": "static"
+    },
+    "memmove_movnt_avx_clwb_wcbarrier": {
+        "size": "160",
+        "type": "static"
+    },
+    "memmove_movnt_avx_clwb_nobarrier": {
+        "size": "160",
+        "type": "static"
+    },
+    "memmove_movnt_avx_clflush_wcbarrier": {
+        "size": "160",
+        "type": "static"
+    },
+    "memmove_movnt_avx_clflushopt_wcbarrier": {
+        "size": "160",
+        "type": "static"
+    },
+    "memmove_movnt_avx_clflushopt_nobarrier": {
+        "size": "160",
+        "type": "static"
+    },
+    "memmove_movnt_avx_clflush_nobarrier": {
+        "size": "160",
+        "type": "static"
+    },
+    "util_replica_close": {
+        "size": "144",
+        "type": "static"
+    },
+    "memset_movnt_sse2_noflush_wcbarrier": {
+        "size": "144",
+        "type": "static"
+    },
+    "memset_movnt_sse2_noflush_nobarrier": {
+        "size": "144",
+        "type": "static"
+    },
+    "memset_movnt_sse2_clwb_wcbarrier": {
+        "size": "144",
+        "type": "static"
+    },
+    "memset_movnt_sse2_clwb_nobarrier": {
+        "size": "144",
+        "type": "static"
+    },
+    "memset_movnt_sse2_clflush_wcbarrier": {
+        "size": "144",
+        "type": "static"
+    },
+    "memset_movnt_sse2_clflushopt_wcbarrier": {
+        "size": "144",
+        "type": "static"
+    },
+    "memset_movnt_sse2_clflushopt_nobarrier": {
+        "size": "144",
+        "type": "static"
+    },
+    "memset_movnt_sse2_clflush_nobarrier": {
+        "size": "144",
+        "type": "static"
+    },
+    "memmove_movnt_sse2_noflush_wcbarrier": {
+        "size": "144",
+        "type": "static"
+    },
+    "memmove_movnt_sse2_noflush_nobarrier": {
+        "size": "144",
+        "type": "static"
+    },
+    "memmove_movnt_sse2_clwb_wcbarrier": {
+        "size": "144",
+        "type": "static"
+    },
+    "memmove_movnt_sse2_clwb_nobarrier": {
+        "size": "144",
+        "type": "static"
+    },
+    "memmove_movnt_sse2_clflush_wcbarrier": {
+        "size": "144",
+        "type": "static"
+    },
+    "memmove_movnt_sse2_clflushopt_wcbarrier": {
+        "size": "144",
+        "type": "static"
+    },
+    "memmove_movnt_sse2_clflushopt_nobarrier": {
+        "size": "144",
+        "type": "static"
+    },
+    "memmove_movnt_sse2_clflush_nobarrier": {
+        "size": "144",
+        "type": "static"
+    },
+    "badblocks_get": {
+        "size": "144",
+        "type": "static"
+    },
+    "pmem2_badblock_context_new": {
+        "size": "128",
+        "type": "static"
+    },
+    "memset_mov_avx_noflush": {
+        "size": "128",
+        "type": "static"
+    },
+    "memset_mov_avx_clwb": {
+        "size": "128",
+        "type": "static"
+    },
+    "memset_mov_avx_clflush": {
+        "size": "128",
+        "type": "static"
+    },
+    "memset_mov_avx_clflushopt": {
+        "size": "128",
+        "type": "static"
+    },
+    "util_poolset_create_set": {
+        "size": "112",
+        "type": "static"
+    },
+    "util_poolset_append_new_part.part.2": {
+        "size": "112",
+        "type": "dynamic,bounded"
+    },
+    "shutdown_state_add_part": {
+        "size": "112",
+        "type": "static"
+    },
+    "memmove_nodrain_generic": {
+        "size": "112",
+        "type": "static"
+    },
+    "ctl_find_node.isra.5": {
+        "size": "112",
+        "type": "static"
+    },
+    "badblocks_clear": {
+        "size": "112",
+        "type": "static"
+    },
+    "util_uuid_to_string": {
+        "size": "96",
+        "type": "dynamic,bounded"
+    },
+    "util_uuid_from_string": {
+        "size": "96",
+        "type": "dynamic,bounded"
+    },
+    "util_replica_close_local": {
+        "size": "96",
+        "type": "dynamic,bounded"
+    },
+    "util_poolset_foreach_part_struct": {
+        "size": "96",
+        "type": "static"
+    },
+    "util_pool_extend": {
+        "size": "96",
+        "type": "static"
+    },
+    "pmem_unmap": {
+        "size": "96",
+        "type": "static"
+    },
+    "pmem2_arch_init": {
+        "size": "96",
+        "type": "static"
+    },
+    "os_open": {
+        "size": "96",
+        "type": "static"
+    },
+    "ctl_query": {
+        "size": "96",
+        "type": "static"
+    },
+    "ctl_load_config": {
+        "size": "96",
+        "type": "static"
+    },
+    "ctl_exec_query_write": {
+        "size": "96",
+        "type": "static"
+    },
+    "badblocks_recovery_file_alloc": {
+        "size": "96",
+        "type": "static"
+    },
+    "badblocks_clear_all": {
+        "size": "96",
+        "type": "static"
+    },
+    "util_uuid_generate": {
+        "size": "80",
+        "type": "static"
+    },
+    "util_unmap_part": {
+        "size": "80",
+        "type": "static"
+    },
+    "util_unmap_hdr": {
+        "size": "80",
+        "type": "static"
+    },
+    "util_str2feature": {
+        "size": "80",
+        "type": "static"
+    },
+    "util_poolset_single": {
+        "size": "80",
+        "type": "static"
+    },
+    "util_pool_create_uuids": {
+        "size": "80",
+        "type": "static"
+    },
+    "util_part_open": {
+        "size": "80",
+        "type": "dynamic,bounded"
+    },
+    "util_map_sync": {
+        "size": "80",
+        "type": "static"
+    },
+    "ravl_interval_find": {
+        "size": "80",
+        "type": "static"
+    },
+    "ravl_find": {
+        "size": "80",
+        "type": "static"
+    },
+    "pmem_map_register": {
+        "size": "80",
+        "type": "dynamic,bounded"
+    },
+    "pmem_flush": {
+        "size": "80",
+        "type": "static"
+    },
+    "pmem_deep_flush": {
+        "size": "80",
+        "type": "static"
+    },
+    "pmem2_region_namespace": {
+        "size": "80",
+        "type": "static"
+    },
+    "pmem2_get_region_id": {
+        "size": "80",
+        "type": "static"
+    },
+    "memset_nodrain_generic": {
+        "size": "80",
+        "type": "static"
+    },
+    "_Last_errormsg_key_alloc": {
+        "size": "80",
+        "type": "static"
+    },
+    "Last_errormsg_key_alloc": {
+        "size": "80",
+        "type": "static"
+    },
+    "ctl_load_config_from_file": {
+        "size": "80",
+        "type": "static"
+    },
+    "util_range_unregister": {
+        "size": "64",
+        "type": "static"
+    },
+    "util_range_register": {
+        "size": "64",
+        "type": "static"
+    },
+    "util_poolset_free": {
+        "size": "64",
+        "type": "static"
+    },
+    "util_poolset_foreach_part": {
+        "size": "64",
+        "type": "static"
+    },
+    "util_poolset_files_local": {
+        "size": "64",
+        "type": "static"
+    },
+    "util_map": {
+        "size": "64",
+        "type": "dynamic,bounded"
+    },
+    "util_is_poolset_file": {
+        "size": "64",
+        "type": "static"
+    },
+    "util_file_zero": {
+        "size": "64",
+        "type": "dynamic,bounded"
+    },
+    "util_file_map_whole": {
+        "size": "64",
+        "type": "dynamic,bounded"
+    },
+    "ravl_emplace": {
+        "size": "64",
+        "type": "static"
+    },
+    "pmem_memset": {
+        "size": "64",
+        "type": "static"
+    },
+    "pmem_memmove": {
+        "size": "64",
+        "type": "static"
+    },
+    "pmem_memcpy": {
+        "size": "64",
+        "type": "static"
+    },
+    "pmem2_source_numa_node": {
+        "size": "64",
+        "type": "static"
+    },
+    "pmem2_source_device_usc": {
+        "size": "64",
+        "type": "static"
+    },
+    "pmem2_source_device_id": {
+        "size": "64",
+        "type": "static"
+    },
+    "pmem2_device_dax_size": {
+        "size": "64",
+        "type": "static"
+    },
+    "pmem2_device_dax_alignment": {
+        "size": "64",
+        "type": "static"
+    },
+    "pmem2_badblock_next": {
+        "size": "64",
+        "type": "static"
+    },
+    "pmem2_badblock_clear": {
+        "size": "64",
+        "type": "static"
+    },
+    "os_part_deep_common": {
+        "size": "64",
+        "type": "static"
+    },
+    "memset_mov_sse2_noflush": {
+        "size": "64",
+        "type": "static"
+    },
+    "memset_mov_sse2_clwb": {
+        "size": "64",
+        "type": "static"
+    },
+    "memset_mov_sse2_clflush": {
+        "size": "64",
+        "type": "static"
+    },
+    "memset_mov_sse2_clflushopt": {
+        "size": "64",
+        "type": "static"
+    },
+    "memmove_mov_avx_noflush": {
+        "size": "64",
+        "type": "static"
+    },
+    "memmove_mov_avx_clwb": {
+        "size": "64",
+        "type": "static"
+    },
+    "memmove_mov_avx_clflush": {
+        "size": "64",
+        "type": "static"
+    },
+    "memmove_mov_avx_clflushopt": {
+        "size": "64",
+        "type": "static"
+    },
+    "memmove_mov_avx512f_noflush": {
+        "size": "64",
+        "type": "static"
+    },
+    "memmove_mov_avx512f_clwb": {
+        "size": "64",
+        "type": "static"
+    },
+    "memmove_mov_avx512f_clflush": {
+        "size": "64",
+        "type": "static"
+    },
+    "memmove_mov_avx512f_clflushopt": {
+        "size": "64",
+        "type": "static"
+    },
+    "ctl_arg_integer": {
+        "size": "64",
+        "type": "static"
+    },
+    "util_write_all": {
+        "size": "48",
+        "type": "static"
+    },
+    "util_unmap_all_hdrs": {
+        "size": "48",
+        "type": "static"
+    },
+    "util_stat_get_type": {
+        "size": "48",
+        "type": "static"
+    },
+    "util_replica_reserve": {
+        "size": "48",
+        "type": "static"
+    },
+    "util_replica_deep_common": {
+        "size": "48",
+        "type": "static"
+    },
+    "util_replica_add_part_by_idx": {
+        "size": "48",
+        "type": "static"
+    },
+    "util_readline": {
+        "size": "48",
+        "type": "static"
+    },
+    "util_poolset_size": {
+        "size": "48",
+        "type": "static"
+    },
+    "util_poolset_read": {
+        "size": "48",
+        "type": "static"
+    },
+    "util_poolset_close": {
+        "size": "48",
+        "type": "static"
+    },
+    "util_pool_open_nocheck": {
+        "size": "48",
+        "type": "static"
+    },
+    "util_mmap_init": {
+        "size": "48",
+        "type": "static"
+    },
+    "util_localtime": {
+        "size": "48",
+        "type": "static"
+    },
+    "util_file_pwrite": {
+        "size": "48",
+        "type": "static"
+    },
+    "util_file_pread": {
+        "size": "48",
+        "type": "static"
+    },
+    "util_file_open": {
+        "size": "48",
+        "type": "static"
+    },
+    "util_file_device_dax_alignment": {
+        "size": "48",
+        "type": "static"
+    },
+    "util_file_create": {
+        "size": "48",
+        "type": "static"
+    },
+    "util_feature_check": {
+        "size": "48",
+        "type": "static"
+    },
+    "util_feature2str": {
+        "size": "48",
+        "type": "static"
+    },
+    "util_feature2pmempool_feature": {
+        "size": "48",
+        "type": "static"
+    },
+    "util_fd_get_size": {
+        "size": "48",
+        "type": "static"
+    },
+    "util_concat_str": {
+        "size": "48",
+        "type": "static"
+    },
+    "util_aligned_malloc": {
+        "size": "48",
+        "type": "static"
+    },
+    "shutdown_state_reinit.isra.1": {
+        "size": "48",
+        "type": "static"
+    },
+    "ravl_interval_insert": {
+        "size": "48",
+        "type": "static"
+    },
+    "ravl_interval_find_prev": {
+        "size": "48",
+        "type": "static"
+    },
+    "ravl_interval_find_next": {
+        "size": "48",
+        "type": "static"
+    },
+    "ravl_interval_find_equal": {
+        "size": "48",
+        "type": "static"
+    },
+    "ravl_foreach_node": {
+        "size": "48",
+        "type": "static"
+    },
+    "pmem_memset_persist": {
+        "size": "48",
+        "type": "static"
+    },
+    "pmem_memset_nodrain": {
+        "size": "16",
+        "type": "static"
+    },
+    "pmem_memmove_persist": {
+        "size": "48",
+        "type": "static"
+    },
+    "pmem_memmove_nodrain": {
+        "size": "16",
+        "type": "static"
+    },
+    "pmem_memcpy_persist": {
+        "size": "48",
+        "type": "static"
+    },
+    "pmem_memcpy_nodrain": {
+        "size": "48",
+        "type": "static"
+    },
+    "pmem2_source_from_anon": {
+        "size": "48",
+        "type": "static"
+    },
+    "pmem2_badblock_next_region": {
+        "size": "48",
+        "type": "static"
+    },
+    "os_range_deep_common": {
+        "size": "48",
+        "type": "static"
+    },
+    "os_posix_fallocate": {
+        "size": "48",
+        "type": "static"
+    },
+    "memset_nodrain_libc": {
+        "size": "48",
+        "type": "static"
+    },
+    "memmove_nodrain_libc": {
+        "size": "48",
+        "type": "static"
+    },
+    "memmove_mov_sse2_noflush": {
+        "size": "48",
+        "type": "static"
+    },
+    "memmove_mov_sse2_clwb": {
+        "size": "48",
+        "type": "static"
+    },
+    "memmove_mov_sse2_clflush": {
+        "size": "48",
+        "type": "static"
+    },
+    "memmove_mov_sse2_clflushopt": {
+        "size": "48",
+        "type": "static"
+    },
+    "fs_new": {
+        "size": "48",
+        "type": "static"
+    },
+    "badblocks_recovery_file_exists": {
+        "size": "48",
+        "type": "static"
+    },
+    "util_unmap_parts": {
+        "size": "32",
+        "type": "static"
+    },
+    "util_unlink_flock": {
+        "size": "32",
+        "type": "static"
+    },
+    "util_str2pmempool_feature": {
+        "size": "32",
+        "type": "static"
+    },
+    "util_set_alloc_funcs": {
+        "size": "32",
+        "type": "static"
+    },
+    "util_replica_fdclose": {
+        "size": "32",
+        "type": "static"
+    },
+    "util_replica_check_map_sync": {
+        "size": "32",
+        "type": "dynamic,bounded"
+    },
+    "util_range_is_pmem": {
+        "size": "32",
+        "type": "static"
+    },
+    "util_range_find": {
+        "size": "32",
+        "type": "static"
+    },
+    "util_poolset_set_size": {
+        "size": "32",
+        "type": "static"
+    },
+    "util_poolset_open": {
+        "size": "32",
+        "type": "static"
+    },
+    "util_poolset_fdclose_always": {
+        "size": "32",
+        "type": "static"
+    },
+    "util_parse_add_replica": {
+        "size": "32",
+        "type": "static"
+    },
+    "util_map_hint": {
+        "size": "32",
+        "type": "static"
+    },
+    "util_getexecname": {
+        "size": "32",
+        "type": "static"
+    },
+    "util_file_get_size": {
+        "size": "32",
+        "type": "static"
+    },
+    "util_file_dir_next": {
+        "size": "32",
+        "type": "static"
+    },
+    "util_checksum": {
+        "size": "32",
+        "type": "static"
+    },
+    "util_check_arch_flags": {
+        "size": "32",
+        "type": "static"
+    },
+    "shutdown_state_set_dirty": {
+        "size": "32",
+        "type": "static"
+    },
+    "shutdown_state_clear_dirty": {
+        "size": "32",
+        "type": "static"
+    },
+    "shutdown_state_checksum": {
+        "size": "32",
+        "type": "static"
+    },
+    "shutdown_state_check": {
+        "size": "32",
+        "type": "static"
+    },
+    "ravl_remove": {
+        "size": "32",
+        "type": "static"
+    },
+    "ravl_new_sized": {
+        "size": "32",
+        "type": "static"
+    },
+    "ravl_interval_new": {
+        "size": "32",
+        "type": "static"
+    },
+    "ravl_interval_compare": {
+        "size": "32",
+        "type": "static"
+    },
+    "pmem_deep_persist": {
+        "size": "32",
+        "type": "static"
+    },
+    "pmem2_zalloc": {
+        "size": "32",
+        "type": "static"
+    },
+    "pmem2_realloc": {
+        "size": "32",
+        "type": "static"
+    },
+    "pmem2_malloc": {
+        "size": "32",
+        "type": "static"
+    },
+    "pmem2_extents_destroy": {
+        "size": "32",
+        "type": "static"
+    },
+    "pmem2_deep_flush_dax": {
+        "size": "32",
+        "type": "static"
+    },
+    "pmem2_config_new": {
+        "size": "32",
+        "type": "static"
+    },
+    "pmem2_badblock_context_delete": {
+        "size": "32",
+        "type": "static"
+    },
+    "os_fsync_dir": {
+        "size": "32",
+        "type": "static"
+    },
+    "membuf_new": {
+        "size": "32",
+        "type": "static"
+    },
+    "membuf_key_destructor": {
+        "size": "32",
+        "type": "static"
+    },
+    "membuf_delete": {
+        "size": "32",
+        "type": "static"
+    },
+    "membuf_alloc": {
+        "size": "32",
+        "type": "static"
+    },
+    "ctl_load_config_from_string": {
+        "size": "32",
+        "type": "static"
+    },
+    "ctl_arg_string": {
+        "size": "32",
+        "type": "static"
+    },
+    "ctl_arg_boolean": {
+        "size": "32",
+        "type": "static"
+    },
+    "badblocks_delete": {
+        "size": "32",
+        "type": "static"
+    },
+    "badblocks_count": {
+        "size": "32",
+        "type": "static"
+    },
+    "badblocks_clear_poolset": {
+        "size": "32",
+        "type": "static"
+    },
+    "badblocks_check_poolset": {
+        "size": "32",
+        "type": "static"
+    },
+    "badblocks_check_file_cb": {
+        "size": "32",
+        "type": "static"
+    },
+    "Zalloc": {
+        "size": "16",
+        "type": "static"
+    },
+    "util_unmap": {
+        "size": "16",
+        "type": "static"
+    },
+    "util_unlink": {
+        "size": "16",
+        "type": "static"
+    },
+    "util_strwinerror": {
+        "size": "16",
+        "type": "static"
+    },
+    "util_safe_strcpy": {
+        "size": "16",
+        "type": "static"
+    },
+    "util_range_rw": {
+        "size": "16",
+        "type": "static"
+    },
+    "util_range_ro": {
+        "size": "16",
+        "type": "static"
+    },
+    "util_range_none": {
+        "size": "16",
+        "type": "static"
+    },
+    "util_print_bad_files_cb": {
+        "size": "16",
+        "type": "static"
+    },
+    "util_part_fdclose": {
+        "size": "16",
+        "type": "static"
+    },
+    "util_mmap_fini": {
+        "size": "16",
+        "type": "static"
+    },
+    "util_is_zeroed": {
+        "size": "16",
+        "type": "static"
+    },
+    "util_file_exists": {
+        "size": "16",
+        "type": "static"
+    },
+    "util_file_dir_open": {
+        "size": "16",
+        "type": "static"
+    },
+    "util_fgets": {
+        "size": "16",
+        "type": "static"
+    },
+    "util_checksum_seq": {
+        "size": "16",
+        "type": "static"
+    },
+    "util_checksum_compute": {
+        "size": "16",
+        "type": "static"
+    },
+    "shutdown_state_init": {
+        "size": "16",
+        "type": "static"
+    },
+    "ravl_interval_remove": {
+        "size": "16",
+        "type": "static"
+    },
+    "ravl_interval_find_last": {
+        "size": "16",
+        "type": "static"
+    },
+    "ravl_interval_find_first": {
+        "size": "16",
+        "type": "static"
+    },
+    "ravl_interval_delete": {
+        "size": "16",
+        "type": "static"
+    },
+    "ravl_interval_delete_cb": {
+        "size": "16",
+        "type": "static"
+    },
+    "ravl_delete_cb": {
+        "size": "16",
+        "type": "static"
+    },
+    "ravl_clear": {
+        "size": "16",
+        "type": "static"
+    },
+    "randomize_r": {
+        "size": "16",
+        "type": "static"
+    },
+    "pmem_persist": {
+        "size": "16",
+        "type": "static"
+    },
+    "pmem_memset_nodrain_eadr": {
+        "size": "16",
+        "type": "static"
+    },
+    "pmem_memmove_nodrain_eadr": {
+        "size": "16",
+        "type": "static"
+    },
+    "pmem_check_version": {
+        "size": "16",
+        "type": "static"
+    },
+    "pmem2_source_get_fd": {
+        "size": "16",
+        "type": "static"
+    },
+    "pmem2_source_delete": {
+        "size": "16",
+        "type": "static"
+    },
+    "pmem2_source_alignment": {
+        "size": "16",
+        "type": "static"
+    },
+    "pmem2_err_to_errno": {
+        "size": "16",
+        "type": "static"
+    },
+    "pmem2_config_validate_length": {
+        "size": "16",
+        "type": "static"
+    },
+    "pmem2_config_set_sharing": {
+        "size": "16",
+        "type": "static"
+    },
+    "pmem2_config_set_required_store_granularity": {
+        "size": "16",
+        "type": "static"
+    },
+    "pmem2_config_set_protection": {
+        "size": "16",
+        "type": "static"
+    },
+    "pmem2_config_set_offset": {
+        "size": "16",
+        "type": "static"
+    },
+    "pmem2_config_delete": {
+        "size": "16",
+        "type": "static"
+    },
+    "pmem2_badblock_next_namespace": {
+        "size": "16",
+        "type": "static"
+    },
+    "out_init": {
+        "size": "16",
+        "type": "static"
+    },
+    "out_get_errormsg": {
+        "size": "16",
+        "type": "static"
+    },
+    "out_fini": {
+        "size": "16",
+        "type": "static"
+    },
+    "os_thread_self": {
+        "size": "16",
+        "type": "static"
+    },
+    "libpmem_init": {
+        "size": "16",
+        "type": "static"
+    },
+    "libpmem_fini": {
+        "size": "16",
+        "type": "static"
+    },
+    "is_cpu_movdir64b_present": {
+        "size": "16",
+        "type": "static"
+    },
+    "is_cpu_genuine_intel": {
+        "size": "16",
+        "type": "static"
+    },
+    "is_cpu_clwb_present": {
+        "size": "16",
+        "type": "static"
+    },
+    "is_cpu_clflush_present": {
+        "size": "16",
+        "type": "static"
+    },
+    "is_cpu_clflushopt_present": {
+        "size": "16",
+        "type": "static"
+    },
+    "is_cpu_avx_present": {
+        "size": "16",
+        "type": "static"
+    },
+    "is_cpu_avx512f_present": {
+        "size": "16",
+        "type": "static"
+    },
+    "fs_read": {
+        "size": "16",
+        "type": "static"
+    },
+    "fs_delete": {
+        "size": "16",
+        "type": "static"
+    },
+    "ctl_new": {
+        "size": "16",
+        "type": "static"
+    },
+    "ctl_exec_query_read": {
+        "size": "16",
+        "type": "static"
+    },
+    "badblocks_new": {
+        "size": "16",
+        "type": "static"
+    },
+    "badblocks_clear_poolset_cb": {
+        "size": "16",
+        "type": "static"
+    },
+    "badblocks_check_file": {
+        "size": "16",
+        "type": "static"
+    },
+    "util_tmpfile": {
+        "size": "8",
+        "type": "static"
+    },
+    "util_strerror": {
+        "size": "8",
+        "type": "static"
+    },
+    "util_replica_force_page_allocation": {
+        "size": "8",
+        "type": "static"
+    },
+    "util_replica_deep_persist": {
+        "size": "8",
+        "type": "static"
+    },
+    "util_replica_deep_drain": {
+        "size": "8",
+        "type": "static"
+    },
+    "util_poolset_fdclose": {
+        "size": "8",
+        "type": "static"
+    },
+    "util_pool_hdr2attr": {
+        "size": "8",
+        "type": "static"
+    },
+    "util_pool_has_device_dax": {
+        "size": "8",
+        "type": "static"
+    },
+    "util_pool_create": {
+        "size": "8",
+        "type": "static"
+    },
+    "util_pool_attr2hdr": {
+        "size": "8",
+        "type": "static"
+    },
+    "util_part_realpath": {
+        "size": "8",
+        "type": "static"
+    },
+    "util_is_absolute_path": {
+        "size": "8",
+        "type": "static"
+    },
+    "util_get_unknown_features": {
+        "size": "8",
+        "type": "static"
+    },
+    "util_get_arch_flags": {
+        "size": "8",
+        "type": "static"
+    },
+    "util_file_mkdir": {
+        "size": "8",
+        "type": "static"
+    },
+    "util_file_dir_remove": {
+        "size": "8",
+        "type": "static"
+    },
+    "util_file_dir_close": {
+        "size": "8",
+        "type": "static"
+    },
+    "util_feature_is_zero": {
+        "size": "8",
+        "type": "static"
+    },
+    "util_feature_is_set": {
+        "size": "8",
+        "type": "static"
+    },
+    "util_feature_enable": {
+        "size": "8",
+        "type": "static"
+    },
+    "util_feature_disable": {
+        "size": "8",
+        "type": "static"
+    },
+    "util_feature_cmp": {
+        "size": "8",
+        "type": "static"
+    },
+    "util_convert2le_hdr": {
+        "size": "8",
+        "type": "static"
+    },
+    "util_convert2h_hdr_nocheck": {
+        "size": "8",
+        "type": "static"
+    },
+    "util_aligned_free": {
+        "size": "8",
+        "type": "static"
+    },
+    "set_func_realloc": {
+        "size": "8",
+        "type": "static"
+    },
+    "set_func_malloc": {
+        "size": "8",
+        "type": "static"
+    },
+    "rnd64": {
+        "size": "8",
+        "type": "static"
+    },
+    "rnd64_r": {
+        "size": "8",
+        "type": "static"
+    },
+    "_Realloc": {
+        "size": "8",
+        "type": "static"
+    },
+    "ravl_node_insert_constructor": {
+        "size": "8",
+        "type": "static"
+    },
+    "ravl_node_copy_constructor": {
+        "size": "8",
+        "type": "static"
+    },
+    "ravl_new": {
+        "size": "8",
+        "type": "static"
+    },
+    "ravl_last": {
+        "size": "8",
+        "type": "static"
+    },
+    "ravl_interval_data": {
+        "size": "8",
+        "type": "static"
+    },
+    "ravl_insert": {
+        "size": "8",
+        "type": "static"
+    },
+    "ravl_foreach": {
+        "size": "8",
+        "type": "static"
+    },
+    "ravl_first": {
+        "size": "8",
+        "type": "static"
+    },
+    "ravl_empty": {
+        "size": "8",
+        "type": "static"
+    },
+    "ravl_emplace_copy": {
+        "size": "8",
+        "type": "static"
+    },
+    "ravl_delete": {
+        "size": "8",
+        "type": "static"
+    },
+    "ravl_data": {
+        "size": "8",
+        "type": "static"
+    },
+    "randomize": {
+        "size": "8",
+        "type": "static"
+    },
+    "pmem_os_init": {
+        "size": "8",
+        "type": "static"
+    },
+    "pmem_has_hw_drain": {
+        "size": "8",
+        "type": "static"
+    },
+    "pmem_has_auto_flush": {
+        "size": "8",
+        "type": "static"
+    },
+    "pmem_errormsg": {
+        "size": "8",
+        "type": "static"
+    },
+    "pmem_emit_log": {
+        "size": "8",
+        "type": "static"
+    },
+    "pmem_drain": {
+        "size": "8",
+        "type": "static"
+    },
+    "pmem_deep_drain": {
+        "size": "8",
+        "type": "static"
+    },
+    "pmem2_region_get_next_badblock": {
+        "size": "8",
+        "type": "static"
+    },
+    "pmem2_region_get_first_badblock": {
+        "size": "8",
+        "type": "static"
+    },
+    "pmem2_namespace_get_next_badblock": {
+        "size": "8",
+        "type": "static"
+    },
+    "pmem2_namespace_get_first_badblock": {
+        "size": "8",
+        "type": "static"
+    },
+    "pmem2_config_set_vm_reservation": {
+        "size": "8",
+        "type": "static"
+    },
+    "pmem2_config_set_length": {
+        "size": "8",
+        "type": "static"
+    },
+    "pmem2_config_init": {
+        "size": "8",
+        "type": "static"
+    },
+    "out_set_vsnprintf_func": {
+        "size": "8",
+        "type": "static"
+    },
+    "out_set_print_func": {
+        "size": "8",
+        "type": "static"
+    },
+    "out_print_func": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_writev": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_unsetenv": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_unlink": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_tls_set": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_tls_key_delete": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_tls_key_create": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_tls_get": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_thread_setaffinity_np": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_thread_join": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_thread_create": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_thread_atfork": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_strsignal": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_stat": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_spin_unlock": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_spin_trylock": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_spin_lock": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_spin_init": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_spin_destroy": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_setenv": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_semaphore_wait": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_semaphore_trywait": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_semaphore_post": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_semaphore_init": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_semaphore_destroy": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_rwlock_wrlock": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_rwlock_unlock": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_rwlock_trywrlock": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_rwlock_tryrdlock": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_rwlock_timedwrlock": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_rwlock_timedrdlock": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_rwlock_rdlock": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_rwlock_init": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_rwlock_destroy": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_rand_r": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_once": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_mutex_unlock": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_mutex_trylock": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_mutex_timedlock": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_mutex_lock": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_mutex_init": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_mutex_destroy": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_mkstemp": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_getenv": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_ftruncate": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_fsync": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_fopen": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_flock": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_fdopen": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_execv": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_cpu_zero": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_cpu_set": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_cond_wait": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_cond_timedwait": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_cond_signal": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_cond_init": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_cond_destroy": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_cond_broadcast": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_clock_gettime": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_chmod": {
+        "size": "8",
+        "type": "static"
+    },
+    "os_access": {
+        "size": "8",
+        "type": "static"
+    },
+    "memory_barrier": {
+        "size": "8",
+        "type": "static"
+    },
+    "membuf_ptr_user_data": {
+        "size": "8",
+        "type": "static"
+    },
+    "membuf_free": {
+        "size": "8",
+        "type": "static"
+    },
+    "_Malloc": {
+        "size": "8",
+        "type": "static"
+    },
+    "is_pmem_never": {
+        "size": "8",
+        "type": "static"
+    },
+    "is_pmem_detect": {
+        "size": "8",
+        "type": "static"
+    },
+    "is_pmem_always": {
+        "size": "8",
+        "type": "static"
+    },
+    "hash64": {
+        "size": "8",
+        "type": "static"
+    },
+    "flush_empty": {
+        "size": "8",
+        "type": "static"
+    },
+    "flush_clwb": {
+        "size": "8",
+        "type": "static"
+    },
+    "flush_clflush": {
+        "size": "8",
+        "type": "static"
+    },
+    "flush_clflushopt": {
+        "size": "8",
+        "type": "static"
+    },
+    "fence_empty": {
+        "size": "8",
+        "type": "static"
+    },
+    "ctl_sds_register": {
+        "size": "8",
+        "type": "static"
+    },
+    "ctl_register_module_node": {
+        "size": "8",
+        "type": "static"
+    },
+    "ctl_prefault_register": {
+        "size": "8",
+        "type": "static"
+    },
+    "ctl_fallocate_register": {
+        "size": "8",
+        "type": "static"
+    },
+    "ctl_exec_query_runnable": {
+        "size": "8",
+        "type": "static"
+    },
+    "ctl_delete": {
+        "size": "8",
+        "type": "static"
+    },
+    "ctl_cow_register": {
+        "size": "8",
+        "type": "static"
+    },
+    "ctl__at_open_write": {
+        "size": "8",
+        "type": "static"
+    },
+    "ctl__at_open_read": {
+        "size": "8",
+        "type": "static"
+    },
+    "ctl__at_create_write": {
+        "size": "8",
+        "type": "static"
+    },
+    "ctl__at_create_read": {
+        "size": "8",
+        "type": "static"
+    }
+}
