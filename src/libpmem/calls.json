@@ -1,0 +1,2532 @@
+{
+    "libpmem_fini": [
+        "LOG",
+        "common_fini"
+    ],
+    "libpmem_init": [
+        "pmem_init",
+        "LOG",
+        "common_init"
+    ],
+    "pmem_init": [
+        "LOG",
+        "atoll",
+        "memset_nodrain_generic",
+        "pmem2_arch_init",
+        "flush_empty",
+        "os_getenv",
+        "fence_empty",
+        "strcmp",
+        "memmove_nodrain_generic",
+        "pmem2_auto_flush",
+        "memmove_nodrain_libc",
+        "memset_nodrain_libc",
+        "pmem_os_init",
+        "FATAL",
+        "Is_pmem"
+    ],
+    "pmem2_arch_init": [
+        "LOG",
+        "atoll",
+        "flush_clflushopt",
+        "flush_clflush",
+        "os_getenv",
+        "pmem_cpuinfo_to_funcs",
+        "FATAL",
+        "flush_clwb"
+    ],
+    "pmem_cpuinfo_to_funcs": [
+        "LOG",
+        "flush_clflushopt",
+        "is_cpu_genuine_intel",
+        "use_sse2_memcpy_memset",
+        "is_cpu_clflush_present",
+        "pmem_set_mem_funcs",
+        "is_cpu_movdir64b_present",
+        "flush_clflush",
+        "is_cpu_clwb_present",
+        "os_getenv",
+        "use_avx_memcpy_memset",
+        "strcmp",
+        "is_cpu_avx512f_present",
+        "use_avx512f_memcpy_memset",
+        "use_movdir64b_memcpy_memset",
+        "is_cpu_avx_present",
+        "memory_barrier",
+        "SUPPRESS_UNUSED",
+        "flush_clwb",
+        "is_cpu_clflushopt_present"
+    ],
+    "is_cpu_clflush_present": [
+        "LOG",
+        "is_cpu_feature_present"
+    ],
+    "is_cpu_feature_present": [
+        "cpuid"
+    ],
+    "flush_clflush": [
+        "LOG",
+        "flush_clflush_nolog"
+    ],
+    "memory_barrier": [
+        "LOG"
+    ],
+    "is_cpu_clflushopt_present": [
+        "LOG",
+        "is_cpu_feature_present"
+    ],
+    "os_getenv": [
+        "secure_getenv"
+    ],
+    "flush_clflushopt": [
+        "LOG",
+        "flush_clflushopt_nolog"
+    ],
+    "is_cpu_clwb_present": [
+        "LOG",
+        "is_cpu_feature_present"
+    ],
+    "flush_clwb": [
+        "LOG",
+        "flush_clwb_nolog"
+    ],
+    "is_cpu_genuine_intel": [
+        "LOG",
+        "strncmp",
+        "cpuid",
+        "memset"
+    ],
+    "pmem_set_mem_funcs": [
+        "pmem_memmove_nodrain_eadr",
+        "pmem_memmove_nodrain",
+        "pmem_memset_nodrain",
+        "pmem_memset_nodrain_eadr"
+    ],
+    "pmem_memmove_nodrain": [
+        "LOG",
+        "PMEM_API_START",
+        "SUPPRESS_UNUSED",
+        "PMEM_API_END",
+        "memmove_nodrain_libc",
+        "memmove_nodrain_generic",
+        "pmem_memmove_nodrain.static",
+        "pmem_memmove_nodrain_eadr.static"
+    ],
+    "pmem_memmove_nodrain_eadr": [
+        "SUPPRESS_UNUSED"
+    ],
+    "pmem_memset_nodrain": [
+        "LOG",
+        "PMEM_API_START",
+        "SUPPRESS_UNUSED",
+        "PMEM_API_END",
+        "memset_nodrain_libc",
+        "memset_nodrain_generic",
+        "pmem_memset_nodrain.static",
+        "pmem_memset_nodrain_eadr.static"
+    ],
+    "pmem_memset_nodrain_eadr": [
+        "SUPPRESS_UNUSED"
+    ],
+    "use_sse2_memcpy_memset": [
+        "memset_movnt_sse2_clflushopt_wcbarrier",
+        "memmove_movnt_sse2_clflush_wcbarrier",
+        "flush_clflushopt",
+        "memset_mov_sse2_clwb",
+        "pmem_set_mem_funcs",
+        "memset_mov_sse2_clflushopt",
+        "flush_clflush",
+        "memmove_movnt_sse2_clflushopt_wcbarrier",
+        "memset_movnt_sse2_empty_wcbarrier",
+        "memmove_movnt_sse2_empty_wcbarrier",
+        "memset_movnt_sse2_empty_nobarrier",
+        "memset_movnt_sse2_noflush_nobarrier",
+        "memmove_movnt_sse2_noflush_wcbarrier",
+        "memset_mov_sse2_clflush",
+        "memset_movnt_sse2_clflush_wcbarrier",
+        "memmove_mov_sse2_empty",
+        "ASSERT",
+        "memset_movnt_sse2_clflush_nobarrier",
+        "memmove_movnt_sse2_clwb_nobarrier",
+        "LOG",
+        "memmove_mov_sse2_clflushopt",
+        "memmove_movnt_sse2_clflush_nobarrier",
+        "memset_movnt_sse2_clwb_nobarrier",
+        "memset_mov_sse2_noflush",
+        "memmove_mov_sse2_clflush",
+        "memmove_mov_sse2_noflush",
+        "memset_movnt_sse2_clwb_wcbarrier",
+        "memmove_movnt_sse2_noflush_nobarrier",
+        "memmove_movnt_sse2_empty_nobarrier",
+        "memmove_mov_sse2_clwb",
+        "memmove_movnt_sse2_clwb_wcbarrier",
+        "SUPPRESS_UNUSED",
+        "memmove_movnt_sse2_clflushopt_nobarrier",
+        "memset_mov_sse2_empty",
+        "memset_movnt_sse2_clflushopt_nobarrier",
+        "memset_movnt_sse2_noflush_wcbarrier",
+        "flush_clwb"
+    ],
+    "memmove_mov_sse2_noflush": [
+        "LOG",
+        "memmove_mov_sse2"
+    ],
+    "memmove_mov_sse2": [
+        "memmove_mov_sse_fw",
+        "memmove_mov_sse_bw"
+    ],
+    "memmove_mov_sse_fw": [
+        "memmove_mov2x64b",
+        "memmove_small_sse2",
+        "memmove_mov1x64b",
+        "memmove_mov4x64b"
+    ],
+    "memmove_mov4x64b": [
+        "mm256_loadu_si256",
+        "mm_store_si128",
+        "mm_loadu_si128",
+        "mm256_store_si256",
+        "mm512_store_si512",
+        "mm512_loadu_si512"
+    ],
+    "memmove_mov2x64b": [
+        "mm256_loadu_si256",
+        "mm_store_si128",
+        "mm_loadu_si128",
+        "mm256_store_si256",
+        "mm512_store_si512",
+        "mm512_loadu_si512"
+    ],
+    "memmove_mov1x64b": [
+        "mm256_loadu_si256",
+        "mm_store_si128",
+        "mm_loadu_si128",
+        "mm256_store_si256",
+        "mm512_store_si512",
+        "mm512_loadu_si512"
+    ],
+    "memmove_mov_sse_bw": [
+        "memmove_mov2x64b",
+        "memmove_small_sse2",
+        "memmove_mov1x64b",
+        "memmove_mov4x64b"
+    ],
+    "memmove_mov_sse2_empty": [
+        "LOG",
+        "flush_empty_nolog",
+        "memmove_mov_sse2"
+    ],
+    "memset_mov_sse2_noflush": [
+        "LOG",
+        "memset_mov_sse2"
+    ],
+    "memset_mov_sse2": [
+        "memset_small_sse2",
+        "memset_mov1x64b",
+        "memset_mov2x64b",
+        "memset_mov4x64b"
+    ],
+    "memset_mov4x64b": [
+        "mm_store_si128",
+        "mm512_store_si512",
+        "mm256_store_si256"
+    ],
+    "memset_mov2x64b": [
+        "mm_store_si128",
+        "mm512_store_si512",
+        "mm256_store_si256"
+    ],
+    "memset_mov1x64b": [
+        "mm_store_si128",
+        "mm512_store_si512",
+        "mm256_store_si256"
+    ],
+    "memset_mov_sse2_empty": [
+        "LOG",
+        "flush_empty_nolog",
+        "memset_mov_sse2"
+    ],
+    "memmove_movnt_sse2_noflush_wcbarrier": [
+        "LOG",
+        "memmove_movnt_sse2"
+    ],
+    "memmove_movnt_sse2": [
+        "memmove_movnt_sse_fw",
+        "VALGRIND_DO_FLUSH",
+        "memmove_movnt_sse_bw"
+    ],
+    "memmove_movnt_sse_fw": [
+        "util_is_pow2",
+        "memmove_movnt2x64b",
+        "memmove_small_sse2",
+        "memmove_movnt4x64b",
+        "memmove_movnt1x64b",
+        "memmove_movnt1x32b",
+        "memmove_movnt1x4b",
+        "COMPILE_ERROR_ON",
+        "memmove_movnt1x16b",
+        "prefetch_next_fw",
+        "prefetch_ini_fw",
+        "memmove_movnt1x8b"
+    ],
+    "memmove_movnt4x64b": [
+        "mm256_loadu_si256",
+        "mm_stream_si128",
+        "mm_loadu_si128",
+        "mm256_stream_si256",
+        "mm512_stream_si512",
+        "mm512_loadu_si512"
+    ],
+    "mm_stream_si128": [
+        "compiler_barrier"
+    ],
+    "memmove_movnt2x64b": [
+        "mm256_loadu_si256",
+        "mm_stream_si128",
+        "mm_loadu_si128",
+        "mm256_stream_si256",
+        "mm512_stream_si512",
+        "mm512_loadu_si512"
+    ],
+    "memmove_movnt1x64b": [
+        "mm256_loadu_si256",
+        "mm_stream_si128",
+        "mm_loadu_si128",
+        "mm256_stream_si256",
+        "mm512_stream_si512",
+        "mm512_loadu_si512"
+    ],
+    "memmove_movnt1x32b": [
+        "mm_stream_si128",
+        "mm_loadu_si128",
+        "mm256_stream_si256"
+    ],
+    "memmove_movnt1x16b": [
+        "mm_stream_si128",
+        "mm_loadu_si128"
+    ],
+    "memmove_movnt_sse_bw": [
+        "util_is_pow2",
+        "memmove_movnt2x64b",
+        "memmove_movnt4x64b",
+        "memmove_movnt1x32b",
+        "memmove_movnt1x64b",
+        "memmove_movnt1x4b",
+        "COMPILE_ERROR_ON",
+        "memmove_movnt1x16b",
+        "prefetch_next_bw",
+        "memmove_small_sse2",
+        "memmove_movnt1x8b",
+        "prefetch_ini_bw"
+    ],
+    "memmove_movnt_sse2_empty_wcbarrier": [
+        "LOG",
+        "flush_empty_nolog",
+        "memmove_movnt_sse2"
+    ],
+    "memset_movnt_sse2_noflush_wcbarrier": [
+        "LOG",
+        "memset_movnt_sse2"
+    ],
+    "memset_movnt_sse2": [
+        "memset_small_sse2",
+        "util_is_pow2",
+        "memset_movnt1x4b",
+        "memset_movnt1x64b",
+        "memset_movnt2x64b",
+        "memset_movnt1x32b",
+        "COMPILE_ERROR_ON",
+        "memset_movnt1x8b",
+        "memset_movnt1x16b",
+        "memset_movnt4x64b",
+        "VALGRIND_DO_FLUSH"
+    ],
+    "memset_movnt4x64b": [
+        "mm_stream_si128",
+        "mm512_stream_si512",
+        "mm256_stream_si256"
+    ],
+    "memset_movnt2x64b": [
+        "mm_stream_si128",
+        "mm512_stream_si512",
+        "mm256_stream_si256"
+    ],
+    "memset_movnt1x64b": [
+        "mm_stream_si128",
+        "mm512_stream_si512",
+        "mm256_stream_si256"
+    ],
+    "memset_movnt1x32b": [
+        "mm_stream_si128",
+        "mm256_stream_si256"
+    ],
+    "memset_movnt_sse2_empty_wcbarrier": [
+        "LOG",
+        "memset_movnt_sse2",
+        "flush_empty_nolog"
+    ],
+    "memmove_mov_sse2_clflush": [
+        "LOG",
+        "flush_clflush_nolog",
+        "memmove_mov_sse2"
+    ],
+    "memmove_movnt_sse2_clflush_wcbarrier": [
+        "LOG",
+        "flush_clflush_nolog",
+        "memmove_movnt_sse2"
+    ],
+    "memset_mov_sse2_clflush": [
+        "LOG",
+        "flush_clflush_nolog",
+        "memset_mov_sse2"
+    ],
+    "memset_movnt_sse2_clflush_wcbarrier": [
+        "LOG",
+        "flush_clflush_nolog",
+        "memset_movnt_sse2"
+    ],
+    "memmove_mov_sse2_clflushopt": [
+        "LOG",
+        "memmove_mov_sse2",
+        "flush_clflushopt_nolog"
+    ],
+    "memmove_movnt_sse2_clflushopt_wcbarrier": [
+        "LOG",
+        "memmove_movnt_sse2",
+        "flush_clflushopt_nolog"
+    ],
+    "memset_mov_sse2_clflushopt": [
+        "LOG",
+        "memset_mov_sse2",
+        "flush_clflushopt_nolog"
+    ],
+    "memset_movnt_sse2_clflushopt_wcbarrier": [
+        "LOG",
+        "memset_movnt_sse2",
+        "flush_clflushopt_nolog"
+    ],
+    "memmove_mov_sse2_clwb": [
+        "LOG",
+        "flush_clwb_nolog",
+        "memmove_mov_sse2"
+    ],
+    "memmove_movnt_sse2_clwb_wcbarrier": [
+        "LOG",
+        "flush_clwb_nolog",
+        "memmove_movnt_sse2"
+    ],
+    "memset_mov_sse2_clwb": [
+        "LOG",
+        "flush_clwb_nolog",
+        "memset_mov_sse2"
+    ],
+    "memset_movnt_sse2_clwb_wcbarrier": [
+        "LOG",
+        "flush_clwb_nolog",
+        "memset_movnt_sse2"
+    ],
+    "memmove_movnt_sse2_noflush_nobarrier": [
+        "LOG",
+        "memmove_movnt_sse2"
+    ],
+    "memmove_movnt_sse2_empty_nobarrier": [
+        "LOG",
+        "flush_empty_nolog",
+        "memmove_movnt_sse2"
+    ],
+    "memset_movnt_sse2_noflush_nobarrier": [
+        "LOG",
+        "memset_movnt_sse2"
+    ],
+    "memset_movnt_sse2_empty_nobarrier": [
+        "LOG",
+        "memset_movnt_sse2",
+        "flush_empty_nolog"
+    ],
+    "memmove_movnt_sse2_clflush_nobarrier": [
+        "LOG",
+        "flush_clflush_nolog",
+        "memmove_movnt_sse2"
+    ],
+    "memset_movnt_sse2_clflush_nobarrier": [
+        "LOG",
+        "flush_clflush_nolog",
+        "memset_movnt_sse2"
+    ],
+    "memmove_movnt_sse2_clflushopt_nobarrier": [
+        "LOG",
+        "memmove_movnt_sse2",
+        "flush_clflushopt_nolog"
+    ],
+    "memset_movnt_sse2_clflushopt_nobarrier": [
+        "LOG",
+        "memset_movnt_sse2",
+        "flush_clflushopt_nolog"
+    ],
+    "memmove_movnt_sse2_clwb_nobarrier": [
+        "LOG",
+        "flush_clwb_nolog",
+        "memmove_movnt_sse2"
+    ],
+    "memset_movnt_sse2_clwb_nobarrier": [
+        "LOG",
+        "flush_clwb_nolog",
+        "memset_movnt_sse2"
+    ],
+    "is_cpu_avx_present": [
+        "LOG",
+        "is_cpu_feature_present"
+    ],
+    "use_avx_memcpy_memset": [
+        "memset_mov_avx_noflush",
+        "flush_clflushopt",
+        "memmove_movnt_avx_clwb_wcbarrier",
+        "memset_movnt_avx_clflushopt_nobarrier",
+        "pmem_set_mem_funcs",
+        "memset_mov_avx_clwb",
+        "memset_movnt_avx_clwb_nobarrier",
+        "flush_clflush",
+        "memmove_movnt_avx_clflush_wcbarrier",
+        "memset_mov_avx_clflush",
+        "memmove_movnt_avx_clflushopt_nobarrier",
+        "strcmp",
+        "memmove_movnt_avx_noflush_wcbarrier",
+        "memmove_movnt_avx_clwb_nobarrier",
+        "memmove_movnt_avx_empty_wcbarrier",
+        "ASSERT",
+        "memset_movnt_avx_clflush_nobarrier",
+        "LOG",
+        "memmove_mov_avx_clflushopt",
+        "memmove_movnt_avx_noflush_nobarrier",
+        "memmove_mov_avx_noflush",
+        "memset_mov_avx_empty",
+        "memset_movnt_avx_clflushopt_wcbarrier",
+        "memmove_mov_avx_clflush",
+        "memset_movnt_avx_clwb_wcbarrier",
+        "os_getenv",
+        "memset_movnt_avx_noflush_nobarrier",
+        "memmove_mov_avx_clwb",
+        "memset_movnt_avx_noflush_wcbarrier",
+        "SUPPRESS_UNUSED",
+        "memmove_mov_avx_empty",
+        "memmove_movnt_avx_empty_nobarrier",
+        "memset_mov_avx_clflushopt",
+        "memset_movnt_avx_empty_nobarrier",
+        "memset_movnt_avx_clflush_wcbarrier",
+        "memset_movnt_avx_empty_wcbarrier",
+        "memmove_movnt_avx_clflush_nobarrier",
+        "flush_clwb",
+        "memmove_movnt_avx_clflushopt_wcbarrier"
+    ],
+    "memmove_mov_avx_noflush": [
+        "LOG",
+        "memmove_mov_avx"
+    ],
+    "memmove_mov_avx": [
+        "memmove_mov_avx_bw",
+        "memmove_mov_avx_fw",
+        "avx_zeroupper"
+    ],
+    "memmove_mov_avx_fw": [
+        "memmove_mov8x64b",
+        "memmove_small_avx",
+        "memmove_mov2x64b",
+        "memmove_mov1x64b",
+        "memmove_mov4x64b"
+    ],
+    "memmove_mov8x64b": [
+        "mm256_loadu_si256",
+        "mm512_store_si512",
+        "mm512_loadu_si512",
+        "mm256_store_si256"
+    ],
+    "memmove_mov_avx_bw": [
+        "memmove_mov8x64b",
+        "memmove_small_avx",
+        "memmove_mov2x64b",
+        "memmove_mov1x64b",
+        "memmove_mov4x64b"
+    ],
+    "memmove_mov_avx_empty": [
+        "LOG",
+        "flush_empty_nolog",
+        "memmove_mov_avx"
+    ],
+    "memset_mov_avx_noflush": [
+        "memset_mov_avx",
+        "LOG"
+    ],
+    "memset_mov_avx": [
+        "memset_mov4x64b",
+        "avx_zeroupper",
+        "memset_small_avx",
+        "memset_mov8x64b",
+        "memset_mov2x64b",
+        "memset_mov1x64b"
+    ],
+    "memset_mov8x64b": [
+        "mm512_store_si512",
+        "mm256_store_si256"
+    ],
+    "memset_mov_avx_empty": [
+        "memset_mov_avx",
+        "LOG",
+        "flush_empty_nolog"
+    ],
+    "memmove_movnt_avx_noflush_wcbarrier": [
+        "LOG",
+        "memmove_movnt_avx"
+    ],
+    "memmove_movnt_avx": [
+        "memmove_movnt_avx_bw",
+        "memmove_movnt_avx_fw",
+        "VALGRIND_DO_FLUSH"
+    ],
+    "memmove_movnt_avx_fw": [
+        "util_is_pow2",
+        "memmove_movnt2x64b",
+        "avx_zeroupper",
+        "memmove_small_avx",
+        "memmove_movnt4x64b",
+        "memmove_movnt1x32b",
+        "memmove_movnt1x64b",
+        "memmove_movnt1x4b",
+        "COMPILE_ERROR_ON",
+        "memmove_movnt8x64b",
+        "memmove_movnt1x16b",
+        "prefetch_next_fw",
+        "prefetch_ini_fw",
+        "memmove_movnt1x8b"
+    ],
+    "memmove_movnt8x64b": [
+        "mm256_loadu_si256",
+        "mm512_stream_si512",
+        "mm512_loadu_si512",
+        "mm256_stream_si256"
+    ],
+    "mm256_stream_si256": [
+        "compiler_barrier"
+    ],
+    "memmove_movnt_avx_bw": [
+        "util_is_pow2",
+        "memmove_movnt2x64b",
+        "avx_zeroupper",
+        "memmove_small_avx",
+        "memmove_movnt4x64b",
+        "memmove_movnt1x32b",
+        "memmove_movnt1x64b",
+        "memmove_movnt1x4b",
+        "COMPILE_ERROR_ON",
+        "memmove_movnt8x64b",
+        "memmove_movnt1x16b",
+        "prefetch_next_bw",
+        "memmove_movnt1x8b",
+        "prefetch_ini_bw"
+    ],
+    "memmove_movnt_avx_empty_wcbarrier": [
+        "LOG",
+        "flush_empty_nolog",
+        "memmove_movnt_avx"
+    ],
+    "memset_movnt_avx_noflush_wcbarrier": [
+        "LOG",
+        "memset_movnt_avx"
+    ],
+    "memset_movnt_avx": [
+        "util_is_pow2",
+        "memset_movnt8x64b",
+        "memset_movnt1x4b",
+        "memset_movnt1x64b",
+        "avx_zeroupper",
+        "memset_small_avx",
+        "memset_movnt2x64b",
+        "memset_movnt1x32b",
+        "COMPILE_ERROR_ON",
+        "memset_movnt1x8b",
+        "memset_movnt1x16b",
+        "memset_movnt4x64b",
+        "VALGRIND_DO_FLUSH"
+    ],
+    "memset_movnt8x64b": [
+        "mm512_stream_si512",
+        "mm256_stream_si256"
+    ],
+    "memset_movnt1x16b": [
+        "m256_get16b"
+    ],
+    "memset_movnt1x8b": [
+        "m256_get8b"
+    ],
+    "memset_movnt1x4b": [
+        "m256_get4b"
+    ],
+    "memset_movnt_avx_empty_wcbarrier": [
+        "LOG",
+        "memset_movnt_avx",
+        "flush_empty_nolog"
+    ],
+    "memmove_mov_avx_clflush": [
+        "LOG",
+        "flush_clflush_nolog",
+        "memmove_mov_avx"
+    ],
+    "memmove_movnt_avx_clflush_wcbarrier": [
+        "LOG",
+        "flush_clflush_nolog",
+        "memmove_movnt_avx"
+    ],
+    "memset_mov_avx_clflush": [
+        "memset_mov_avx",
+        "LOG",
+        "flush_clflush_nolog"
+    ],
+    "memset_movnt_avx_clflush_wcbarrier": [
+        "LOG",
+        "memset_movnt_avx",
+        "flush_clflush_nolog"
+    ],
+    "memmove_mov_avx_clflushopt": [
+        "LOG",
+        "flush_clflushopt_nolog",
+        "memmove_mov_avx"
+    ],
+    "memmove_movnt_avx_clflushopt_wcbarrier": [
+        "LOG",
+        "flush_clflushopt_nolog",
+        "memmove_movnt_avx"
+    ],
+    "memset_mov_avx_clflushopt": [
+        "memset_mov_avx",
+        "LOG",
+        "flush_clflushopt_nolog"
+    ],
+    "memset_movnt_avx_clflushopt_wcbarrier": [
+        "LOG",
+        "memset_movnt_avx",
+        "flush_clflushopt_nolog"
+    ],
+    "memmove_mov_avx_clwb": [
+        "LOG",
+        "flush_clwb_nolog",
+        "memmove_mov_avx"
+    ],
+    "memmove_movnt_avx_clwb_wcbarrier": [
+        "LOG",
+        "flush_clwb_nolog",
+        "memmove_movnt_avx"
+    ],
+    "memset_mov_avx_clwb": [
+        "memset_mov_avx",
+        "LOG",
+        "flush_clwb_nolog"
+    ],
+    "memset_movnt_avx_clwb_wcbarrier": [
+        "LOG",
+        "memset_movnt_avx",
+        "flush_clwb_nolog"
+    ],
+    "memmove_movnt_avx_noflush_nobarrier": [
+        "LOG",
+        "memmove_movnt_avx"
+    ],
+    "memmove_movnt_avx_empty_nobarrier": [
+        "LOG",
+        "flush_empty_nolog",
+        "memmove_movnt_avx"
+    ],
+    "memset_movnt_avx_noflush_nobarrier": [
+        "LOG",
+        "memset_movnt_avx"
+    ],
+    "memset_movnt_avx_empty_nobarrier": [
+        "LOG",
+        "memset_movnt_avx",
+        "flush_empty_nolog"
+    ],
+    "memmove_movnt_avx_clflush_nobarrier": [
+        "LOG",
+        "flush_clflush_nolog",
+        "memmove_movnt_avx"
+    ],
+    "memset_movnt_avx_clflush_nobarrier": [
+        "LOG",
+        "memset_movnt_avx",
+        "flush_clflush_nolog"
+    ],
+    "memmove_movnt_avx_clflushopt_nobarrier": [
+        "LOG",
+        "flush_clflushopt_nolog",
+        "memmove_movnt_avx"
+    ],
+    "memset_movnt_avx_clflushopt_nobarrier": [
+        "LOG",
+        "memset_movnt_avx",
+        "flush_clflushopt_nolog"
+    ],
+    "memmove_movnt_avx_clwb_nobarrier": [
+        "LOG",
+        "flush_clwb_nolog",
+        "memmove_movnt_avx"
+    ],
+    "memset_movnt_avx_clwb_nobarrier": [
+        "LOG",
+        "memset_movnt_avx",
+        "flush_clwb_nolog"
+    ],
+    "is_cpu_avx512f_present": [
+        "LOG",
+        "is_cpu_feature_present"
+    ],
+    "use_avx512f_memcpy_memset": [
+        "memmove_mov_avx512f_clflush",
+        "flush_clflushopt",
+        "memset_mov_avx512f_clwb",
+        "pmem_set_mem_funcs",
+        "flush_clflush",
+        "memset_movnt_avx512f_clwb",
+        "strcmp",
+        "ASSERT",
+        "LOG",
+        "memmove_movnt_avx512f_clflush",
+        "memset_mov_avx512f_clflushopt",
+        "memmove_mov_avx512f_clflushopt",
+        "memmove_mov_avx512f_clwb",
+        "memset_mov_avx512f_clflush",
+        "memmove_mov_avx512f_empty",
+        "memmove_movnt_avx512f_clwb",
+        "memmove_mov_avx512f_noflush",
+        "memset_movnt_avx512f_noflush",
+        "os_getenv",
+        "memset_movnt_avx512f_clflush",
+        "memset_mov_avx512f_noflush",
+        "memmove_movnt_avx512f_clflushopt",
+        "memset_mov_avx512f_empty",
+        "SUPPRESS_UNUSED",
+        "memmove_movnt_avx512f_noflush",
+        "memmove_movnt_avx512f_empty",
+        "memset_movnt_avx512f_empty",
+        "memset_movnt_avx512f_clflushopt",
+        "flush_clwb"
+    ],
+    "memmove_mov_avx512f_noflush": [
+        "LOG",
+        "memmove_mov_avx512f"
+    ],
+    "memmove_mov_avx512f": [
+        "memmove_mov_avx512f_fw",
+        "avx_zeroupper",
+        "memmove_mov_avx512f_bw"
+    ],
+    "memmove_mov_avx512f_fw": [
+        "memmove_mov8x64b",
+        "memmove_mov2x64b",
+        "memmove_small_avx512f",
+        "memmove_mov32x64b",
+        "memmove_mov1x64b",
+        "memmove_mov16x64b",
+        "memmove_mov4x64b"
+    ],
+    "memmove_mov32x64b": [
+        "mm512_store_si512",
+        "mm512_loadu_si512"
+    ],
+    "memmove_mov16x64b": [
+        "mm512_store_si512",
+        "mm512_loadu_si512"
+    ],
+    "memmove_mov_avx512f_bw": [
+        "memmove_mov8x64b",
+        "memmove_mov2x64b",
+        "memmove_small_avx512f",
+        "memmove_mov32x64b",
+        "memmove_mov1x64b",
+        "memmove_mov16x64b",
+        "memmove_mov4x64b"
+    ],
+    "memmove_mov_avx512f_empty": [
+        "LOG",
+        "flush_empty_nolog",
+        "memmove_mov_avx512f"
+    ],
+    "memset_mov_avx512f_noflush": [
+        "LOG",
+        "memset_mov_avx512f"
+    ],
+    "memset_mov_avx512f": [
+        "memset_mov4x64b",
+        "avx_zeroupper",
+        "memset_mov8x64b",
+        "memset_mov32x64b",
+        "memset_small_avx512f",
+        "memset_mov2x64b",
+        "memset_mov16x64b",
+        "memset_mov1x64b"
+    ],
+    "memset_mov32x64b": [
+        "mm512_store_si512"
+    ],
+    "memset_mov16x64b": [
+        "mm512_store_si512"
+    ],
+    "memset_mov_avx512f_empty": [
+        "LOG",
+        "flush_empty_nolog",
+        "memset_mov_avx512f"
+    ],
+    "memmove_movnt_avx512f_noflush": [
+        "memmove_movnt_avx512f",
+        "LOG"
+    ],
+    "memmove_movnt_avx512f": [
+        "memmove_movnt_avx512f_bw",
+        "VALGRIND_DO_FLUSH",
+        "memmove_movnt_avx512f_fw"
+    ],
+    "memmove_movnt_avx512f_fw": [
+        "util_is_pow2",
+        "memmove_movnt2x64b",
+        "avx_zeroupper",
+        "memmove_movnt16x64b",
+        "memmove_small_avx512f",
+        "memmove_movnt4x64b",
+        "memmove_movnt1x32b",
+        "memmove_movnt1x64b",
+        "memmove_movnt32x64b",
+        "memmove_movnt1x4b",
+        "memmove_movnt8x64b",
+        "memmove_movnt1x16b",
+        "memmove_movnt1x8b"
+    ],
+    "memmove_movnt32x64b": [
+        "mm512_stream_si512",
+        "mm512_loadu_si512"
+    ],
+    "mm512_stream_si512": [
+        "compiler_barrier"
+    ],
+    "memmove_movnt16x64b": [
+        "mm512_stream_si512",
+        "mm512_loadu_si512"
+    ],
+    "memmove_movnt_avx512f_bw": [
+        "util_is_pow2",
+        "memmove_movnt2x64b",
+        "avx_zeroupper",
+        "memmove_movnt16x64b",
+        "memmove_small_avx512f",
+        "memmove_movnt4x64b",
+        "memmove_movnt1x32b",
+        "memmove_movnt1x64b",
+        "memmove_movnt32x64b",
+        "memmove_movnt1x4b",
+        "memmove_movnt8x64b",
+        "memmove_movnt1x16b",
+        "memmove_movnt1x8b"
+    ],
+    "memmove_movnt_avx512f_empty": [
+        "memmove_movnt_avx512f",
+        "LOG",
+        "flush_empty_nolog"
+    ],
+    "memset_movnt_avx512f_noflush": [
+        "LOG",
+        "memset_movnt_avx512f"
+    ],
+    "memset_movnt_avx512f": [
+        "util_is_pow2",
+        "memset_movnt32x64b",
+        "memset_movnt16x64b",
+        "memset_movnt8x64b",
+        "memset_movnt1x64b",
+        "memset_movnt1x4b",
+        "avx_zeroupper",
+        "memset_movnt2x64b",
+        "memset_movnt1x32b",
+        "memset_movnt1x8b",
+        "memset_small_avx512f",
+        "memset_movnt1x16b",
+        "memset_movnt4x64b",
+        "VALGRIND_DO_FLUSH"
+    ],
+    "memset_movnt32x64b": [
+        "mm512_stream_si512"
+    ],
+    "memset_movnt16x64b": [
+        "mm512_stream_si512"
+    ],
+    "memset_movnt_avx512f_empty": [
+        "LOG",
+        "flush_empty_nolog",
+        "memset_movnt_avx512f"
+    ],
+    "memmove_mov_avx512f_clflush": [
+        "LOG",
+        "flush_clflush_nolog",
+        "memmove_mov_avx512f"
+    ],
+    "memmove_movnt_avx512f_clflush": [
+        "memmove_movnt_avx512f",
+        "LOG",
+        "flush_clflush_nolog"
+    ],
+    "memset_mov_avx512f_clflush": [
+        "LOG",
+        "flush_clflush_nolog",
+        "memset_mov_avx512f"
+    ],
+    "memset_movnt_avx512f_clflush": [
+        "LOG",
+        "flush_clflush_nolog",
+        "memset_movnt_avx512f"
+    ],
+    "memmove_mov_avx512f_clflushopt": [
+        "LOG",
+        "flush_clflushopt_nolog",
+        "memmove_mov_avx512f"
+    ],
+    "memmove_movnt_avx512f_clflushopt": [
+        "memmove_movnt_avx512f",
+        "LOG",
+        "flush_clflushopt_nolog"
+    ],
+    "memset_mov_avx512f_clflushopt": [
+        "LOG",
+        "memset_mov_avx512f",
+        "flush_clflushopt_nolog"
+    ],
+    "memset_movnt_avx512f_clflushopt": [
+        "LOG",
+        "flush_clflushopt_nolog",
+        "memset_movnt_avx512f"
+    ],
+    "memmove_mov_avx512f_clwb": [
+        "LOG",
+        "flush_clwb_nolog",
+        "memmove_mov_avx512f"
+    ],
+    "memmove_movnt_avx512f_clwb": [
+        "memmove_movnt_avx512f",
+        "LOG",
+        "flush_clwb_nolog"
+    ],
+    "memset_mov_avx512f_clwb": [
+        "LOG",
+        "flush_clwb_nolog",
+        "memset_mov_avx512f"
+    ],
+    "memset_movnt_avx512f_clwb": [
+        "LOG",
+        "flush_clwb_nolog",
+        "memset_movnt_avx512f"
+    ],
+    "is_cpu_movdir64b_present": [
+        "LOG",
+        "is_cpu_feature_present"
+    ],
+    "use_movdir64b_memcpy_memset": [
+        "LOG",
+        "flush_clflushopt",
+        "memset_movnt_movdir64b_clwb",
+        "memmove_movnt_movdir64b_noflush",
+        "pmem_set_mem_funcs",
+        "memmove_movnt_movdir64b_clflush",
+        "memset_movnt_movdir64b_noflush",
+        "flush_clflush",
+        "os_getenv",
+        "strcmp",
+        "memset_movnt_movdir64b_clflushopt",
+        "ASSERT",
+        "memset_movnt_movdir64b_empty",
+        "memset_movnt_movdir64b_clflush",
+        "memmove_movnt_movdir64b_clflushopt",
+        "SUPPRESS_UNUSED",
+        "flush_clwb",
+        "memmove_movnt_movdir64b_clwb",
+        "memmove_movnt_movdir64b_empty"
+    ],
+    "memmove_movnt_movdir64b_noflush": [
+        "LOG",
+        "memmove_movnt_movdir64b"
+    ],
+    "memmove_movnt_movdir64b": [
+        "memmove_movnt_movdir64b_bw",
+        "memmove_movnt_movdir64b_fw",
+        "VALGRIND_DO_FLUSH"
+    ],
+    "memmove_movnt_movdir64b_fw": [
+        "util_is_pow2",
+        "avx_zeroupper",
+        "memmove_movnt1x32b",
+        "memmove_small_movdir64b",
+        "movdir64b",
+        "memmove_movnt1x4b",
+        "memmove_movnt1x16b",
+        "memmove_movnt1x8b"
+    ],
+    "movdir64b": [
+        "compiler_barrier"
+    ],
+    "memmove_movnt_movdir64b_bw": [
+        "util_is_pow2",
+        "avx_zeroupper",
+        "memmove_movnt1x32b",
+        "memmove_small_movdir64b",
+        "movdir64b",
+        "memmove_movnt1x4b",
+        "memmove_movnt1x16b",
+        "memmove_movnt1x8b"
+    ],
+    "memmove_movnt_movdir64b_empty": [
+        "LOG",
+        "flush_empty_nolog",
+        "memmove_movnt_movdir64b"
+    ],
+    "memset_movnt_movdir64b_noflush": [
+        "LOG",
+        "memset_movnt_movdir64b"
+    ],
+    "memset_movnt_movdir64b": [
+        "util_is_pow2",
+        "memset_movnt1x4b",
+        "avx_zeroupper",
+        "memset_movnt1x32b",
+        "movdir64b",
+        "memset_small_movdir64b",
+        "memset_movnt1x8b",
+        "memset_movnt1x16b",
+        "VALGRIND_DO_FLUSH"
+    ],
+    "memset_movnt_movdir64b_empty": [
+        "LOG",
+        "flush_empty_nolog",
+        "memset_movnt_movdir64b"
+    ],
+    "memmove_movnt_movdir64b_clflush": [
+        "LOG",
+        "flush_clflush_nolog",
+        "memmove_movnt_movdir64b"
+    ],
+    "memset_movnt_movdir64b_clflush": [
+        "LOG",
+        "flush_clflush_nolog",
+        "memset_movnt_movdir64b"
+    ],
+    "memmove_movnt_movdir64b_clflushopt": [
+        "LOG",
+        "flush_clflushopt_nolog",
+        "memmove_movnt_movdir64b"
+    ],
+    "memset_movnt_movdir64b_clflushopt": [
+        "LOG",
+        "memset_movnt_movdir64b",
+        "flush_clflushopt_nolog"
+    ],
+    "memmove_movnt_movdir64b_clwb": [
+        "LOG",
+        "flush_clwb_nolog",
+        "memmove_movnt_movdir64b"
+    ],
+    "memset_movnt_movdir64b_clwb": [
+        "LOG",
+        "flush_clwb_nolog",
+        "memset_movnt_movdir64b"
+    ],
+    "pmem2_auto_flush": [
+        "LOG",
+        "fs_read",
+        "strstr",
+        "fs_new",
+        "fs_delete",
+        "S_ISDIR",
+        "ERR",
+        "os_stat",
+        "check_domain_in_region"
+    ],
+    "os_stat": [
+        "stat"
+    ],
+    "fs_new": [
+        "Free",
+        "Zalloc",
+        "fts_open"
+    ],
+    "Zalloc": [
+        "Malloc",
+        "memset"
+    ],
+    "fs_read": [
+        "fts_read"
+    ],
+    "check_domain_in_region": [
+        "LOG",
+        "fs_read",
+        "fs_new",
+        "fs_delete",
+        "strcmp",
+        "check_cpu_cache",
+        "ERR",
+        "util_snprintf"
+    ],
+    "util_snprintf": [
+        "va_end",
+        "vsnprintf",
+        "va_start"
+    ],
+    "check_cpu_cache": [
+        "LOG",
+        "os_open",
+        "strcmp",
+        "read",
+        "os_close",
+        "ERR"
+    ],
+    "os_open": [
+        "va_arg",
+        "va_start",
+        "va_end",
+        "open"
+    ],
+    "fs_delete": [
+        "fts_close",
+        "Free"
+    ],
+    "fence_empty": [
+        "LOG"
+    ],
+    "flush_empty": [
+        "flush_empty_nolog"
+    ],
+    "memmove_nodrain_libc": [
+        "LOG",
+        "SUPPRESS_UNUSED",
+        "memmove"
+    ],
+    "memmove_nodrain_generic": [
+        "LOG",
+        "cpy128",
+        "pmem2_flush_flags",
+        "cpy8",
+        "cpy64",
+        "SUPPRESS_UNUSED"
+    ],
+    "cpy128": [
+        "util_atomic_load_explicit64",
+        "util_atomic_store_explicit64"
+    ],
+    "cpy64": [
+        "util_atomic_load_explicit64",
+        "util_atomic_store_explicit64"
+    ],
+    "cpy8": [
+        "util_atomic_load_explicit64",
+        "util_atomic_store_explicit64"
+    ],
+    "memset_nodrain_libc": [
+        "LOG",
+        "SUPPRESS_UNUSED",
+        "memset"
+    ],
+    "memset_nodrain_generic": [
+        "store8",
+        "LOG",
+        "SUPPRESS_UNUSED",
+        "pmem2_flush_flags"
+    ],
+    "store8": [
+        "util_atomic_store_explicit64"
+    ],
+    "pmem_os_init": [
+        "LOG",
+        "is_pmem_detect"
+    ],
+    "is_pmem_detect": [
+        "util_range_is_pmem",
+        "LOG"
+    ],
+    "util_range_is_pmem": [
+        "LOG",
+        "util_rwlock_unlock",
+        "util_range_find",
+        "util_rwlock_rdlock"
+    ],
+    "util_range_find": [
+        "LOG",
+        "util_range_find_unlocked",
+        "util_rwlock_unlock",
+        "util_rwlock_rdlock"
+    ],
+    "util_range_find_unlocked": [
+        "PMDK_SORTEDQ_FOREACH",
+        "LOG",
+        "out"
+    ],
+    "out": [
+        "va_end",
+        "va_start",
+        "out_common"
+    ],
+    "os_chmod": [
+        "chmod"
+    ],
+    "os_clock_gettime": [
+        "clock_gettime"
+    ],
+    "os_cond_broadcast": [
+        "pthread_cond_broadcast"
+    ],
+    "os_cond_destroy": [
+        "pthread_cond_destroy"
+    ],
+    "os_cond_init": [
+        "COMPILE_ERROR_ON",
+        "pthread_cond_init"
+    ],
+    "os_cond_signal": [
+        "pthread_cond_signal"
+    ],
+    "os_cond_timedwait": [
+        "pthread_cond_timedwait"
+    ],
+    "os_cond_wait": [
+        "pthread_cond_wait"
+    ],
+    "os_cpu_set": [
+        "CPU_SET"
+    ],
+    "os_cpu_zero": [
+        "CPU_ZERO"
+    ],
+    "os_execv": [
+        "execv"
+    ],
+    "os_fdopen": [
+        "fdopen"
+    ],
+    "os_fsync_dir": [
+        "os_open",
+        "os_close",
+        "os_fsync"
+    ],
+    "os_fsync": [
+        "fsync"
+    ],
+    "os_mutex_destroy": [
+        "pthread_mutex_destroy"
+    ],
+    "os_mutex_init": [
+        "COMPILE_ERROR_ON",
+        "pthread_mutex_init"
+    ],
+    "os_mutex_lock": [
+        "pthread_mutex_lock"
+    ],
+    "os_mutex_timedlock": [
+        "pthread_mutex_timedlock"
+    ],
+    "os_mutex_trylock": [
+        "pthread_mutex_trylock"
+    ],
+    "os_mutex_unlock": [
+        "pthread_mutex_unlock"
+    ],
+    "os_part_deep_common": [
+        "LOG",
+        "pmem_deep_flush",
+        "util_ddax_region_find",
+        "pmem_drain",
+        "MIN",
+        "pmem_msync",
+        "pmem2_deep_flush_write"
+    ],
+    "pmem_msync": [
+        "LOG",
+        "VALGRIND_DO_CHECK_MEM_IS_ADDRESSABLE",
+        "ERR",
+        "msync",
+        "VALGRIND_DO_PERSIST"
+    ],
+    "pmem_deep_flush": [
+        "LOG",
+        "VALGRIND_DO_CHECK_MEM_IS_ADDRESSABLE",
+        "flush_empty",
+        "flush_clflush",
+        "flush_clflushopt",
+        "flush_clwb"
+    ],
+    "pmem_drain": [
+        "LOG",
+        "fence_empty",
+        "memory_barrier"
+    ],
+    "util_ddax_region_find": [
+        "LOG",
+        "pmem2_err_to_errno",
+        "pmem2_get_type_from_stat",
+        "pmem2_get_region_id",
+        "ERR",
+        "os_stat"
+    ],
+    "pmem2_get_type_from_stat": [
+        "LOG",
+        "os_major",
+        "ASSERTinfo",
+        "S_ISDIR",
+        "strcmp",
+        "realpath",
+        "S_ISCHR",
+        "strrchr",
+        "ERR",
+        "os_minor",
+        "S_ISREG",
+        "util_snprintf"
+    ],
+    "pmem2_err_to_errno": [
+        "FATAL"
+    ],
+    "pmem2_get_region_id": [
+        "LOG",
+        "ndctl_unref",
+        "ndctl_region_get_id",
+        "ERR",
+        "ndctl_new",
+        "pmem2_region_namespace"
+    ],
+    "pmem2_region_namespace": [
+        "LOG",
+        "ndctl_match_fsdax",
+        "FOREACH_BUS_REGION_NAMESPACE",
+        "daxctl_dev_foreach",
+        "ndctl_dax_get_daxctl_region",
+        "ndctl_namespace_get_btt",
+        "ndctl_namespace_get_block_device",
+        "daxctl_dev_get_devname",
+        "ndctl_pfn_get_block_device",
+        "ASSERTeq",
+        "ndctl_namespace_get_dax",
+        "ndctl_match_devdax",
+        "ERR",
+        "ndctl_namespace_get_pfn",
+        "ndctl_btt_get_block_device"
+    ],
+    "ndctl_match_devdax": [
+        "stat",
+        "LOG",
+        "ERR",
+        "os_stat",
+        "util_snprintf"
+    ],
+    "ndctl_match_fsdax": [
+        "LOG",
+        "os_open",
+        "strcmp",
+        "read",
+        "os_close",
+        "major",
+        "ERR",
+        "minor",
+        "util_snprintf"
+    ],
+    "pmem2_deep_flush_write": [
+        "LOG",
+        "os_open",
+        "write",
+        "read",
+        "os_close",
+        "ERR",
+        "util_snprintf"
+    ],
+    "os_rand_r": [
+        "rand_r"
+    ],
+    "os_rwlock_destroy": [
+        "pthread_rwlock_destroy"
+    ],
+    "os_rwlock_init": [
+        "COMPILE_ERROR_ON",
+        "pthread_rwlock_init"
+    ],
+    "os_rwlock_rdlock": [
+        "pthread_rwlock_rdlock"
+    ],
+    "os_rwlock_timedrdlock": [
+        "pthread_rwlock_timedrdlock"
+    ],
+    "os_rwlock_timedwrlock": [
+        "pthread_rwlock_timedwrlock"
+    ],
+    "os_rwlock_tryrdlock": [
+        "pthread_rwlock_tryrdlock"
+    ],
+    "os_rwlock_trywrlock": [
+        "pthread_rwlock_trywrlock"
+    ],
+    "os_rwlock_unlock": [
+        "pthread_rwlock_unlock"
+    ],
+    "os_rwlock_wrlock": [
+        "pthread_rwlock_wrlock"
+    ],
+    "os_semaphore_destroy": [
+        "sem_destroy"
+    ],
+    "os_semaphore_init": [
+        "sem_init",
+        "COMPILE_ERROR_ON"
+    ],
+    "os_semaphore_post": [
+        "sem_post"
+    ],
+    "os_semaphore_trywait": [
+        "sem_trywait"
+    ],
+    "os_semaphore_wait": [
+        "sem_wait"
+    ],
+    "os_setenv": [
+        "setenv"
+    ],
+    "os_spin_destroy": [
+        "pthread_spin_destroy"
+    ],
+    "os_spin_init": [
+        "COMPILE_ERROR_ON",
+        "pthread_spin_init"
+    ],
+    "os_spin_lock": [
+        "pthread_spin_lock"
+    ],
+    "os_spin_trylock": [
+        "pthread_spin_trylock"
+    ],
+    "os_spin_unlock": [
+        "pthread_spin_unlock"
+    ],
+    "os_strsignal": [
+        "strsignal"
+    ],
+    "os_thread_atfork": [
+        "pthread_atfork"
+    ],
+    "os_thread_create": [
+        "COMPILE_ERROR_ON",
+        "pthread_create"
+    ],
+    "os_thread_join": [
+        "pthread_join"
+    ],
+    "os_thread_self": [
+        "pthread_self"
+    ],
+    "os_thread_setaffinity_np": [
+        "COMPILE_ERROR_ON",
+        "pthread_setaffinity_np"
+    ],
+    "os_unsetenv": [
+        "unsetenv"
+    ],
+    "os_writev": [
+        "writev"
+    ],
+    "out_err": [
+        "out_error",
+        "va_start",
+        "va_end"
+    ],
+    "out_error": [
+        "util_strerror",
+        "Print",
+        "SUPPRESS_UNUSED",
+        "out_snprintf",
+        "util_strwinerror",
+        "out_get_errormsg",
+        "strrchr",
+        "memset",
+        "strcpy",
+        "Vsnprintf"
+    ],
+    "out_get_errormsg": [
+        "Last_errormsg_get"
+    ],
+    "Last_errormsg_get": [
+        "os_tls_get",
+        "os_tls_set",
+        "malloc",
+        "FATAL",
+        "Last_errormsg_key_alloc"
+    ],
+    "Last_errormsg_key_alloc": [
+        "_Last_errormsg_key_alloc"
+    ],
+    "os_once": [
+        "COMPILE_ERROR_ON",
+        "pthread_once"
+    ],
+    "os_tls_get": [
+        "pthread_getspecific"
+    ],
+    "os_tls_set": [
+        "pthread_setspecific"
+    ],
+    "util_strwinerror": [
+        "abort",
+        "SUPPRESS_UNUSED"
+    ],
+    "util_strerror": [
+        "strerror_r"
+    ],
+    "out_fatal": [
+        "abort",
+        "va_end",
+        "va_start",
+        "out_common"
+    ],
+    "out_fini": [
+        "fclose",
+        "Last_errormsg_fini"
+    ],
+    "Last_errormsg_fini": [
+        "os_tls_set",
+        "os_tls_key_delete",
+        "free",
+        "os_tls_get"
+    ],
+    "os_tls_key_delete": [
+        "pthread_key_delete"
+    ],
+    "out_init": [
+        "LOG",
+        "atoi",
+        "util_strerror",
+        "os_fopen",
+        "os_getenv",
+        "fprintf",
+        "strlen",
+        "setlinebuf",
+        "ERR",
+        "abort",
+        "SUPPRESS_UNUSED",
+        "Last_errormsg_key_alloc",
+        "getpid",
+        "util_getexecname",
+        "util_snprintf"
+    ],
+    "os_fopen": [
+        "fopen"
+    ],
+    "util_getexecname": [
+        "strncpy",
+        "ASSERT",
+        "readlink"
+    ],
+    "out_log": [
+        "va_end",
+        "va_start",
+        "out_common"
+    ],
+    "out_nonl": [
+        "va_end",
+        "va_start",
+        "out_common"
+    ],
+    "out_set_print_func": [
+        "LOG",
+        "Print",
+        "out_print_func"
+    ],
+    "out_print_func": [
+        "VALGRIND_ANNOTATE_IGNORE_WRITES_BEGIN",
+        "VALGRIND_ANNOTATE_IGNORE_READS_END",
+        "VALGRIND_ANNOTATE_IGNORE_WRITES_END",
+        "fputs",
+        "VALGRIND_ANNOTATE_IGNORE_READS_BEGIN"
+    ],
+    "out_set_vsnprintf_func": [
+        "LOG",
+        "Vsnprintf",
+        "vsnprintf"
+    ],
+    "pmem2_config_delete": [
+        "Free"
+    ],
+    "pmem2_config_new": [
+        "PMEM2_ERR_CLR",
+        "ASSERTne",
+        "pmem2_config_init",
+        "pmem2_malloc"
+    ],
+    "pmem2_malloc": [
+        "Malloc",
+        "ERR"
+    ],
+    "pmem2_config_set_length": [
+        "PMEM2_ERR_CLR"
+    ],
+    "pmem2_config_set_offset": [
+        "PMEM2_ERR_CLR",
+        "ERR"
+    ],
+    "pmem2_config_set_protection": [
+        "PMEM2_ERR_CLR",
+        "ERR"
+    ],
+    "pmem2_config_set_required_store_granularity": [
+        "PMEM2_ERR_CLR",
+        "ERR"
+    ],
+    "pmem2_config_set_sharing": [
+        "PMEM2_ERR_CLR",
+        "ERR"
+    ],
+    "pmem2_config_set_vm_reservation": [
+        "PMEM2_ERR_CLR"
+    ],
+    "pmem2_config_validate_length": [
+        "ASSERTne",
+        "ERR"
+    ],
+    "pmem2_deep_flush_dax": [
+        "LOG",
+        "pmem2_flush_file_buffers_os",
+        "pmem2_get_region_id",
+        "ALIGN_DOWN",
+        "pmem2_deep_flush_write",
+        "ASSERT"
+    ],
+    "pmem2_flush_file_buffers_os": [
+        "SUPPRESS_UNUSED",
+        "msync",
+        "VALGRIND_DO_PERSIST",
+        "ERR"
+    ],
+    "pmem2_realloc": [
+        "ERR",
+        "Realloc"
+    ],
+    "pmem2_source_alignment": [
+        "util_is_pow2",
+        "LOG",
+        "PMEM2_ERR_CLR",
+        "pmem2_device_dax_alignment",
+        "ERR",
+        "FATAL",
+        "ASSERT"
+    ],
+    "pmem2_device_dax_alignment": [
+        "LOG",
+        "ndctl_unref",
+        "ndctl_namespace_get_dax",
+        "ndctl_dax_get_align",
+        "ERR",
+        "ndctl_new",
+        "pmem2_region_namespace"
+    ],
+    "pmem2_source_from_anon": [
+        "PMEM2_ERR_CLR",
+        "pmem2_malloc"
+    ],
+    "pmem2_source_get_fd": [
+        "PMEM2_ERR_CLR",
+        "LOG",
+        "ERR"
+    ],
+    "pmem2_source_numa_node": [
+        "LOG",
+        "ndctl_region_get_numa_node",
+        "ndctl_unref",
+        "PMEM2_ERR_CLR",
+        "ASSERTeq",
+        "ndctl_new",
+        "ERR",
+        "pmem2_region_namespace"
+    ],
+    "pmem2_zalloc": [
+        "Zalloc",
+        "ERR"
+    ],
+    "pmem_check_version": [
+        "pmem_check_versionU"
+    ],
+    "pmem_check_versionU": [
+        "LOG",
+        "out_get_errormsg",
+        "ERR"
+    ],
+    "pmem_deep_persist": [
+        "LOG",
+        "pmem_deep_flush",
+        "pmem_deep_drain"
+    ],
+    "pmem_deep_drain": [
+        "LOG",
+        "os_range_deep_common"
+    ],
+    "os_range_deep_common": [
+        "LOG",
+        "MIN",
+        "os_deep_type",
+        "pmem_msync",
+        "util_range_find"
+    ],
+    "os_deep_type": [
+        "LOG",
+        "pmem2_err_to_errno",
+        "pmem_drain",
+        "pmem_msync",
+        "pmem2_deep_flush_write",
+        "ASSERT"
+    ],
+    "pmem_emit_log": [
+        "util_emit_log"
+    ],
+    "util_emit_log": [
+        "strcpy",
+        "strlen",
+        "VALGRIND_EMIT_LOG",
+        "strcat"
+    ],
+    "pmem_errormsg": [
+        "pmem_errormsgU"
+    ],
+    "pmem_errormsgU": [
+        "out_get_errormsg"
+    ],
+    "pmem_fault_injection_enabled": [
+        "core_fault_injection_enabled"
+    ],
+    "pmem_has_auto_flush": [
+        "LOG",
+        "pmem2_auto_flush"
+    ],
+    "pmem_has_hw_drain": [
+        "LOG"
+    ],
+    "pmem_inject_fault_at": [
+        "core_inject_fault_at"
+    ],
+    "core_inject_fault_at": [
+        "FATAL"
+    ],
+    "pmem_map_file": [
+        "pmem_map_fileU"
+    ],
+    "pmem_map_fileU": [
+        "LOG",
+        "util_tmpfile",
+        "os_open",
+        "util_file_get_size",
+        "os_posix_fallocate",
+        "pmem_map_register",
+        "pmem_is_pmem",
+        "util_fd_get_size",
+        "os_close",
+        "os_unlink",
+        "ERR",
+        "VALGRIND_REGISTER_PMEM_MAPPING",
+        "os_ftruncate",
+        "util_file_get_type",
+        "VALGRIND_REGISTER_PMEM_FILE"
+    ],
+    "util_file_get_type": [
+        "LOG",
+        "util_file_exists",
+        "util_stat_get_type",
+        "ERR",
+        "os_stat"
+    ],
+    "util_file_exists": [
+        "LOG",
+        "os_access",
+        "ERR"
+    ],
+    "os_access": [
+        "access"
+    ],
+    "util_stat_get_type": [
+        "pmem2_get_type_from_stat",
+        "pmem2_err_to_errno",
+        "ASSERTinfo"
+    ],
+    "util_file_get_size": [
+        "LOG",
+        "os_open",
+        "close",
+        "util_fd_get_size",
+        "ERR"
+    ],
+    "util_fd_get_size": [
+        "LOG",
+        "pmem2_err_to_errno",
+        "pmem2_source_size",
+        "pmem2_source_from_fd",
+        "ERR",
+        "pmem2_source_delete"
+    ],
+    "pmem2_source_from_fd": [
+        "os_fstat",
+        "pmem2_malloc",
+        "fcntl",
+        "ASSERTne",
+        "PMEM2_ERR_CLR",
+        "pmem2_get_type_from_stat",
+        "ERR"
+    ],
+    "pmem2_source_size": [
+        "LOG",
+        "os_fstat",
+        "pmem2_device_dax_size",
+        "PMEM2_ERR_CLR",
+        "ERR",
+        "FATAL",
+        "ASSERT"
+    ],
+    "pmem2_device_dax_size": [
+        "LOG",
+        "ndctl_unref",
+        "ndctl_namespace_get_dax",
+        "ndctl_dax_get_size",
+        "ERR",
+        "ndctl_new",
+        "pmem2_region_namespace"
+    ],
+    "pmem2_source_delete": [
+        "Free"
+    ],
+    "util_tmpfile": [
+        "LOG",
+        "os_open",
+        "util_tmpfile_mkstemp",
+        "ERR",
+        "ASSERT"
+    ],
+    "util_tmpfile_mkstemp": [
+        "strcat",
+        "LOG",
+        "sigfillset",
+        "sigprocmask",
+        "umask",
+        "strlen",
+        "ASSERTeq",
+        "os_mkstemp",
+        "os_unlink",
+        "ERR",
+        "strcpy",
+        "os_close",
+        "alloca"
+    ],
+    "os_mkstemp": [
+        "mkstemp"
+    ],
+    "os_unlink": [
+        "unlink"
+    ],
+    "os_ftruncate": [
+        "ftruncate"
+    ],
+    "os_posix_fallocate": [
+        "posix_fallocate"
+    ],
+    "pmem_map_register": [
+        "LOG",
+        "util_map",
+        "util_unmap",
+        "util_range_register"
+    ],
+    "util_map": [
+        "LOG",
+        "util_map_hint",
+        "ASSERTeq",
+        "ERR",
+        "util_map_sync"
+    ],
+    "util_map_hint": [
+        "LOG",
+        "util_map_hint_unused",
+        "munmap",
+        "ERR",
+        "util_map_hint_align",
+        "mmap",
+        "roundup"
+    ],
+    "util_map_hint_unused": [
+        "LOG",
+        "fgets",
+        "sscanf",
+        "os_fopen",
+        "fclose",
+        "ERR",
+        "ASSERT",
+        "roundup"
+    ],
+    "util_map_sync": [
+        "LOG",
+        "mmap"
+    ],
+    "util_range_register": [
+        "LOG",
+        "util_range_comparer",
+        "util_ddax_region_find",
+        "util_rwlock_unlock",
+        "Malloc",
+        "util_rwlock_wrlock",
+        "PMDK_SORTEDQ_INSERT",
+        "ERR",
+        "util_range_find"
+    ],
+    "util_unmap": [
+        "ERR",
+        "LOG",
+        "munmap"
+    ],
+    "pmem_is_pmem": [
+        "LOG",
+        "pmem_is_pmem_init",
+        "util_fetch_and_add32",
+        "VALGRIND_ANNOTATE_HAPPENS_AFTER",
+        "Is_pmem"
+    ],
+    "pmem_is_pmem_init": [
+        "LOG",
+        "VALGRIND_ANNOTATE_HAPPENS_BEFORE",
+        "os_getenv",
+        "FATAL",
+        "is_pmem_never",
+        "util_bool_compare_and_swap32",
+        "is_pmem_always",
+        "Is_pmem",
+        "atoi"
+    ],
+    "is_pmem_never": [
+        "LOG"
+    ],
+    "is_pmem_always": [
+        "LOG"
+    ],
+    "pmem_memcpy": [
+        "LOG",
+        "PMEM_API_START",
+        "pmem_drain",
+        "ERR",
+        "PMEM_API_END",
+        "memmove_nodrain_libc",
+        "memmove_nodrain_generic",
+        "pmem_memmove_nodrain.static",
+        "pmem_memmove_nodrain_eadr.static"
+    ],
+    "pmem_memcpy_nodrain": [
+        "LOG",
+        "PMEM_API_START",
+        "PMEM_API_END",
+        "memmove_nodrain_libc",
+        "memmove_nodrain_generic",
+        "pmem_memmove_nodrain.static",
+        "pmem_memmove_nodrain_eadr.static"
+    ],
+    "pmem_memcpy_persist": [
+        "LOG",
+        "PMEM_API_START",
+        "pmem_drain",
+        "PMEM_API_END",
+        "memmove_nodrain_libc",
+        "memmove_nodrain_generic",
+        "pmem_memmove_nodrain.static",
+        "pmem_memmove_nodrain_eadr.static"
+    ],
+    "pmem_memmove": [
+        "LOG",
+        "PMEM_API_START",
+        "pmem_drain",
+        "ERR",
+        "PMEM_API_END",
+        "memmove_nodrain_libc",
+        "memmove_nodrain_generic",
+        "pmem_memmove_nodrain.static",
+        "pmem_memmove_nodrain_eadr.static"
+    ],
+    "pmem_memmove_persist": [
+        "LOG",
+        "PMEM_API_START",
+        "pmem_drain",
+        "PMEM_API_END",
+        "memmove_nodrain_libc",
+        "memmove_nodrain_generic",
+        "pmem_memmove_nodrain.static",
+        "pmem_memmove_nodrain_eadr.static"
+    ],
+    "pmem_memset": [
+        "LOG",
+        "PMEM_API_START",
+        "pmem_drain",
+        "ERR",
+        "PMEM_API_END",
+        "memset_nodrain_libc",
+        "memset_nodrain_generic",
+        "pmem_memset_nodrain.static",
+        "pmem_memset_nodrain_eadr.static"
+    ],
+    "pmem_memset_persist": [
+        "LOG",
+        "PMEM_API_START",
+        "pmem_drain",
+        "PMEM_API_END",
+        "memset_nodrain_libc",
+        "memset_nodrain_generic",
+        "pmem_memset_nodrain.static",
+        "pmem_memset_nodrain_eadr.static"
+    ],
+    "pmem_persist": [
+        "LOG",
+        "pmem_flush",
+        "pmem_drain"
+    ],
+    "pmem_flush": [
+        "LOG",
+        "VALGRIND_DO_CHECK_MEM_IS_ADDRESSABLE",
+        "flush_empty",
+        "flush_clflush",
+        "flush_clflushopt",
+        "flush_clwb"
+    ],
+    "pmem_unmap": [
+        "LOG",
+        "VALGRIND_REMOVE_PMEM_MAPPING",
+        "util_range_unregister",
+        "util_unmap"
+    ],
+    "util_range_unregister": [
+        "LOG",
+        "PAGE_ALIGNED_UP_SIZE",
+        "util_range_split",
+        "util_rwlock_unlock",
+        "util_range_find_unlocked",
+        "util_rwlock_wrlock"
+    ],
+    "util_range_split": [
+        "LOG",
+        "util_range_comparer",
+        "Free",
+        "Malloc",
+        "ASSERTne",
+        "PMDK_SORTEDQ_REMOVE",
+        "PMDK_SORTEDQ_INSERT",
+        "ERR"
+    ],
+    "util_aligned_free": [
+        "free"
+    ],
+    "util_aligned_malloc": [
+        "posix_memalign"
+    ],
+    "util_checksum": [
+        "htole64",
+        "util_checksum_compute"
+    ],
+    "util_checksum_compute": [
+        "abort",
+        "le32toh"
+    ],
+    "util_checksum_seq": [
+        "abort",
+        "le32toh"
+    ],
+    "util_compare_file_inodes": [
+        "strcmp",
+        "os_stat",
+        "LOG",
+        "ERR"
+    ],
+    "util_concat_str": [
+        "strcpy",
+        "malloc",
+        "strlen",
+        "strcat"
+    ],
+    "util_fd_get_type": [
+        "LOG",
+        "os_fstat",
+        "util_stat_get_type",
+        "ERR"
+    ],
+    "util_file_create": [
+        "os_flock",
+        "LOG",
+        "os_posix_fallocate",
+        "os_open",
+        "ASSERTne",
+        "os_close",
+        "os_unlink",
+        "ERR"
+    ],
+    "os_flock": [
+        "flock"
+    ],
+    "util_file_device_dax_alignment": [
+        "LOG",
+        "device_dax_alignment"
+    ],
+    "device_dax_alignment": [
+        "LOG",
+        "os_open",
+        "pmem2_source_from_fd",
+        "os_close",
+        "pmem2_device_dax_alignment",
+        "pmem2_source_delete"
+    ],
+    "util_file_dir_close": [
+        "LOG",
+        "closedir"
+    ],
+    "util_file_dir_next": [
+        "LOG",
+        "readdir",
+        "strncpy"
+    ],
+    "util_file_dir_open": [
+        "LOG",
+        "opendir"
+    ],
+    "util_file_dir_remove": [
+        "LOG",
+        "rmdir"
+    ],
+    "util_file_mkdir": [
+        "LOG",
+        "mkdir"
+    ],
+    "util_file_pread": [
+        "LOG",
+        "util_file_map_whole",
+        "util_file_get_size",
+        "util_file_open",
+        "ADDR_SUM",
+        "os_close",
+        "util_unmap",
+        "memcpy",
+        "pread",
+        "util_file_get_type"
+    ],
+    "util_file_open": [
+        "os_flock",
+        "LOG",
+        "os_open",
+        "os_close",
+        "ASSERTeq",
+        "util_fd_get_size",
+        "ERR"
+    ],
+    "util_file_map_whole": [
+        "LOG",
+        "os_open",
+        "out",
+        "util_fd_get_size",
+        "util_map",
+        "os_close",
+        "ERR"
+    ],
+    "util_file_pwrite": [
+        "LOG",
+        "util_file_map_whole",
+        "util_file_get_size",
+        "util_file_open",
+        "ADDR_SUM",
+        "os_close",
+        "util_unmap",
+        "memcpy",
+        "util_file_get_type",
+        "pwrite"
+    ],
+    "util_init": [
+        "sysconf",
+        "VALGRIND_HG_GET_ABITS",
+        "os_getenv",
+        "VALGRIND_PMC_REMOVE_PMEM_MAPPING",
+        "VALGRIND_PMC_CHECK_IS_PMEM_MAPPING",
+        "VALGRIND_GET_VBITS",
+        "VALGRIND_PMC_REGISTER_PMEM_MAPPING",
+        "atoi"
+    ],
+    "util_is_absolute_path": [
+        "LOG"
+    ],
+    "util_is_zeroed": [
+        "memcmp"
+    ],
+    "util_localtime": [
+        "localtime_r"
+    ],
+    "util_mmap_fini": [
+        "LOG",
+        "util_rwlock_destroy"
+    ],
+    "util_mmap_init": [
+        "LOG",
+        "util_rwlock_init",
+        "strtoull",
+        "os_getenv",
+        "os_access"
+    ],
+    "util_parse_size": [
+        "strcmp",
+        "sscanf",
+        "ARRAY_SIZE"
+    ],
+    "util_part_realpath": [
+        "realpath"
+    ],
+    "util_range_none": [
+        "mprotect",
+        "LOG",
+        "ERR"
+    ],
+    "util_range_ro": [
+        "mprotect",
+        "LOG",
+        "ERR"
+    ],
+    "util_range_rw": [
+        "mprotect",
+        "LOG",
+        "ERR"
+    ],
+    "util_readline": [
+        "feof",
+        "Free",
+        "Realloc",
+        "strlen",
+        "util_fgets"
+    ],
+    "util_fgets": [
+        "strlen",
+        "fgets"
+    ],
+    "util_safe_strcpy": [
+        "strncpy"
+    ],
+    "util_set_alloc_funcs": [
+        "set_func_realloc",
+        "free",
+        "Free",
+        "set_func_malloc"
+    ],
+    "set_func_malloc": [
+        "malloc",
+        "fn_malloc"
+    ],
+    "set_func_realloc": [
+        "fn_realloc"
+    ],
+    "util_unlink_flock": [
+        "LOG",
+        "os_close",
+        "util_file_open",
+        "util_unlink"
+    ],
+    "util_unlink": [
+        "LOG",
+        "os_unlink",
+        "util_file_get_type",
+        "util_file_zero"
+    ],
+    "util_file_zero": [
+        "LOG",
+        "os_open",
+        "out",
+        "memset",
+        "util_fd_get_size",
+        "util_map",
+        "util_unmap",
+        "ERR",
+        "os_close"
+    ],
+    "util_write_all": [
+        "util_write"
+    ],
+    "core_init": [
+        "util_init",
+        "out_init"
+    ],
+    "core_fini": [
+        "out_fini"
+    ],
+    "ERR": [
+        "out_err"
+    ],
+    "Print": [
+        "out_print_func"
+    ],
+    "common_init": [
+        "core_init",
+        "util_mmap_init"
+    ],
+    "common_fini": [
+        "util_mmap_fini",
+        "core_fini"
+    ],
+    "_Last_errormsg_key_alloc": [
+        "os_once",
+        "os_tls_key_create"
+    ],
+    "pmem_memmove_nodrain.static": [
+        "memmove_mov_sse2_noflush",
+        "memmove_mov_avx_noflush",
+        "memmove_mov_avx512f_noflush",
+        "memmove_movnt_sse2_clflush_wcbarrier",
+        "memmove_movnt_sse2_clflush_nobarrier",
+        "memmove_movnt_sse2_clflushopt_wcbarrier",
+        "memmove_movnt_sse2_clflushopt_nobarrier",
+        "memmove_movnt_sse2_clwb_wcbarrier",
+        "memmove_movnt_sse2_clwb_nobarrier",
+        "memmove_movnt_avx_clflush_wcbarrier",
+        "memmove_movnt_avx_clflush_nobarrier",
+        "memmove_movnt_avx_clflushopt_wcbarrier",
+        "memmove_movnt_avx_clflushopt_nobarrier",
+        "memmove_movnt_avx_clwb_wcbarrier",
+        "memmove_movnt_avx_clwb_nobarrier",
+        "memmove_movnt_avx512f_clflush",
+        "memmove_movnt_avx512f_clflushopt",
+        "memmove_movnt_avx512f_clwb",
+        "memmove_movnt_movdir64b_clflush",
+        "memmove_movnt_movdir64b_clflushopt",
+        "memmove_movnt_movdir64b_clwb",
+        "memmove_mov_sse2_clflush",
+        "memmove_mov_sse2_clflushopt",
+        "memmove_mov_sse2_clwb",
+        "memmove_mov_avx_clflush",
+        "memmove_mov_avx_clflushopt",
+        "memmove_mov_avx_clwb",
+        "memmove_mov_avx512f_clflush",
+        "memmove_mov_avx512f_clflushopt",
+        "memmove_mov_avx512f_clwb",
+        "memmove_movnt_sse2_empty_wcbarrier",
+        "memmove_movnt_sse2_empty_nobarrier",
+        "memmove_movnt_avx_empty_wcbarrier",
+        "memmove_movnt_avx_empty_nobarrier",
+        "memmove_movnt_avx512f_empty",
+        "memmove_movnt_movdir64b_empty",
+        "memmove_mov_sse2_empty",
+        "memmove_mov_avx_empty",
+        "memmove_mov_avx512f_empty"
+    ],
+    "pmem_memmove_nodrain_eadr.static": [
+        "memmove_mov_sse2_noflush",
+        "memmove_mov_avx_noflush",
+        "memmove_mov_avx512f_noflush",
+        "memmove_movnt_sse2_clflush_wcbarrier",
+        "memmove_movnt_sse2_clflush_nobarrier",
+        "memmove_movnt_sse2_clflushopt_wcbarrier",
+        "memmove_movnt_sse2_clflushopt_nobarrier",
+        "memmove_movnt_sse2_clwb_wcbarrier",
+        "memmove_movnt_sse2_clwb_nobarrier",
+        "memmove_movnt_avx_clflush_wcbarrier",
+        "memmove_movnt_avx_clflush_nobarrier",
+        "memmove_movnt_avx_clflushopt_wcbarrier",
+        "memmove_movnt_avx_clflushopt_nobarrier",
+        "memmove_movnt_avx_clwb_wcbarrier",
+        "memmove_movnt_avx_clwb_nobarrier",
+        "memmove_movnt_avx512f_clflush",
+        "memmove_movnt_avx512f_clflushopt",
+        "memmove_movnt_avx512f_clwb",
+        "memmove_movnt_movdir64b_clflush",
+        "memmove_movnt_movdir64b_clflushopt",
+        "memmove_movnt_movdir64b_clwb",
+        "memmove_mov_sse2_clflush",
+        "memmove_mov_sse2_clflushopt",
+        "memmove_mov_sse2_clwb",
+        "memmove_mov_avx_clflush",
+        "memmove_mov_avx_clflushopt",
+        "memmove_mov_avx_clwb",
+        "memmove_mov_avx512f_clflush",
+        "memmove_mov_avx512f_clflushopt",
+        "memmove_mov_avx512f_clwb",
+        "memmove_movnt_sse2_empty_wcbarrier",
+        "memmove_movnt_sse2_empty_nobarrier",
+        "memmove_movnt_avx_empty_wcbarrier",
+        "memmove_movnt_avx_empty_nobarrier",
+        "memmove_movnt_avx512f_empty",
+        "memmove_movnt_movdir64b_empty",
+        "memmove_mov_sse2_empty",
+        "memmove_mov_avx_empty",
+        "memmove_mov_avx512f_empty"
+    ],
+    "pmem_memset_nodrain.static": [
+        "memset_mov_sse2_noflush",
+        "memset_mov_avx_noflush",
+        "memset_mov_avx512f_noflush",
+        "memset_movnt_sse2_clflush_wcbarrier",
+        "memset_movnt_sse2_clflush_nobarrier",
+        "memset_movnt_sse2_clflushopt_wcbarrier",
+        "memset_movnt_sse2_clflushopt_nobarrier",
+        "memset_movnt_sse2_clwb_wcbarrier",
+        "memset_movnt_sse2_clwb_nobarrier",
+        "memset_movnt_avx_clflush_wcbarrier",
+        "memset_movnt_avx_clflush_nobarrier",
+        "memset_movnt_avx_clflushopt_wcbarrier",
+        "memset_movnt_avx_clflushopt_nobarrier",
+        "memset_movnt_avx_clwb_wcbarrier",
+        "memset_movnt_avx_clwb_nobarrier",
+        "memset_movnt_avx512f_clflush",
+        "memset_movnt_avx512f_clflushopt",
+        "memset_movnt_avx512f_clwb",
+        "memset_movnt_movdir64b_clflush",
+        "memset_movnt_movdir64b_clflushopt",
+        "memset_movnt_movdir64b_clwb",
+        "memset_mov_sse2_clflush",
+        "memset_mov_sse2_clflushopt",
+        "memset_mov_sse2_clwb",
+        "memset_mov_avx_clflush",
+        "memset_mov_avx_clflushopt",
+        "memset_mov_avx_clwb",
+        "memset_mov_avx512f_clflush",
+        "memset_mov_avx512f_clflushopt",
+        "memset_mov_avx512f_clwb",
+        "memset_movnt_sse2_empty_wcbarrier",
+        "memset_movnt_sse2_empty_nobarrier",
+        "memset_movnt_avx_empty_wcbarrier",
+        "memset_movnt_avx_empty_nobarrier",
+        "memset_movnt_avx512f_empty",
+        "memset_movnt_movdir64b_empty",
+        "memset_mov_sse2_empty",
+        "memset_mov_avx_empty",
+        "memset_mov_avx512f_empty"
+    ],
+    "pmem_memset_nodrain_eadr.static": [
+        "memset_mov_sse2_noflush",
+        "memset_mov_avx_noflush",
+        "memset_mov_avx512f_noflush",
+        "memset_movnt_sse2_clflush_wcbarrier",
+        "memset_movnt_sse2_clflush_nobarrier",
+        "memset_movnt_sse2_clflushopt_wcbarrier",
+        "memset_movnt_sse2_clflushopt_nobarrier",
+        "memset_movnt_sse2_clwb_wcbarrier",
+        "memset_movnt_sse2_clwb_nobarrier",
+        "memset_movnt_avx_clflush_wcbarrier",
+        "memset_movnt_avx_clflush_nobarrier",
+        "memset_movnt_avx_clflushopt_wcbarrier",
+        "memset_movnt_avx_clflushopt_nobarrier",
+        "memset_movnt_avx_clwb_wcbarrier",
+        "memset_movnt_avx_clwb_nobarrier",
+        "memset_movnt_avx512f_clflush",
+        "memset_movnt_avx512f_clflushopt",
+        "memset_movnt_avx512f_clwb",
+        "memset_movnt_movdir64b_clflush",
+        "memset_movnt_movdir64b_clflushopt",
+        "memset_movnt_movdir64b_clwb",
+        "memset_mov_sse2_clflush",
+        "memset_mov_sse2_clflushopt",
+        "memset_mov_sse2_clwb",
+        "memset_mov_avx_clflush",
+        "memset_mov_avx_clflushopt",
+        "memset_mov_avx_clwb",
+        "memset_mov_avx512f_clflush",
+        "memset_mov_avx512f_clflushopt",
+        "memset_mov_avx512f_clwb",
+        "memset_movnt_sse2_empty_wcbarrier",
+        "memset_movnt_sse2_empty_nobarrier",
+        "memset_movnt_avx_empty_wcbarrier",
+        "memset_movnt_avx_empty_nobarrier",
+        "memset_movnt_avx512f_empty",
+        "memset_movnt_movdir64b_empty",
+        "memset_mov_sse2_empty",
+        "memset_mov_avx_empty",
+        "memset_mov_avx512f_empty"
+    ]
+}
