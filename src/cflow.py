@@ -385,11 +385,13 @@ def generate_all_call_stacks(funcs, calls):
                 call_stacks.extend(generate_call_stacks(func, funcs, rcalls))
         # call_stacks = call_stacks_reduce(call_stacks)
         print(len(call_stacks))
+        call_stacks.sort(reverse=True, key=call_stack_key)
+        dump(call_stacks, 'call_stacks_all')
         # XXX
         call_stacks = list(filter(lambda call_stack: re.search('^pmem_(mem|persist|flush|drain)', call_stack['stack'][0]), call_stacks))
         print(len(call_stacks))
         call_stacks.sort(reverse=True, key=call_stack_key)
-        dump(call_stacks, 'call_stacks')
+        dump(call_stacks, 'call_stacks_pmem_ops')
 
 def main():
         funcs = load_stack_usage()
