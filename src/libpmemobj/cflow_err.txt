@@ -1,0 +1,71 @@
+cflow:core/out.c:110: Last_errormsg_key_alloc/1 redefined
+cflow:core/out.c:56: this is the place of previous definition
+cflow:core/out.c:115: Last_errormsg_fini/1 redefined
+cflow:core/out.c:67: this is the place of previous definition
+cflow:core/out.c:120: Last_errormsg_get/1 redefined
+cflow:core/out.c:78: this is the place of previous definition
+cflow:core/out.c:324: ret redefined
+cflow:core/out.c:320: this is the place of previous definition
+cflow:core/out.c:327: ret redefined
+cflow:core/out.c:324: this is the place of previous definition
+cflow:common/ctl_prefault.c:41: CTL_READ_HANDLER/4 redefined
+cflow:common/ctl_prefault.c:14: this is the place of previous definition
+cflow:common/ctl_prefault.c:54: CTL_WRITE_HANDLER/4 redefined
+cflow:common/ctl_prefault.c:27: this is the place of previous definition
+cflow: cannot open `libpmemobj/ctl_debug.o': No such file or directory
+cflow:libpmemobj/lane.c:32: __thread redefined
+cflow:libpmemobj/lane.c:31: this is the place of previous definition
+cflow:libpmemobj/lane.c:33: __thread redefined
+cflow:libpmemobj/lane.c:32: this is the place of previous definition
+cflow:libpmemobj/pmalloc.c:472: CTL_READ_HANDLER/4 redefined
+cflow:libpmemobj/pmalloc.c:348: this is the place of previous definition
+cflow:libpmemobj/pmalloc.c:491: CTL_WRITE_HANDLER/4 redefined
+cflow:libpmemobj/pmalloc.c:216: this is the place of previous definition
+cflow:libpmemobj/pmalloc.c:517: CTL_READ_HANDLER/4 redefined
+cflow:libpmemobj/pmalloc.c:472: this is the place of previous definition
+cflow:libpmemobj/pmalloc.c:535: CTL_READ_HANDLER/4 redefined
+cflow:libpmemobj/pmalloc.c:517: this is the place of previous definition
+cflow:libpmemobj/pmalloc.c:553: CTL_WRITE_HANDLER/4 redefined
+cflow:libpmemobj/pmalloc.c:491: this is the place of previous definition
+cflow:libpmemobj/pmalloc.c:577: CTL_READ_HANDLER/4 redefined
+cflow:libpmemobj/pmalloc.c:535: this is the place of previous definition
+cflow:libpmemobj/pmalloc.c:596: CTL_READ_HANDLER/4 redefined
+cflow:libpmemobj/pmalloc.c:577: this is the place of previous definition
+cflow:libpmemobj/pmalloc.c:614: CTL_WRITE_HANDLER/4 redefined
+cflow:libpmemobj/pmalloc.c:553: this is the place of previous definition
+cflow:libpmemobj/pmalloc.c:647: CTL_WRITE_HANDLER/4 redefined
+cflow:libpmemobj/pmalloc.c:614: this is the place of previous definition
+cflow:libpmemobj/pmalloc.c:686: CTL_READ_HANDLER/4 redefined
+cflow:libpmemobj/pmalloc.c:596: this is the place of previous definition
+cflow:libpmemobj/pmalloc.c:731: CTL_READ_HANDLER/4 redefined
+cflow:libpmemobj/pmalloc.c:686: this is the place of previous definition
+cflow:libpmemobj/pmalloc.c:787: CTL_RUNNABLE_HANDLER/4 redefined
+cflow:libpmemobj/pmalloc.c:441: this is the place of previous definition
+cflow:libpmemobj/pmalloc.c:858: CTL_WRITE_HANDLER/4 redefined
+cflow:libpmemobj/pmalloc.c:647: this is the place of previous definition
+cflow:libpmemobj/pmalloc.c:876: CTL_READ_HANDLER/4 redefined
+cflow:libpmemobj/pmalloc.c:731: this is the place of previous definition
+cflow:libpmemobj/pmalloc.c:926: CTL_READ_HANDLER/4 redefined
+cflow:libpmemobj/pmalloc.c:876: this is the place of previous definition
+cflow:libpmemobj/pmalloc.c:945: CTL_WRITE_HANDLER/4 redefined
+cflow:libpmemobj/pmalloc.c:858: this is the place of previous definition
+cflow:libpmemobj/tx.c:2221: CTL_READ_HANDLER/4 redefined
+cflow:libpmemobj/tx.c:2173: this is the place of previous definition
+cflow:libpmemobj/tx.c:2236: CTL_WRITE_HANDLER/4 redefined
+cflow:libpmemobj/tx.c:2192: this is the place of previous definition
+cflow:libpmemobj/tx.c:2261: CTL_READ_HANDLER/4 redefined
+cflow:libpmemobj/tx.c:2221: this is the place of previous definition
+cflow:libpmemobj/tx.c:2281: CTL_WRITE_HANDLER/4 redefined
+cflow:libpmemobj/tx.c:2236: this is the place of previous definition
+cflow:libpmemobj/tx.c:2303: CTL_READ_HANDLER/4 redefined
+cflow:libpmemobj/tx.c:2261: this is the place of previous definition
+cflow:libpmemobj/tx.c:2323: CTL_WRITE_HANDLER/4 redefined
+cflow:libpmemobj/tx.c:2281: this is the place of previous definition
+cflow:libpmemobj/tx.c:2351: CTL_READ_HANDLER/4 redefined
+cflow:libpmemobj/tx.c:2303: this is the place of previous definition
+cflow:libpmemobj/tx.c:2364: CTL_WRITE_HANDLER/4 redefined
+cflow:libpmemobj/tx.c:2323: this is the place of previous definition
+cflow:libpmemobj/tx.c:2379: CTL_READ_HANDLER/4 redefined
+cflow:libpmemobj/tx.c:2351: this is the place of previous definition
+cflow:libpmemobj/tx.c:2392: CTL_READ_HANDLER/4 redefined
+cflow:libpmemobj/tx.c:2379: this is the place of previous definition
