@@ -1,20 +1,20 @@
 {
     "pmemobj_alloc": [
-        "PMEMOBJ_API_START",
         "PMEMOBJ_API_END",
-        "obj_alloc_construct",
         "LOG",
-        "ERR"
+        "ERR",
+        "PMEMOBJ_API_START",
+        "obj_alloc_construct"
     ],
     "obj_alloc_construct": [
+        "constructor_alloc",
         "operation_add_entry",
+        "CLASS_ID_FROM_FLAG",
+        "ERR",
         "ARENA_ID_FROM_FLAG",
         "pmalloc_operation_release",
         "palloc_operation",
-        "pmalloc_operation_hold",
-        "constructor_alloc",
-        "ERR",
-        "CLASS_ID_FROM_FLAG"
+        "pmalloc_operation_hold"
     ],
     "pmalloc_operation_hold": [
         "pmalloc_operation_hold_type"
@@ -24,34 +24,34 @@
         "lane_hold"
     ],
     "lane_hold": [
-        "operation_init",
-        "get_lane",
-        "util_fetch_and_add32",
+        "VALGRIND_ANNOTATE_NEW_MEMORY",
         "unlikely",
-        "get_lane_info_record",
-        "VALGRIND_ANNOTATE_NEW_MEMORY"
+        "util_fetch_and_add32",
+        "get_lane",
+        "operation_init",
+        "get_lane_info_record"
     ],
     "get_lane_info_record": [
+        "unlikely",
         "likely",
+        "Malloc",
         "critnib_get",
         "critnib_insert",
-        "FATAL",
         "lane_info_ht_boot",
-        "unlikely",
-        "Malloc"
+        "FATAL"
     ],
     "lane_info_ht_boot": [
-        "FATAL",
+        "os_tls_set",
         "lane_info_create",
-        "os_tls_set"
+        "FATAL"
     ],
     "lane_info_create": [
         "critnib_new",
         "FATAL"
     ],
     "critnib_new": [
-        "util_mutex_init",
         "Zalloc",
+        "util_mutex_init",
         "VALGRIND_HG_DRD_DISABLE_CHECKING"
     ],
     "Zalloc": [
@@ -62,74 +62,74 @@
         "pthread_setspecific"
     ],
     "critnib_get": [
-        "is_leaf",
         "slice_index",
         "to_leaf",
-        "load"
+        "load",
+        "is_leaf"
     ],
     "load": [
         "util_atomic_load_explicit64"
     ],
     "critnib_insert": [
-        "util_mssb_index64",
-        "alloc_node",
-        "path_mask",
-        "VALGRIND_HG_DRD_DISABLE_CHECKING",
-        "util_mutex_unlock",
-        "ASSERT",
         "alloc_leaf",
-        "to_leaf",
-        "slice_index",
-        "util_mutex_lock",
-        "free_leaf",
+        "alloc_node",
         "is_leaf",
-        "store"
+        "util_mssb_index64",
+        "path_mask",
+        "ASSERT",
+        "slice_index",
+        "VALGRIND_HG_DRD_DISABLE_CHECKING",
+        "store",
+        "util_mutex_unlock",
+        "util_mutex_lock",
+        "to_leaf",
+        "free_leaf"
     ],
     "alloc_leaf": [
+        "ERR",
         "VALGRIND_ANNOTATE_NEW_MEMORY",
-        "Malloc",
-        "ERR"
+        "Malloc"
     ],
     "store": [
         "util_atomic_store_explicit64"
     ],
     "alloc_node": [
+        "ERR",
         "VALGRIND_ANNOTATE_NEW_MEMORY",
-        "Malloc",
-        "ERR"
+        "Malloc"
     ],
     "get_lane": [
+        "sched_yield",
         "likely",
-        "util_bool_compare_and_swap64",
-        "sched_yield"
+        "util_bool_compare_and_swap64"
     ],
     "operation_init": [
-        "VECQ_REINIT",
-        "VALGRIND_ANNOTATE_NEW_MEMORY"
+        "VALGRIND_ANNOTATE_NEW_MEMORY",
+        "VECQ_REINIT"
     ],
     "operation_start": [
-        "ASSERTeq",
-        "operation_init"
+        "operation_init",
+        "ASSERTeq"
     ],
     "operation_add_entry": [
         "OBJ_OFF_IS_VALID",
         "operation_add_typed_entry"
     ],
     "operation_add_typed_entry": [
-        "Realloc",
-        "operation_try_merge_entry",
-        "SIZEOF_ULOG",
         "ulog_entry_size",
-        "ulog_entry_val_create",
+        "Realloc",
         "VECQ_CLEAR",
-        "operation_merge_entry_add"
+        "operation_merge_entry_add",
+        "ulog_entry_val_create",
+        "SIZEOF_ULOG",
+        "operation_try_merge_entry"
     ],
     "operation_try_merge_entry": [
-        "ulog_entry_offset",
-        "ulog_entry_type",
-        "OBJ_PTR_TO_OFF",
         "operation_merge",
-        "VECQ_FOREACH_REVERSE"
+        "OBJ_PTR_TO_OFF",
+        "VECQ_FOREACH_REVERSE",
+        "ulog_entry_type",
+        "ulog_entry_offset"
     ],
     "ulog_entry_type": [
         "ULOG_OPERATION_FROM_OFFSET"
@@ -139,139 +139,139 @@
     ],
     "ulog_entry_val_create": [
         "pmemops_memcpy",
-        "COMPILE_ERROR_ON",
-        "ULOG_OPERATION"
+        "ULOG_OPERATION",
+        "COMPILE_ERROR_ON"
     ],
     "operation_merge_entry_add": [
-        "VECQ_ENQUEUE",
-        "VECQ_SIZE",
         "VECQ_DEQUEUE",
-        "LOG"
+        "LOG",
+        "VECQ_ENQUEUE",
+        "VECQ_SIZE"
     ],
     "ulog_entry_size": [
-        "ASSERT",
         "ulog_entry_type",
+        "ASSERT",
         "CACHELINE_ALIGN"
     ],
     "palloc_operation": [
-        "operation_add_entry",
-        "VALGRIND_REMOVE_FROM_TX",
-        "palloc_exec_actions",
-        "VALGRIND_ADD_TO_TX",
-        "HEAP_OFF_TO_PTR",
         "pmemops_memcpy",
+        "VALGRIND_REMOVE_FROM_TX",
         "palloc_reservation_create",
+        "operation_add_entry",
         "palloc_defer_free_create",
-        "operation_cancel"
+        "HEAP_OFF_TO_PTR",
+        "operation_cancel",
+        "palloc_exec_actions",
+        "VALGRIND_ADD_TO_TX"
     ],
     "palloc_defer_free_create": [
+        "heap_ensure_zone_reclaimed",
         "memblock_from_offset",
-        "COMPILE_ERROR_ON",
-        "heap_ensure_zone_reclaimed"
+        "COMPILE_ERROR_ON"
     ],
     "memblock_from_offset": [
         "memblock_from_offset_opt"
     ],
     "memblock_from_offset_opt": [
-        "CALC_SIZE_IDX",
-        "run_get_data_offset",
-        "memblock_detect_type",
-        "alloc_class_by_run",
-        "heap_alloc_classes",
-        "heap_get_chunk_hdr",
         "memblock_header_type",
+        "run_get_data_offset",
+        "CALC_SIZE_IDX",
         "HEAP_PTR_TO_OFF",
-        "ASSERTeq"
+        "alloc_class_by_run",
+        "ASSERTeq",
+        "memblock_detect_type",
+        "heap_get_chunk_hdr",
+        "heap_alloc_classes"
     ],
     "memblock_header_type": [
         "heap_get_chunk_hdr"
     ],
     "memblock_detect_type": [
-        "heap_get_chunk_hdr",
-        "FATAL"
+        "FATAL",
+        "heap_get_chunk_hdr"
     ],
     "run_get_data_offset": [
-        "run_get_data_start",
-        "heap_get_chunk_run"
+        "heap_get_chunk_run",
+        "run_get_data_start"
     ],
     "run_get_data_start": [
         "ALIGN_UP",
-        "heap_get_chunk_run",
         "heap_get_chunk_hdr",
+        "heap_get_chunk_run",
         "run_get_bitmap"
     ],
     "run_get_bitmap": [
         "memblock_run_bitmap",
-        "heap_get_chunk_run",
         "heap_get_chunk_hdr",
+        "heap_get_chunk_run",
         "ASSERTeq"
     ],
     "memblock_run_bitmap": [
-        "ALIGN_UP",
         "util_div_ceil",
-        "ASSERTne",
         "memblock_run_default_nallocs",
-        "RUN_CONTENT_SIZE_BYTES"
+        "RUN_CONTENT_SIZE_BYTES",
+        "ALIGN_UP",
+        "ASSERTne"
     ],
     "memblock_run_default_nallocs": [
-        "SUPPRESS_UNUSED",
         "RUN_DEFAULT_SIZE_BYTES",
-        "LOG"
+        "LOG",
+        "SUPPRESS_UNUSED"
     ],
     "alloc_class_by_run": [
-        "ASSERT",
-        "critnib_get",
         "RUN_CLASS_KEY_PACK",
-        "SIZE_TO_CLASS_MAP_INDEX"
+        "ASSERT",
+        "SIZE_TO_CLASS_MAP_INDEX",
+        "critnib_get"
     ],
     "heap_ensure_zone_reclaimed": [
-        "heap_reclaim_zone_garbage",
-        "util_atomic_store_explicit32",
-        "heap_bucket_acquire",
-        "out",
-        "util_atomic_load_explicit32",
         "ZID_TO_ZONE",
+        "heap_reclaim_zone_garbage",
+        "util_atomic_load_explicit32",
+        "heap_bucket_release",
+        "out",
         "ASSERTeq",
-        "heap_bucket_release"
+        "heap_bucket_acquire",
+        "util_atomic_store_explicit32"
     ],
     "heap_bucket_acquire": [
+        "bucket_acquire",
         "VEC_ARR",
         "heap_thread_arena",
-        "ASSERTne",
         "out",
-        "bucket_acquire"
+        "ASSERTne"
     ],
     "out": [
+        "va_end",
         "out_common",
-        "va_start",
-        "va_end"
+        "va_start"
     ],
     "heap_thread_arena": [
-        "os_tls_get",
+        "heap_thread_arena_assign",
         "ASSERT",
+        "os_tls_get",
         "heap_global_arena_assign",
-        "ASSERTne",
-        "heap_thread_arena_assign"
+        "ASSERTne"
     ],
     "os_tls_get": [
         "pthread_getspecific"
     ],
     "heap_thread_arena_assign": [
-        "LOG",
         "heap_arena_thread_attach",
+        "LOG",
         "util_mutex_unlock",
-        "VEC_SIZE",
+        "VEC_FOREACH",
         "util_mutex_lock",
-        "ASSERTne",
-        "VEC_FOREACH"
+        "VEC_SIZE",
+        "ASSERTne"
     ],
     "heap_arena_thread_attach": [
-        "heap_arena_thread_detach",
-        "os_tls_set",
+        "ASSERTeq",
         "os_tls_get",
-        "ASSERTne",
+        "heap_arena_thread_detach",
         "util_fetch_and_add64",
-        "ASSERTeq"
+        "os_tls_set",
+        "ASSERTne"
     ],
     "heap_arena_thread_detach": [
         "util_fetch_and_sub64"
@@ -279,21 +279,21 @@
     "heap_global_arena_assign": [
         "LOG",
         "util_mutex_unlock",
-        "VEC_SIZE",
+        "VEC_FOREACH",
         "util_mutex_lock",
-        "ASSERTne",
-        "VEC_FOREACH"
+        "VEC_SIZE",
+        "ASSERTne"
     ],
     "bucket_acquire": [
         "util_mutex_lock"
     ],
     "heap_reclaim_zone_garbage": [
         "memblock_rebuild_state",
-        "heap_free_chunk_reuse",
-        "ASSERT",
         "ZID_TO_ZONE",
+        "heap_reclaim_run",
+        "ASSERT",
         "heap_run_into_free_chunk",
-        "heap_reclaim_run"
+        "heap_free_chunk_reuse"
     ],
     "memblock_rebuild_state": [
         "memblock_header_type",
@@ -301,96 +301,96 @@
     ],
     "heap_reclaim_run": [
         "recycler_put",
-        "alloc_class_by_run",
-        "STATS_INC",
-        "heap_get_chunk_run",
-        "heap_get_chunk_hdr",
         "heap_get_recycler",
         "recycler_element_new",
+        "ASSERTeq",
+        "STATS_INC",
         "ERR",
-        "ASSERTeq"
+        "heap_get_chunk_run",
+        "alloc_class_by_run",
+        "heap_get_chunk_hdr"
     ],
     "recycler_element_new": [
-        "SUPPRESS_UNUSED",
         "util_mutex_unlock",
+        "SUPPRESS_UNUSED",
         "util_mutex_lock",
         "run_calc_free"
     ],
     "heap_get_recycler": [
-        "recycler_delete",
         "util_bool_compare_and_swap64",
-        "recycler_new",
+        "util_atomic_load_explicit64",
         "heap_get_recycler",
-        "util_atomic_load_explicit64"
+        "recycler_delete",
+        "recycler_new"
     ],
     "recycler_new": [
-        "VEC_INIT",
-        "recycler_element_cmp",
         "ravl_new_sized",
-        "memset",
-        "util_mutex_init",
+        "recycler_element_cmp",
         "Free",
-        "Malloc"
+        "Malloc",
+        "memset",
+        "VEC_INIT",
+        "util_mutex_init"
     ],
     "ravl_new_sized": [
-        "Malloc",
-        "ERR"
+        "ERR",
+        "Malloc"
     ],
     "recycler_delete": [
-        "util_mutex_destroy",
+        "VEC_DELETE",
         "ravl_delete",
-        "Free",
-        "VEC_DELETE"
+        "util_mutex_destroy",
+        "Free"
     ],
     "ravl_delete": [
         "ravl_delete_cb"
     ],
     "ravl_delete_cb": [
-        "Free",
-        "ravl_foreach_node"
+        "ravl_foreach_node",
+        "Free"
     ],
     "ravl_foreach_node": [
-        "Free",
-        "ravl_foreach_node"
+        "ravl_foreach_node",
+        "Free"
     ],
     "recycler_put": [
-        "util_mutex_unlock",
         "ravl_emplace_copy",
+        "util_mutex_unlock",
         "util_mutex_lock"
     ],
     "ravl_emplace_copy": [
-        "ravl_node_copy_constructor",
-        "ravl_emplace"
+        "ravl_emplace",
+        "ravl_node_copy_constructor"
     ],
     "ravl_emplace": [
-        "ravl_balance",
-        "LOG",
+        "Free",
         "ravl_new_node",
+        "LOG",
         "ravl_data",
-        "Free"
+        "ravl_balance"
     ],
     "ravl_new_node": [
+        "ERR",
         "ravl_node_insert_constructor",
-        "Malloc",
-        "ERR"
+        "Malloc"
     ],
     "ravl_node_insert_constructor": [
-        "SUPPRESS_UNUSED",
-        "memcpy"
+        "memcpy",
+        "SUPPRESS_UNUSED"
     ],
     "ravl_data": [
         "memcpy"
     ],
     "ravl_balance": [
-        "ravl_node_slot_type",
         "ravl_node_demote",
-        "ravl_node_promote",
-        "ravl_node_sibling",
-        "ravl_slot_opposite",
         "ravl_node_is",
-        "ravl_rotate",
+        "ravl_node_promote",
+        "ravl_node_rank_difference_parent",
         "ravl_node_rank_difference",
-        "ravl_node_rank_difference_parent"
+        "ravl_node_sibling",
+        "ravl_rotate",
+        "ravl_slot_opposite",
+        "ravl_node_slot_type"
     ],
     "ravl_node_is": [
         "ravl_node_is_i_j"
@@ -411,9 +411,9 @@
         "ASSERTne"
     ],
     "ravl_rotate": [
-        "ravl_slot_opposite",
         "ravl_node_ref",
         "ravl_node_slot_type",
+        "ravl_slot_opposite",
         "ASSERTne"
     ],
     "ravl_node_ref": [
@@ -427,48 +427,48 @@
     ],
     "heap_run_into_free_chunk": [
         "STATS_SUB",
-        "heap_get_chunk_hdr",
-        "heap_free_chunk_reuse",
-        "util_mutex_unlock",
         "memblock_huge_init",
-        "util_mutex_lock"
+        "util_mutex_unlock",
+        "util_mutex_lock",
+        "heap_free_chunk_reuse",
+        "heap_get_chunk_hdr"
     ],
     "memblock_huge_init": [
-        "memblock_rebuild_state",
-        "heap_get_chunk_hdr",
-        "VALGRIND_DO_MAKE_MEM_UNDEFINED",
-        "util_atomic_store_explicit64",
+        "VALGRIND_ANNOTATE_NEW_MEMORY",
         "huge_write_footer",
-        "pmemops_persist",
+        "memblock_rebuild_state",
         "chunk_get_chunk_hdr_value",
-        "VALGRIND_ANNOTATE_NEW_MEMORY"
+        "util_atomic_store_explicit64",
+        "VALGRIND_DO_MAKE_MEM_UNDEFINED",
+        "heap_get_chunk_hdr",
+        "pmemops_persist"
     ],
     "chunk_get_chunk_hdr_value": [
-        "COMPILE_ERROR_ON",
-        "memcpy"
+        "memcpy",
+        "COMPILE_ERROR_ON"
     ],
     "huge_write_footer": [
         "VALGRIND_DO_MAKE_MEM_UNDEFINED",
         "VALGRIND_SET_CLEAN"
     ],
     "heap_free_chunk_reuse": [
-        "bucket_insert_block",
         "heap_coalesce_huge",
+        "bucket_insert_block",
         "huge_prep_operation_hdr",
         "run_prep_operation_hdr"
     ],
     "heap_coalesce_huge": [
         "heap_get_adjacent_free_block",
-        "bucket_remove_block",
-        "heap_coalesce"
+        "heap_coalesce",
+        "bucket_remove_block"
     ],
     "heap_get_adjacent_free_block": [
-        "ZID_TO_ZONE",
-        "memblock_rebuild_state"
+        "memblock_rebuild_state",
+        "ZID_TO_ZONE"
     ],
     "heap_coalesce": [
-        "ASSERTne",
-        "memblock_rebuild_state"
+        "memblock_rebuild_state",
+        "ASSERTne"
     ],
     "bucket_insert_block": [
         "VALGRIND_ANNOTATE_NEW_MEMORY",
@@ -486,19 +486,19 @@
         "ASSERTeq"
     ],
     "palloc_reservation_create": [
+        "heap_bucket_release",
+        "bucket_insert_block",
+        "heap_get_bestfit_block",
         "alloc_class_by_id",
+        "ASSERT",
+        "heap_bucket_acquire",
+        "ERR",
+        "alloc_class_calc_size_idx",
+        "util_fetch_and_add64",
         "bucket_active_block",
         "alloc_prep_block",
         "heap_alloc_classes",
-        "heap_get_best_class",
-        "ASSERT",
-        "util_fetch_and_add64",
-        "heap_bucket_acquire",
-        "alloc_class_calc_size_idx",
-        "ERR",
-        "heap_get_bestfit_block",
-        "bucket_insert_block",
-        "heap_bucket_release"
+        "heap_get_best_class"
     ],
     "heap_get_best_class": [
         "alloc_class_by_alloc_size"
@@ -508,69 +508,69 @@
         "SIZE_TO_CLASS_MAP_INDEX"
     ],
     "alloc_class_assign_by_size": [
-        "alloc_class_find_min_frag",
         "util_bool_compare_and_swap64",
         "LOG",
-        "ASSERTne",
-        "SIZE_TO_CLASS_MAP_INDEX"
+        "SIZE_TO_CLASS_MAP_INDEX",
+        "alloc_class_find_min_frag",
+        "ASSERTne"
     ],
     "alloc_class_find_min_frag": [
-        "ASSERTne",
-        "LOG"
+        "LOG",
+        "ASSERTne"
     ],
     "alloc_class_calc_size_idx": [
         "CALC_SIZE_IDX"
     ],
     "heap_get_bestfit_block": [
         "heap_ensure_run_bucket_filled",
-        "bucket_alloc_class",
         "bucket_alloc_block",
         "ASSERT",
         "heap_split_block",
+        "bucket_alloc_class",
         "heap_ensure_huge_bucket_filled",
         "huge_ensure_header_type",
         "run_ensure_header_type"
     ],
     "heap_ensure_huge_bucket_filled": [
-        "heap_reclaim_garbage",
         "heap_populate_bucket",
+        "heap_reclaim_garbage",
         "heap_extend"
     ],
     "heap_reclaim_garbage": [
         "heap_recycle_unused"
     ],
     "heap_recycle_unused": [
-        "VEC_FOREACH_BY_PTR",
+        "heap_bucket_release",
         "recycler_recalc",
         "ASSERT",
-        "VEC_SIZE",
         "heap_bucket_acquire",
-        "VEC_DELETE",
         "heap_run_into_free_chunk",
-        "heap_bucket_release"
+        "VEC_FOREACH_BY_PTR",
+        "VEC_DELETE",
+        "VEC_SIZE"
     ],
     "recycler_recalc": [
-        "VEC_INIT",
-        "VEC_FOREACH_BY_PTR",
-        "memblock_rebuild_state",
-        "VEC_CLEAR",
         "ravl_remove",
-        "VEC_PUSH_BACK",
-        "ASSERT",
+        "memblock_rebuild_state",
+        "ravl_find",
+        "VEC_CLEAR",
         "ravl_data",
+        "ASSERT",
+        "VEC_INIT",
         "recycler_element_new",
-        "util_mutex_trylock",
         "ravl_emplace_copy",
         "MIN",
         "util_mutex_unlock",
-        "util_fetch_and_sub64",
+        "VEC_FOREACH_BY_PTR",
+        "VEC_PUSH_BACK",
         "util_atomic_load64",
-        "ravl_find"
+        "util_fetch_and_sub64",
+        "util_mutex_trylock"
     ],
     "ravl_find": [
+        "LOG",
         "ravl_predicate_holds",
-        "ravl_data",
-        "LOG"
+        "ravl_data"
     ],
     "ravl_predicate_holds": [
         "ravl_node_successor",
@@ -587,64 +587,64 @@
         "ravl_node_cessor"
     ],
     "ravl_remove": [
-        "ravl_node_ref",
-        "LOG",
-        "ravl_remove",
-        "memcpy",
+        "Free",
         "ravl_node_successor",
-        "Free"
+        "LOG",
+        "memcpy",
+        "ravl_node_ref",
+        "ravl_remove"
     ],
     "heap_populate_bucket": [
-        "VALGRIND_ADD_TO_GLOBAL_TX_IGNORE",
+        "ZID_TO_ZONE",
         "heap_reclaim_zone_garbage",
-        "util_atomic_store_explicit32",
         "heap_zone_init",
-        "ZID_TO_ZONE"
+        "VALGRIND_ADD_TO_GLOBAL_TX_IGNORE",
+        "util_atomic_store_explicit32"
     ],
     "heap_zone_init": [
-        "zone_calc_size_idx",
+        "ZID_TO_ZONE",
         "ASSERT",
         "memblock_huge_init",
-        "ZID_TO_ZONE",
+        "zone_calc_size_idx",
         "pmemops_persist"
     ],
     "zone_calc_size_idx": [
         "ASSERT"
     ],
     "heap_extend": [
-        "heap_max_zone",
         "memblock_rebuild_state",
-        "heap_free_chunk_reuse",
+        "ZID_TO_ZONE",
         "util_pool_extend",
         "heap_zone_init",
-        "ZID_TO_ZONE",
-        "pmemops_persist"
+        "heap_free_chunk_reuse",
+        "pmemops_persist",
+        "heap_max_zone"
     ],
     "util_pool_extend": [
+        "Free",
         "os_close",
         "util_part_open",
         "LOG",
-        "util_poolset_chmod",
-        "os_unlink",
         "ERR",
-        "util_poolset_set_size",
-        "util_map_part",
-        "util_poolset_fdclose",
         "util_poolset_append_new_part",
-        "Free"
+        "util_poolset_set_size",
+        "util_poolset_fdclose",
+        "util_map_part",
+        "os_unlink",
+        "util_poolset_chmod"
     ],
     "util_poolset_append_new_part": [
-        "LOG",
-        "strlen",
-        "FATAL",
         "util_replica_add_part",
+        "snprintf",
+        "Free",
+        "Malloc",
+        "LOG",
+        "ERR",
         "util_poolset_set_size",
         "VEC_GET",
         "VEC_SIZE",
-        "ERR",
-        "snprintf",
-        "Free",
-        "Malloc"
+        "FATAL",
+        "strlen"
     ],
     "util_replica_add_part": [
         "util_replica_add_part_by_idx",
@@ -653,27 +653,27 @@
     "util_replica_add_part_by_idx": [
         "util_replica_reserve",
         "LOG",
+        "util_file_get_type",
         "util_file_device_dax_alignment",
-        "ASSERTne",
-        "util_file_get_type"
+        "ASSERTne"
     ],
     "util_replica_reserve": [
-        "Realloc",
-        "memset",
         "ERR",
-        "LOG"
+        "LOG",
+        "Realloc",
+        "memset"
     ],
     "util_file_get_type": [
-        "os_stat",
         "LOG",
-        "util_stat_get_type",
         "util_file_exists",
-        "ERR"
+        "util_stat_get_type",
+        "ERR",
+        "os_stat"
     ],
     "util_file_exists": [
-        "os_access",
         "ERR",
-        "LOG"
+        "LOG",
+        "os_access"
     ],
     "os_access": [
         "access"
@@ -682,106 +682,106 @@
         "stat"
     ],
     "util_stat_get_type": [
+        "pmem2_err_to_errno",
         "pmem2_get_type_from_stat",
-        "ASSERTinfo",
-        "pmem2_err_to_errno"
+        "ASSERTinfo"
     ],
     "pmem2_get_type_from_stat": [
         "realpath",
-        "LOG",
-        "strrchr",
         "os_minor",
-        "ASSERTinfo",
-        "S_ISDIR",
-        "os_major",
         "S_ISCHR",
-        "util_snprintf",
+        "LOG",
+        "os_major",
+        "ASSERTinfo",
         "strcmp",
         "ERR",
+        "util_snprintf",
+        "strrchr",
+        "S_ISDIR",
         "S_ISREG"
     ],
     "util_snprintf": [
         "va_end",
-        "va_start",
-        "vsnprintf"
+        "vsnprintf",
+        "va_start"
     ],
     "pmem2_err_to_errno": [
         "FATAL"
     ],
     "util_file_device_dax_alignment": [
-        "device_dax_alignment",
-        "LOG"
+        "LOG",
+        "device_dax_alignment"
     ],
     "device_dax_alignment": [
         "os_close",
-        "pmem2_device_dax_alignment",
         "LOG",
         "pmem2_source_from_fd",
-        "os_open",
-        "pmem2_source_delete"
+        "pmem2_device_dax_alignment",
+        "pmem2_source_delete",
+        "os_open"
     ],
     "os_open": [
+        "va_end",
         "va_arg",
         "open",
-        "va_start",
-        "va_end"
+        "va_start"
     ],
     "pmem2_source_from_fd": [
-        "fcntl",
-        "ERR",
+        "os_fstat",
         "pmem2_get_type_from_stat",
         "pmem2_malloc",
-        "ASSERTne",
-        "os_fstat",
-        "PMEM2_ERR_CLR"
+        "PMEM2_ERR_CLR",
+        "ERR",
+        "fcntl",
+        "ASSERTne"
     ],
     "pmem2_malloc": [
-        "Malloc",
-        "ERR"
+        "ERR",
+        "Malloc"
     ],
     "pmem2_device_dax_alignment": [
-        "ndctl_namespace_get_dax",
-        "ndctl_dax_get_align",
-        "LOG",
-        "ndctl_new",
-        "pmem2_region_namespace",
         "ndctl_unref",
-        "ERR"
+        "pmem2_region_namespace",
+        "LOG",
+        "ERR",
+        "ndctl_namespace_get_dax",
+        "ndctl_new",
+        "ndctl_dax_get_align"
     ],
     "pmem2_region_namespace": [
-        "daxctl_dev_foreach",
-        "ndctl_namespace_get_dax",
         "daxctl_dev_get_devname",
-        "ndctl_namespace_get_block_device",
-        "LOG",
-        "ndctl_match_devdax",
-        "ndctl_match_fsdax",
         "ndctl_btt_get_block_device",
-        "ndctl_namespace_get_btt",
-        "ERR",
-        "ndctl_dax_get_daxctl_region",
+        "LOG",
+        "FOREACH_BUS_REGION_NAMESPACE",
+        "ndctl_match_fsdax",
         "ASSERTeq",
+        "ERR",
+        "ndctl_match_devdax",
         "ndctl_pfn_get_block_device",
+        "daxctl_dev_foreach",
         "ndctl_namespace_get_pfn",
-        "FOREACH_BUS_REGION_NAMESPACE"
+        "ndctl_dax_get_daxctl_region",
+        "ndctl_namespace_get_block_device",
+        "ndctl_namespace_get_dax",
+        "ndctl_namespace_get_btt"
     ],
     "ndctl_match_devdax": [
-        "os_stat",
         "LOG",
         "stat",
+        "ERR",
         "util_snprintf",
-        "ERR"
+        "os_stat"
     ],
     "ndctl_match_fsdax": [
         "os_close",
+        "minor",
         "LOG",
         "major",
-        "read",
-        "minor",
-        "util_snprintf",
-        "os_open",
         "ERR",
-        "strcmp"
+        "util_snprintf",
+        "read",
+        "strcmp",
+        "os_open"
     ],
     "pmem2_source_delete": [
         "Free"
@@ -790,22 +790,22 @@
         "LOG"
     ],
     "util_part_open": [
-        "util_file_create",
         "LOG",
         "util_file_exists",
-        "os_posix_fallocate",
+        "ERR",
         "util_file_open",
-        "ERR"
+        "util_file_create",
+        "os_posix_fallocate"
     ],
     "util_file_create": [
+        "os_flock",
         "os_close",
         "LOG",
-        "os_flock",
+        "ERR",
         "os_unlink",
         "os_posix_fallocate",
         "os_open",
-        "ASSERTne",
-        "ERR"
+        "ASSERTne"
     ],
     "os_posix_fallocate": [
         "posix_fallocate"
@@ -817,60 +817,60 @@
         "unlink"
     ],
     "util_file_open": [
+        "util_fd_get_size",
+        "os_flock",
         "os_close",
         "LOG",
-        "os_flock",
-        "util_fd_get_size",
-        "os_open",
+        "ASSERTeq",
         "ERR",
-        "ASSERTeq"
+        "os_open"
     ],
     "util_fd_get_size": [
         "LOG",
-        "pmem2_err_to_errno",
         "pmem2_source_from_fd",
-        "pmem2_source_size",
         "ERR",
-        "pmem2_source_delete"
+        "pmem2_err_to_errno",
+        "pmem2_source_delete",
+        "pmem2_source_size"
     ],
     "pmem2_source_size": [
-        "LOG",
-        "ERR",
-        "ASSERT",
-        "pmem2_device_dax_size",
         "os_fstat",
+        "LOG",
+        "ASSERT",
         "PMEM2_ERR_CLR",
-        "FATAL"
+        "ERR",
+        "FATAL",
+        "pmem2_device_dax_size"
     ],
     "pmem2_device_dax_size": [
-        "ndctl_namespace_get_dax",
-        "LOG",
-        "ndctl_new",
-        "ndctl_dax_get_size",
-        "pmem2_region_namespace",
         "ndctl_unref",
-        "ERR"
+        "pmem2_region_namespace",
+        "LOG",
+        "ERR",
+        "ndctl_dax_get_size",
+        "ndctl_namespace_get_dax",
+        "ndctl_new"
     ],
     "util_map_part": [
-        "VALGRIND_REGISTER_PMEM_MAPPING",
-        "util_map_sync",
-        "LOG",
-        "ASSERT",
-        "munmap",
-        "ERR",
         "VALGRIND_REGISTER_PMEM_FILE",
+        "roundup",
+        "LOG",
+        "util_map_sync",
+        "ASSERT",
         "ASSERTeq",
-        "roundup"
+        "ERR",
+        "VALGRIND_REGISTER_PMEM_MAPPING",
+        "munmap"
     ],
     "util_map_sync": [
-        "mmap",
-        "LOG"
+        "LOG",
+        "mmap"
     ],
     "util_poolset_chmod": [
-        "os_fstat",
-        "os_chmod",
         "ERR",
-        "LOG"
+        "LOG",
+        "os_fstat",
+        "os_chmod"
     ],
     "os_chmod": [
         "chmod"
@@ -879,67 +879,67 @@
         "util_poolset_fdclose_always"
     ],
     "util_poolset_fdclose_always": [
-        "util_replica_fdclose",
-        "LOG"
+        "LOG",
+        "util_replica_fdclose"
     ],
     "util_replica_fdclose": [
         "util_part_fdclose"
     ],
     "util_part_fdclose": [
-        "os_close",
-        "LOG"
+        "LOG",
+        "os_close"
     ],
     "heap_ensure_run_bucket_filled": [
-        "heap_populate_bucket",
-        "heap_reuse_from_recycler",
-        "bucket_alloc_class",
+        "heap_bucket_release",
         "heap_get_bestfit_block",
-        "heap_run_create",
-        "heap_bucket_acquire",
         "out",
-        "ASSERTeq",
         "heap_detach_and_try_discard_run",
-        "heap_bucket_release"
+        "heap_reuse_from_recycler",
+        "ASSERTeq",
+        "heap_bucket_acquire",
+        "heap_populate_bucket",
+        "bucket_alloc_class",
+        "heap_run_create"
     ],
     "heap_detach_and_try_discard_run": [
         "bucket_detach_run",
         "heap_discard_run"
     ],
     "bucket_detach_run": [
-        "util_fetch_and_sub64",
-        "VALGRIND_ANNOTATE_HAPPENS_BEFORE",
         "Zalloc",
-        "VALGRIND_ANNOTATE_HAPPENS_AFTER"
+        "VALGRIND_ANNOTATE_HAPPENS_AFTER",
+        "VALGRIND_ANNOTATE_HAPPENS_BEFORE",
+        "util_fetch_and_sub64"
     ],
     "heap_discard_run": [
+        "heap_bucket_release",
         "heap_run_into_free_chunk",
-        "heap_bucket_acquire",
         "heap_reclaim_run",
-        "heap_bucket_release"
+        "heap_bucket_acquire"
     ],
     "heap_reuse_from_recycler": [
+        "recycler_get",
         "bucket_attach_run",
-        "bucket_alloc_class",
         "heap_get_recycler",
-        "heap_recycle_unused",
         "ERR",
-        "recycler_get"
+        "heap_recycle_unused",
+        "bucket_alloc_class"
     ],
     "recycler_get": [
         "memblock_rebuild_state",
-        "ravl_remove",
-        "heap_get_chunk_hdr",
-        "util_mutex_unlock",
+        "ravl_find",
         "ravl_data",
-        "util_mutex_lock",
         "out",
-        "ravl_find"
+        "util_mutex_unlock",
+        "util_mutex_lock",
+        "ravl_remove",
+        "heap_get_chunk_hdr"
     ],
     "bucket_attach_run": [
-        "util_mutex_unlock",
         "util_fetch_and_add64",
-        "util_mutex_lock",
+        "util_mutex_unlock",
         "bucket_memblock_insert_block",
+        "util_mutex_lock",
         "huge_iterate_free",
         "run_iterate_free"
     ],
@@ -947,156 +947,162 @@
         "bucket_insert_block"
     ],
     "heap_run_create": [
-        "bucket_alloc_class",
+        "STATS_INC",
         "bucket_attach_run",
-        "memblock_run_init",
-        "STATS_INC"
+        "bucket_alloc_class",
+        "memblock_run_init"
     ],
     "memblock_run_init": [
-        "SIZEOF_RUN",
-        "VALGRIND_REMOVE_FROM_TX",
+        "VALGRIND_ANNOTATE_NEW_MEMORY",
         "memblock_rebuild_state",
+        "VALGRIND_REMOVE_FROM_TX",
+        "ZID_TO_ZONE",
+        "chunk_get_chunk_hdr_value",
         "memset",
+        "util_atomic_store_explicit64",
+        "VALGRIND_DO_MAKE_MEM_UNDEFINED",
+        "ASSERT",
+        "SIZEOF_RUN",
         "heap_get_chunk_run",
         "VALGRIND_ADD_TO_TX",
         "pmemops_flush",
-        "ASSERT",
-        "VALGRIND_DO_MAKE_MEM_UNDEFINED",
-        "ASSERTne",
-        "util_atomic_store_explicit64",
-        "ZID_TO_ZONE",
         "pmemops_persist",
-        "chunk_get_chunk_hdr_value",
-        "VALGRIND_ANNOTATE_NEW_MEMORY"
+        "ASSERTne"
     ],
     "heap_split_block": [
         "memblock_rebuild_state",
+        "bucket_insert_block",
         "LOG",
-        "bucket_alloc_class",
         "ASSERT",
         "memblock_huge_init",
-        "bucket_insert_block"
+        "bucket_alloc_class"
     ],
     "alloc_prep_block": [
-        "VALGRIND_DO_MEMPOOL_FREE",
-        "VALGRIND_DO_MAKE_MEM_UNDEFINED",
+        "VALGRIND_ANNOTATE_NEW_MEMORY",
         "VALGRIND_DO_MEMPOOL_ALLOC",
         "unlikely",
+        "VALGRIND_DO_MEMPOOL_FREE",
+        "VALGRIND_DO_MAKE_MEM_UNDEFINED",
         "HEAP_PTR_TO_OFF",
         "pmemops_memset",
-        "VALGRIND_ANNOTATE_NEW_MEMORY",
         "block_write_header"
     ],
     "palloc_exec_actions": [
         "operation_finish",
         "operation_process",
-        "util_mutex_unlock",
         "pmemops_drain",
         "qsort",
+        "ASSERTeq",
+        "util_mutex_unlock",
         "util_mutex_lock",
         "palloc_action_compare",
-        "ASSERTeq",
         "palloc_heap_action_on_process",
         "palloc_mem_action_noop",
         "palloc_heap_action_on_unlock",
         "palloc_mem_action_noop"
     ],
     "operation_process": [
-        "ulog_entry_type",
         "ulog_process",
-        "ulog_entry_apply",
         "operation_process_persistent_undo",
-        "operation_process_persistent_redo"
+        "operation_process_persistent_redo",
+        "ulog_entry_type",
+        "ulog_entry_apply"
     ],
     "ulog_entry_apply": [
-        "ulog_entry_offset",
-        "ulog_entry_type",
+        "pmemops_memcpy",
         "VALGRIND_REMOVE_FROM_TX",
         "f",
-        "VALGRIND_ADD_TO_TX",
-        "pmemops_memcpy",
+        "ulog_entry_type",
         "ASSERT",
-        "pmemops_memset"
+        "pmemops_memset",
+        "ulog_entry_offset",
+        "VALGRIND_ADD_TO_TX",
+        "obj_rep_persist",
+        "obj_norep_persist",
+        "obj_rep_flush",
+        "obj_norep_flush",
+        "operation_transient_clean",
+        ""
     ],
     "operation_process_persistent_redo": [
-        "ulog_store",
         "ulog_process",
-        "ASSERTeq",
-        "ulog_clobber"
+        "ulog_store",
+        "ulog_clobber",
+        "ASSERTeq"
     ],
     "ulog_store": [
-        "VEC_ARR",
-        "CACHELINE_ALIGN",
-        "VALGRIND_REMOVE_FROM_TX",
-        "VALGRIND_ADD_TO_TX",
         "pmemops_memcpy",
+        "VALGRIND_REMOVE_FROM_TX",
+        "VEC_ARR",
+        "pmemops_drain",
+        "ASSERT",
         "SIZEOF_ULOG",
         "ulog_by_offset",
-        "ASSERT",
-        "pmemops_drain",
-        "IS_CACHELINE_ALIGNED",
+        "VALGRIND_ADD_TO_TX",
+        "CACHELINE_ALIGN",
         "VEC_SIZE",
-        "MIN",
-        "ASSERTne",
         "VEC_FRONT",
-        "ulog_checksum"
+        "ulog_checksum",
+        "IS_CACHELINE_ALIGNED",
+        "MIN",
+        "ASSERTne"
     ],
     "ulog_by_offset": [
         "CACHELINE_ALIGN"
     ],
     "ulog_checksum": [
-        "util_checksum",
-        "SIZEOF_ULOG"
+        "SIZEOF_ULOG",
+        "util_checksum"
     ],
     "util_checksum": [
-        "util_checksum_compute",
-        "htole64"
+        "htole64",
+        "util_checksum_compute"
     ],
     "util_checksum_compute": [
-        "abort",
-        "le32toh"
+        "le32toh",
+        "abort"
     ],
     "ulog_process": [
-        "LOG",
-        "ulog_foreach_entry",
+        "ulog_check",
         "SUPPRESS_UNUSED",
         "pmemops_drain",
-        "ulog_check",
+        "LOG",
+        "ulog_foreach_entry",
         "ulog_process_entry"
     ],
     "ulog_check": [
-        "ulog_foreach_entry",
         "ulog_check_entry",
+        "ulog_foreach_entry",
         "LOG"
     ],
     "ulog_check_entry": [
-        "check",
         "ulog_entry_offset",
-        "LOG"
+        "LOG",
+        "check"
     ],
     "ulog_process_entry": [
-        "SUPPRESS_UNUSED",
-        "ulog_entry_apply"
+        "ulog_entry_apply",
+        "SUPPRESS_UNUSED"
     ],
     "ulog_clobber": [
         "memset",
         "VEC_SIZE",
-        "pmemops_memcpy",
-        "VEC_FRONT"
+        "VEC_FRONT",
+        "pmemops_memcpy"
     ],
     "operation_process_persistent_undo": [
         "ulog_process",
         "ASSERTeq"
     ],
     "operation_finish": [
-        "ulog_free_next",
         "ulog_rebuild_next_vec",
-        "operation_user_buffer_remove",
-        "ulog_capacity",
-        "out",
-        "ASSERTne",
         "VEC_CLEAR",
-        "ulog_clobber_data"
+        "out",
+        "ulog_free_next",
+        "operation_user_buffer_remove",
+        "ulog_clobber_data",
+        "ulog_capacity",
+        "ASSERTne"
     ],
     "ulog_clobber_data": [
         "ulog_free_next",
@@ -1108,27 +1114,27 @@
     ],
     "ulog_inc_gen_num": [
         "pmemops_persist",
-        "VALGRIND_ADD_TO_TX",
         "VALGRIND_REMOVE_FROM_TX",
-        "VALGRIND_SET_CLEAN"
+        "VALGRIND_SET_CLEAN",
+        "VALGRIND_ADD_TO_TX"
     ],
     "ulog_free_next": [
-        "VEC_INIT",
         "VEC_FOREACH_REVERSE",
         "LOG",
-        "VEC_PUSH_BACK",
-        "ulog_by_offset",
         "out",
+        "VEC_INIT",
+        "VEC",
+        "ulog_by_offset",
         "VEC_DELETE",
-        "pmemops_persist",
-        "VEC"
+        "VEC_PUSH_BACK",
+        "pmemops_persist"
     ],
     "operation_user_buffer_remove": [
-        "ravl_remove",
+        "ravl_find",
         "util_mutex_unlock",
         "util_mutex_lock",
-        "ASSERTne",
-        "ravl_find"
+        "ravl_remove",
+        "ASSERTne"
     ],
     "ulog_capacity": [
         "ulog_next"
@@ -1141,70 +1147,70 @@
         "ulog_next"
     ],
     "constructor_alloc": [
+        "LOG",
         "pmemops_memset",
-        "ASSERTne",
-        "LOG"
+        "ASSERTne"
     ],
     "pmalloc_operation_release": [
         "lane_release"
     ],
     "lane_release": [
-        "util_bool_compare_and_swap64",
-        "ASSERTne",
         "unlikely",
+        "util_bool_compare_and_swap64",
+        "FATAL",
         "get_lane_info_record",
-        "FATAL"
+        "ASSERTne"
     ],
     "pmemobj_cancel": [
-        "PMEMOBJ_API_START",
         "PMEMOBJ_API_END",
+        "PMEMOBJ_API_START",
         "palloc_cancel"
     ],
     "pmemobj_close": [
-        "PMEMOBJ_API_START",
         "PMEMOBJ_API_END",
         "LOG",
-        "obj_pool_cleanup",
         "os_mutex_unlock",
-        "os_mutex_lock",
+        "ERR",
         "VALGRIND_HG_DRD_DISABLE_CHECKING",
+        "PMEMOBJ_API_START",
         "critnib_remove",
-        "ERR"
+        "os_mutex_lock",
+        "obj_pool_cleanup"
     ],
     "os_mutex_lock": [
         "pthread_mutex_lock"
     ],
     "critnib_remove": [
-        "util_mutex_unlock",
-        "util_fetch_and_add64",
-        "to_leaf",
+        "is_leaf",
         "slice_index",
         "free_node",
+        "store",
+        "util_mutex_unlock",
+        "util_fetch_and_add64",
         "util_mutex_lock",
+        "to_leaf",
         "free_leaf",
-        "is_leaf",
-        "ASSERTne",
-        "store"
+        "ASSERTne"
     ],
     "free_node": [
-        "ASSERT",
-        "is_leaf"
+        "is_leaf",
+        "ASSERT"
     ],
     "obj_pool_cleanup": [
-        "util_mutex_destroy",
-        "stats_delete",
-        "LOG",
-        "ctl_delete",
-        "util_poolset_close",
-        "tx_params_delete",
-        "lane_section_cleanup",
-        "ravl_delete",
         "obj_pool_lock_cleanup",
-        "lane_cleanup"
+        "ravl_delete",
+        "LOG",
+        "lane_section_cleanup",
+        "stats_delete",
+        "lane_cleanup",
+        "util_mutex_destroy",
+        "tx_params_delete",
+        "ctl_delete",
+        "util_poolset_close"
     ],
     "stats_delete": [
-        "pmemops_persist",
-        "Free"
+        "Free",
+        "pmemops_persist"
     ],
     "tx_params_delete": [
         "Free"
@@ -1213,10 +1219,10 @@
         "Free"
     ],
     "obj_pool_lock_cleanup": [
-        "os_mutex_destroy",
         "os_rwlock_destroy",
-        "os_cond_destroy",
-        "LOG"
+        "os_mutex_destroy",
+        "LOG",
+        "os_cond_destroy"
     ],
     "os_mutex_destroy": [
         "pthread_mutex_destroy"
@@ -1237,39 +1243,39 @@
         "heap_cleanup"
     ],
     "heap_cleanup": [
-        "util_mutex_destroy",
         "heap_arena_delete",
-        "Free",
-        "VALGRIND_DO_DESTROY_MEMPOOL",
-        "alloc_class_collection_delete",
-        "VEC_FOREACH",
         "bucket_locked_delete",
+        "VALGRIND_DO_DESTROY_MEMPOOL",
+        "Free",
         "heap_arenas_fini",
-        "arena_thread_assignment_fini"
+        "util_mutex_destroy",
+        "VEC_FOREACH",
+        "arena_thread_assignment_fini",
+        "alloc_class_collection_delete"
     ],
     "alloc_class_collection_delete": [
-        "alloc_class_delete",
         "critnib_delete",
-        "Free",
-        "LOG"
-    ],
-    "alloc_class_delete": [
-        "Free",
-        "LOG"
-    ],
-    "critnib_delete": [
-        "delete_node",
-        "util_mutex_destroy",
+        "LOG",
+        "alloc_class_delete",
         "Free"
     ],
+    "alloc_class_delete": [
+        "LOG",
+        "Free"
+    ],
+    "critnib_delete": [
+        "util_mutex_destroy",
+        "Free",
+        "delete_node"
+    ],
     "delete_node": [
-        "is_leaf",
         "to_leaf",
+        "is_leaf",
         "Free"
     ],
     "arena_thread_assignment_fini": [
-        "ASSERT",
-        "os_tls_key_delete"
+        "os_tls_key_delete",
+        "ASSERT"
     ],
     "os_tls_key_delete": [
         "pthread_key_delete"
@@ -1291,156 +1297,156 @@
         "Free"
     ],
     "heap_arenas_fini": [
-        "util_mutex_destroy",
-        "VEC_DELETE"
+        "VEC_DELETE",
+        "util_mutex_destroy"
     ],
     "lane_cleanup": [
-        "lane_info_cleanup",
         "lane_destroy",
-        "Free"
+        "Free",
+        "lane_info_cleanup"
     ],
     "lane_destroy": [
-        "SUPPRESS_UNUSED",
-        "operation_delete"
+        "operation_delete",
+        "SUPPRESS_UNUSED"
     ],
     "operation_delete": [
-        "Free",
+        "VEC_DELETE",
         "VECQ_DELETE",
-        "VEC_DELETE"
+        "Free"
     ],
     "lane_info_cleanup": [
-        "likely",
         "Free",
-        "critnib_remove",
-        "unlikely"
+        "unlikely",
+        "likely",
+        "critnib_remove"
     ],
     "util_poolset_close": [
         "util_poolset_free",
         "util_replica_close_local",
-        "util_replica_close",
-        "LOG"
+        "LOG",
+        "util_replica_close"
     ],
     "util_replica_close": [
+        "shutdown_state_clear_dirty",
+        "util_unmap_hdr",
         "PART",
         "LOG",
-        "RANGE_RW",
-        "util_replica_deep_drain",
-        "util_unmap_hdr",
         "util_unmap_part",
-        "shutdown_state_clear_dirty"
+        "RANGE_RW",
+        "util_replica_deep_drain"
     ],
     "util_replica_deep_drain": [
-        "util_replica_deep_common",
-        "LOG"
+        "LOG",
+        "util_replica_deep_common"
     ],
     "util_replica_deep_common": [
-        "ASSERT",
+        "LOG",
         "os_part_deep_common",
-        "LOG"
+        "ASSERT"
     ],
     "os_part_deep_common": [
-        "pmem2_deep_flush_write",
+        "pmem_drain",
         "LOG",
-        "pmem_deep_flush",
         "pmem_msync",
-        "MIN",
+        "pmem_deep_flush",
         "util_ddax_region_find",
-        "pmem_drain"
+        "pmem2_deep_flush_write",
+        "MIN"
     ],
     "util_ddax_region_find": [
-        "os_stat",
-        "LOG",
-        "pmem2_err_to_errno",
         "pmem2_get_type_from_stat",
+        "LOG",
+        "os_stat",
         "ERR",
-        "pmem2_get_region_id"
+        "pmem2_get_region_id",
+        "pmem2_err_to_errno"
     ],
     "pmem2_get_region_id": [
         "ndctl_region_get_id",
-        "LOG",
-        "ndctl_new",
-        "pmem2_region_namespace",
         "ndctl_unref",
-        "ERR"
+        "pmem2_region_namespace",
+        "LOG",
+        "ERR",
+        "ndctl_new"
     ],
     "pmem2_deep_flush_write": [
         "os_close",
         "LOG",
-        "read",
-        "os_open",
+        "ERR",
         "util_snprintf",
-        "ERR"
+        "read",
+        "os_open"
     ],
     "shutdown_state_clear_dirty": [
         "FLUSH_SDS",
-        "shutdown_state_checksum",
-        "LOG"
+        "LOG",
+        "shutdown_state_checksum"
     ],
     "shutdown_state_checksum": [
-        "util_checksum",
         "FLUSH_SDS",
-        "LOG"
+        "LOG",
+        "util_checksum"
     ],
     "util_unmap_hdr": [
-        "FATAL",
         "munmap",
+        "LOG",
         "VALGRIND_REMOVE_PMEM_MAPPING",
-        "LOG"
+        "FATAL"
     ],
     "util_unmap_part": [
-        "ERR",
         "munmap",
-        "VALGRIND_REMOVE_PMEM_MAPPING",
-        "LOG"
+        "ERR",
+        "LOG",
+        "VALGRIND_REMOVE_PMEM_MAPPING"
     ],
     "util_replica_close_local": [
-        "util_unlink",
-        "os_close",
         "ERR",
-        "LOG"
+        "LOG",
+        "util_unlink",
+        "os_close"
     ],
     "util_unlink": [
-        "util_file_zero",
-        "util_file_get_type",
+        "LOG",
         "os_unlink",
-        "LOG"
+        "util_file_get_type",
+        "util_file_zero"
     ],
     "util_file_zero": [
-        "os_close",
-        "util_map",
-        "LOG",
-        "memset",
         "util_fd_get_size",
-        "os_open",
+        "os_close",
+        "memset",
+        "LOG",
         "out",
         "ERR",
-        "util_unmap"
+        "util_map",
+        "util_unmap",
+        "os_open"
     ],
     "util_map": [
-        "util_map_sync",
         "LOG",
-        "util_map_hint",
+        "util_map_sync",
+        "ASSERTeq",
         "ERR",
-        "ASSERTeq"
+        "util_map_hint"
     ],
     "util_map_hint": [
-        "LOG",
-        "util_map_hint_unused",
-        "mmap",
-        "munmap",
-        "ERR",
         "util_map_hint_align",
-        "roundup"
+        "util_map_hint_unused",
+        "roundup",
+        "LOG",
+        "ERR",
+        "mmap",
+        "munmap"
     ],
     "util_map_hint_unused": [
         "sscanf",
+        "os_fopen",
+        "roundup",
         "LOG",
-        "fgets",
         "fclose",
         "ASSERT",
         "ERR",
-        "os_fopen",
-        "roundup"
+        "fgets"
     ],
     "os_fopen": [
         "fopen"
@@ -1452,284 +1458,284 @@
     ],
     "util_poolset_free": [
         "VEC_FOREACH_BY_PTR",
-        "Free",
+        "LOG",
         "VEC_DELETE",
-        "LOG"
+        "Free"
     ],
     "os_mutex_unlock": [
         "pthread_mutex_unlock"
     ],
     "pmemobj_create": [
-        "PMEMOBJ_API_START",
         "PMEMOBJ_API_END",
-        "pmemobj_createU"
+        "pmemobj_createU",
+        "PMEMOBJ_API_START"
     ],
     "pmemobj_createU": [
-        "obj_runtime_init",
-        "LOG",
-        "strlen",
-        "memset",
-        "util_poolset_chmod",
-        "os_mutex_unlock",
-        "util_poolset_close",
-        "os_mutex_lock",
-        "ASSERT",
-        "util_poolset_fdclose",
-        "obj_get_nlanes",
-        "ERR",
         "util_pool_create",
-        "obj_descr_create",
+        "memset",
         "obj_replica_init",
-        "VALGRIND_REMOVE_PMEM_MAPPING"
+        "LOG",
+        "ASSERT",
+        "obj_descr_create",
+        "os_mutex_unlock",
+        "ERR",
+        "VALGRIND_REMOVE_PMEM_MAPPING",
+        "util_poolset_fdclose",
+        "obj_runtime_init",
+        "os_mutex_lock",
+        "util_poolset_close",
+        "obj_get_nlanes",
+        "strlen",
+        "util_poolset_chmod"
     ],
     "obj_get_nlanes": [
-        "os_getenv",
-        "atoi",
         "ERR",
-        "LOG"
+        "LOG",
+        "atoi",
+        "os_getenv"
     ],
     "os_getenv": [
         "secure_getenv"
     ],
     "util_pool_create": [
-        "util_pool_create_uuids",
-        "LOG"
+        "LOG",
+        "util_pool_create_uuids"
     ],
     "util_pool_create_uuids": [
-        "IGNORE_SDS",
         "util_poolset_free",
-        "util_poolset_files_local",
-        "LOG",
         "util_poolset_foreach_part_struct",
-        "util_poolset_close",
-        "util_file_exists",
-        "memcpy",
-        "badblocks_check_poolset",
-        "ASSERT",
         "util_is_zeroed",
-        "util_replica_create_local",
         "util_replica_close",
+        "util_poolset_files_local",
+        "memcpy",
+        "LOG",
+        "util_file_exists",
+        "ASSERT",
+        "util_replica_create_local",
         "ERR",
-        "util_replica_map_local",
         "util_poolset_append_new_part",
+        "badblocks_check_poolset",
         "util_print_bad_files_cb",
+        "util_poolset_create_set",
         "util_uuid_generate",
-        "util_poolset_create_set"
+        "util_poolset_close",
+        "IGNORE_SDS",
+        "util_replica_map_local"
     ],
     "util_poolset_create_set": [
-        "util_poolset_single",
         "os_close",
-        "LOG",
-        "read",
-        "strncmp",
         "util_poolset_parse",
-        "util_file_open",
+        "LOG",
+        "util_file_get_type",
         "ERR",
-        "util_file_get_type"
+        "util_poolset_single",
+        "util_file_open",
+        "read",
+        "strncmp"
     ],
     "util_poolset_single": [
-        "VEC_INIT",
-        "LOG",
-        "util_file_device_dax_alignment",
-        "Strdup",
-        "Zalloc",
-        "ASSERTne",
-        "ERR",
         "Free",
-        "util_file_get_type"
+        "LOG",
+        "util_file_get_type",
+        "Strdup",
+        "VEC_INIT",
+        "Zalloc",
+        "ERR",
+        "util_file_device_dax_alignment",
+        "ASSERTne"
     ],
     "util_poolset_parse": [
-        "os_close",
         "LOG",
-        "parser_read_replica",
-        "strchr",
-        "os_lseek",
-        "os_fdopen",
-        "parser_read_line",
-        "util_poolset_set_size",
         "parser_read_options",
-        "Zalloc",
         "util_poolset_check_devdax",
-        "dup",
-        "Free",
-        "os_fclose",
-        "util_poolset_free",
-        "util_poolset_directories_load",
-        "util_parse_add_element",
-        "util_poolset_check_options",
-        "strncmp",
-        "Strdup",
         "ERR",
-        "isblank",
+        "util_readline",
         "util_parse_add_replica",
-        "util_readline"
+        "util_parse_add_element",
+        "strchr",
+        "parser_read_line",
+        "os_fdopen",
+        "Strdup",
+        "strncmp",
+        "os_fclose",
+        "util_poolset_check_options",
+        "Free",
+        "os_close",
+        "dup",
+        "util_poolset_free",
+        "parser_read_replica",
+        "os_lseek",
+        "isblank",
+        "Zalloc",
+        "util_poolset_set_size",
+        "util_poolset_directories_load"
     ],
     "os_fdopen": [
         "fdopen"
     ],
     "util_readline": [
         "Realloc",
-        "strlen",
-        "feof",
+        "Free",
         "util_fgets",
-        "Free"
-    ],
-    "util_fgets": [
-        "fgets",
+        "feof",
         "strlen"
     ],
+    "util_fgets": [
+        "strlen",
+        "fgets"
+    ],
     "util_parse_add_replica": [
-        "VEC_INIT",
         "Realloc",
         "LOG",
+        "VEC_INIT",
+        "ERR",
         "Zalloc",
-        "ASSERTne",
-        "ERR"
+        "ASSERTne"
     ],
     "parser_read_options": [
-        "strtok_r",
-        "strcmp",
-        "LOG"
-    ],
-    "parser_read_replica": [
         "LOG",
         "strtok_r",
+        "strcmp"
+    ],
+    "parser_read_replica": [
         "util_is_absolute_path",
+        "Free",
+        "LOG",
         "Strdup",
         "ERR",
-        "Free"
+        "strtok_r"
     ],
     "util_is_absolute_path": [
         "LOG"
     ],
     "parser_read_line": [
+        "util_is_absolute_path",
+        "util_autodetect_size",
         "Free",
         "LOG",
-        "util_autodetect_size",
-        "util_parse_size",
-        "strtok_r",
-        "util_is_absolute_path",
         "Strdup",
+        "util_parse_size",
         "ERR",
-        "strcmp"
+        "strcmp",
+        "strtok_r"
     ],
     "util_autodetect_size": [
-        "util_file_get_size",
+        "ERR",
         "util_file_get_type",
-        "ERR"
+        "util_file_get_size"
     ],
     "util_file_get_size": [
-        "LOG",
         "util_fd_get_size",
+        "LOG",
+        "ERR",
         "close",
-        "os_open",
-        "ERR"
+        "os_open"
     ],
     "util_parse_size": [
         "sscanf",
-        "strcmp",
-        "ARRAY_SIZE"
+        "ARRAY_SIZE",
+        "strcmp"
     ],
     "util_parse_add_element": [
-        "os_stat",
+        "util_parse_add_directory",
+        "util_parse_add_part",
         "LOG",
         "stat",
-        "S_ISDIR",
-        "util_parse_add_directory",
-        "util_parse_add_part"
+        "os_stat",
+        "S_ISDIR"
     ],
     "util_parse_add_directory": [
-        "VEC_FOREACH_BY_PTR",
-        "LOG",
-        "VEC_PUSH_BACK",
-        "ASSERTne",
-        "ERR",
+        "free",
         "util_part_realpath",
+        "LOG",
+        "ERR",
+        "VEC_FOREACH_BY_PTR",
         "strcmp",
-        "free"
+        "VEC_PUSH_BACK",
+        "ASSERTne"
     ],
     "util_part_realpath": [
         "realpath"
     ],
     "util_parse_add_part": [
         "ERR",
+        "LOG",
         "util_replica_add_part",
-        "ASSERTne",
-        "LOG"
+        "ASSERTne"
     ],
     "util_poolset_check_devdax": [
-        "util_file_device_dax_alignment",
         "ERR",
-        "LOG"
+        "LOG",
+        "util_file_device_dax_alignment"
     ],
     "util_poolset_directories_load": [
-        "VEC_FOREACH_BY_PTR",
-        "util_replica_reserve",
-        "LOG",
-        "strlen",
-        "VEC_SIZE",
         "util_poolset_directory_load",
-        "VEC_GET",
-        "ERR",
+        "util_replica_reserve",
         "snprintf",
-        "Malloc"
+        "Malloc",
+        "LOG",
+        "ERR",
+        "VEC_FOREACH_BY_PTR",
+        "VEC_GET",
+        "VEC_SIZE",
+        "strlen"
     ],
     "util_poolset_directory_load": [
-        "util_file_get_size",
-        "fs_new",
         "fs_delete",
-        "LOG",
-        "util_replica_add_part_by_idx",
-        "util_part_idx_by_file_name",
-        "Strdup",
+        "util_file_get_size",
         "fs_read",
+        "LOG",
+        "util_part_idx_by_file_name",
+        "fs_new",
+        "Strdup",
         "ERR",
+        "util_replica_add_part_by_idx",
         "strcmp"
     ],
     "fs_new": [
-        "fts_open",
         "Zalloc",
+        "fts_open",
         "Free"
     ],
     "fs_read": [
         "fts_read"
     ],
     "util_part_idx_by_file_name": [
-        "strtol",
-        "LOG"
+        "LOG",
+        "strtol"
     ],
     "fs_delete": [
-        "Free",
-        "fts_close"
+        "fts_close",
+        "Free"
     ],
     "util_poolset_check_options": [
         "ERR",
         "LOG"
     ],
     "badblocks_check_poolset": [
+        "LOG",
         "util_poolset_foreach_part_struct",
-        "badblocks_check_file_cb",
-        "LOG"
+        "badblocks_check_file_cb"
     ],
     "util_poolset_foreach_part_struct": [
-        "ASSERTne",
-        "LOG"
+        "LOG",
+        "ASSERTne"
     ],
     "badblocks_check_file_cb": [
-        "badblocks_check_file",
-        "util_file_exists",
         "ERR",
-        "LOG"
+        "LOG",
+        "util_file_exists",
+        "badblocks_check_file"
     ],
     "badblocks_check_file": [
-        "badblocks_count",
-        "LOG"
+        "LOG",
+        "badblocks_count"
     ],
     "badblocks_count": [
+        "LOG",
         "badblocks_get",
         "badblocks_delete",
-        "badblocks_new",
-        "LOG"
+        "badblocks_new"
     ],
     "badblocks_new": [
         "Zalloc",
@@ -1737,48 +1743,48 @@
         "LOG"
     ],
     "badblocks_get": [
-        "os_close",
-        "VEC_ARR",
-        "LOG",
-        "memset",
-        "VEC_PUSH_BACK",
-        "ASSERTeq",
-        "pmem2_err_to_errno",
         "pmem2_badblock_context_new",
-        "pmem2_source_from_fd",
-        "VEC_SIZE",
-        "os_open",
-        "pmem2_badblock_next",
-        "ASSERTne",
-        "ERR",
-        "pmem2_badblock_context_delete",
-        "VEC_DELETE",
         "Free",
+        "VEC_ARR",
+        "os_close",
+        "memset",
+        "LOG",
+        "VEC_SIZE",
+        "pmem2_source_from_fd",
+        "ERR",
+        "pmem2_badblock_next",
+        "ASSERTeq",
         "VEC",
-        "pmem2_source_delete"
+        "pmem2_err_to_errno",
+        "pmem2_source_delete",
+        "VEC_DELETE",
+        "VEC_PUSH_BACK",
+        "pmem2_badblock_context_delete",
+        "os_open",
+        "ASSERTne"
     ],
     "pmem2_badblock_context_new": [
-        "pmem2_badblock_next_namespace",
+        "pmem2_extents_create_get",
         "LOG",
-        "pmem2_zalloc",
+        "ERR",
+        "ndctl_region_get_bus",
         "pmem2_namespace_get_first_badblock",
-        "ndctl_namespace_get_mode",
-        "pmem2_region_get_first_badblock",
+        "ndctl_new",
+        "ASSERTne",
+        "pmem2_zalloc",
         "ndctl_region_get_resource",
-        "badblocks_get_namespace_bounds",
         "pmem2_extents_destroy",
+        "ndctl_unref",
+        "pmem2_region_get_first_badblock",
+        "pmem2_region_namespace",
         "Free",
         "PMEM2_ERR_CLR",
-        "ndctl_region_get_bus",
-        "ndctl_new",
-        "pmem2_badblock_next_region",
-        "pmem2_region_namespace",
-        "ndctl_unref",
-        "ERR",
         "ASSERTeq",
-        "pmem2_extents_create_get",
-        "ASSERTne",
-        "B2SEC"
+        "badblocks_get_namespace_bounds",
+        "pmem2_badblock_next_namespace",
+        "B2SEC",
+        "ndctl_namespace_get_mode",
+        "pmem2_badblock_next_region"
     ],
     "pmem2_zalloc": [
         "Zalloc",
@@ -1786,94 +1792,94 @@
     ],
     "pmem2_badblock_next_namespace": [
         "SEC2B",
-        "ASSERTne",
-        "LOG"
+        "LOG",
+        "ASSERTne"
     ],
     "pmem2_namespace_get_first_badblock": [
-        "pmem2_namespace_get_next_badblock",
         "ndctl_namespace_get_first_badblock",
-        "LOG"
+        "LOG",
+        "pmem2_namespace_get_next_badblock"
     ],
     "pmem2_namespace_get_next_badblock": [
-        "ndctl_namespace_get_next_badblock",
-        "LOG"
+        "LOG",
+        "ndctl_namespace_get_next_badblock"
     ],
     "badblocks_get_namespace_bounds": [
-        "ndctl_namespace_get_dax",
-        "LOG",
-        "ndctl_pfn_get_size",
-        "ndctl_pfn_get_resource",
-        "ndctl_dax_get_size",
-        "ASSERTne",
-        "ERR",
         "ndctl_namespace_get_size",
+        "LOG",
+        "ndctl_pfn_get_resource",
+        "ndctl_pfn_get_size",
         "ndctl_region_get_resource",
         "ndctl_dax_get_resource",
+        "ERR",
         "ndctl_namespace_get_pfn",
-        "ndctl_namespace_get_resource"
+        "ndctl_dax_get_size",
+        "ndctl_namespace_get_resource",
+        "ndctl_namespace_get_dax",
+        "ASSERTne"
     ],
     "pmem2_badblock_next_region": [
         "SEC2B",
+        "LOG",
         "B2SEC",
-        "ASSERTne",
-        "LOG"
+        "ASSERTne"
     ],
     "pmem2_region_get_first_badblock": [
         "ndctl_region_get_first_badblock",
-        "pmem2_region_get_next_badblock",
-        "LOG"
+        "LOG",
+        "pmem2_region_get_next_badblock"
     ],
     "pmem2_region_get_next_badblock": [
-        "ndctl_region_get_next_badblock",
-        "LOG"
+        "LOG",
+        "ndctl_region_get_next_badblock"
     ],
     "pmem2_extents_create_get": [
-        "Free",
-        "LOG",
         "pmem2_zalloc",
-        "memset",
-        "ERR",
-        "ASSERT",
-        "pmem2_get_type_from_stat",
-        "pmem2_malloc",
-        "ASSERTne",
         "os_fstat",
-        "pmem2_realloc",
+        "ioctl",
+        "pmem2_get_type_from_stat",
+        "Free",
+        "memset",
+        "pmem2_malloc",
+        "LOG",
+        "ASSERT",
         "ASSERTeq",
-        "ioctl"
+        "ERR",
+        "pmem2_realloc",
+        "ASSERTne"
     ],
     "pmem2_realloc": [
-        "Realloc",
-        "ERR"
+        "ERR",
+        "Realloc"
     ],
     "pmem2_extents_destroy": [
+        "LOG",
         "Free",
-        "ASSERTne",
-        "LOG"
+        "ASSERTne"
     ],
     "pmem2_badblock_next": [
-        "ALIGN_UP",
         "LOG",
+        "ALIGN_UP",
         "PMEM2_ERR_CLR",
-        "ASSERTne",
+        "ASSERTeq",
         "ERR",
-        "ASSERTeq"
+        "ASSERTne"
     ],
     "pmem2_badblock_context_delete": [
+        "ndctl_unref",
         "Free",
         "LOG",
-        "ndctl_unref",
+        "PMEM2_ERR_CLR",
         "pmem2_extents_destroy",
-        "ASSERTne",
-        "PMEM2_ERR_CLR"
+        "ASSERTne"
     ],
     "badblocks_delete": [
-        "Free",
-        "LOG"
+        "LOG",
+        "Free"
     ],
     "util_print_bad_files_cb": [
-        "SUPPRESS_UNUSED",
-        "ERR"
+        "ERR",
+        "SUPPRESS_UNUSED"
     ],
     "util_is_zeroed": [
         "memcmp"
@@ -1883,19 +1889,19 @@
         "LOG"
     ],
     "util_replica_map_local": [
-        "util_replica_set_is_pmem",
-        "util_replica_check_map_sync",
-        "VALGRIND_REGISTER_PMEM_MAPPING",
-        "LOG",
-        "util_replica_force_page_allocation",
-        "util_map_hint",
-        "util_map_part",
-        "munmap",
-        "util_unmap_part",
-        "ASSERTne",
         "VALGRIND_REGISTER_PMEM_FILE",
+        "util_replica_force_page_allocation",
+        "util_replica_set_is_pmem",
+        "LOG",
+        "util_map_hint",
+        "ASSERTeq",
+        "util_unmap_part",
+        "VALGRIND_REGISTER_PMEM_MAPPING",
+        "munmap",
         "util_unmap_parts",
-        "ASSERTeq"
+        "util_map_part",
+        "util_replica_check_map_sync",
+        "ASSERTne"
     ],
     "util_unmap_parts": [
         "util_unmap_part",
@@ -1912,56 +1918,56 @@
         "VALGRIND_SET_CLEAN"
     ],
     "util_replica_create_local": [
-        "util_replica_init_headers_local",
+        "REP",
         "PART",
         "LOG",
-        "util_replica_map_local",
-        "REP"
+        "util_replica_init_headers_local",
+        "util_replica_map_local"
     ],
     "util_replica_init_headers_local": [
-        "util_header_create",
-        "util_unmap_hdr",
         "util_map_hdr",
-        "LOG"
+        "LOG",
+        "util_header_create",
+        "util_unmap_hdr"
     ],
     "util_map_hdr": [
-        "VALGRIND_REGISTER_PMEM_MAPPING",
-        "util_map_sync",
-        "LOG",
-        "util_map_hint",
-        "COMPILE_ERROR_ON",
-        "ERR",
         "VALGRIND_REGISTER_PMEM_FILE",
-        "ASSERTeq"
+        "LOG",
+        "util_map_sync",
+        "util_map_hint",
+        "ASSERTeq",
+        "ERR",
+        "COMPILE_ERROR_ON",
+        "VALGRIND_REGISTER_PMEM_MAPPING"
     ],
     "util_header_create": [
+        "REPP",
+        "util_is_zeroed",
+        "PART",
         "LOG",
-        "PARTN",
-        "POOL_HDR_CSUM_END_OFF",
-        "PARTP",
-        "util_pool_attr2hdr",
-        "util_persist_auto",
-        "memcpy",
-        "shutdown_state_set_dirty",
-        "os_fstat",
+        "shutdown_state_init",
+        "REPN",
+        "ERR",
         "util_checksum",
         "shutdown_state_add_part",
-        "shutdown_state_init",
-        "util_is_zeroed",
-        "ERR",
+        "ASSERTne",
+        "PARTN",
+        "os_fstat",
+        "util_persist_auto",
+        "util_convert2le_hdr",
         "ASSERTeq",
         "util_get_arch_flags",
-        "REPN",
-        "PART",
-        "util_convert2le_hdr",
-        "REPP",
+        "memcpy",
         "ASSERT",
-        "ASSERTne"
+        "util_pool_attr2hdr",
+        "POOL_HDR_CSUM_END_OFF",
+        "shutdown_state_set_dirty",
+        "PARTP"
     ],
     "util_pool_attr2hdr": [
         "memcpy",
-        "ASSERTne",
-        "LOG"
+        "LOG",
+        "ASSERTne"
     ],
     "util_get_arch_flags": [
         "memset",
@@ -1969,228 +1975,254 @@
         "arch_data"
     ],
     "util_convert2le_hdr": [
-        "htole64",
         "htole32",
+        "htole64",
         "htole16"
     ],
     "shutdown_state_init": [
-        "shutdown_state_checksum",
         "memset",
-        "COMPILE_ERROR_ON",
-        "LOG"
+        "LOG",
+        "shutdown_state_checksum",
+        "COMPILE_ERROR_ON"
     ],
     "shutdown_state_add_part": [
         "le64toh",
-        "htole64",
-        "FLUSH_SDS",
+        "Free",
+        "pmem2_source_delete",
         "LOG",
-        "util_checksum",
         "shutdown_state_checksum",
-        "pmem2_source_from_fd",
-        "Zalloc",
         "pmem2_source_device_id",
         "ERR",
-        "Free",
-        "pmem2_source_device_usc",
-        "pmem2_source_delete"
+        "pmem2_source_from_fd",
+        "Zalloc",
+        "FLUSH_SDS",
+        "util_checksum",
+        "htole64",
+        "pmem2_source_device_usc"
     ],
     "pmem2_source_device_usc": [
+        "ndctl_unref",
+        "pmem2_region_namespace",
         "LOG",
-        "ndctl_new",
+        "ndctl_dimm_foreach_in_region",
         "ndctl_dimm_get_dirty_shutdown",
         "PMEM2_ERR_CLR",
-        "pmem2_region_namespace",
-        "ndctl_unref",
-        "ERR",
         "ASSERTeq",
-        "ndctl_dimm_foreach_in_region"
+        "ERR",
+        "ndctl_new"
     ],
     "pmem2_source_device_id": [
+        "ndctl_unref",
+        "pmem2_region_namespace",
+        "ndctl_dimm_foreach_in_region",
+        "ndctl_dimm_get_unique_id",
+        "PMEM2_ERR_CLR",
+        "ASSERTeq",
+        "ERR",
         "strncat",
         "strlen",
-        "ndctl_new",
-        "PMEM2_ERR_CLR",
-        "ndctl_dimm_get_unique_id",
-        "pmem2_region_namespace",
-        "ndctl_unref",
-        "ERR",
-        "ASSERTeq",
-        "ndctl_dimm_foreach_in_region"
+        "ndctl_new"
     ],
     "shutdown_state_set_dirty": [
         "FLUSH_SDS",
-        "shutdown_state_checksum",
-        "LOG"
+        "LOG",
+        "shutdown_state_checksum"
     ],
     "obj_replica_init": [
-        "obj_rep_drain",
+        "obj_rep_memmove",
         "obj_rep_memset",
-        "obj_rep_memcpy",
-        "obj_norep_drain",
-        "obj_norep_persist",
-        "obj_replica_init_local",
-        "obj_norep_flush",
         "obj_norep_memmove",
+        "obj_norep_drain",
+        "obj_norep_flush",
+        "obj_norep_persist",
+        "obj_norep_memset",
+        "obj_rep_drain",
+        "obj_replica_init_local",
+        "obj_rep_persist",
         "obj_norep_memcpy",
         "obj_rep_flush",
-        "obj_norep_memset",
-        "obj_rep_persist",
-        "obj_rep_memmove"
+        "obj_rep_memcpy"
     ],
     "obj_rep_persist": [
+        "LOG",
         "SUPPRESS_UNUSED",
-        "LOG"
+        "pmem_persist",
+        "obj_msync_nofail"
     ],
     "obj_rep_flush": [
-        "SUPPRESS_UNUSED",
-        "LOG"
-    ],
-    "obj_rep_drain": [
-        "LOG"
-    ],
-    "obj_rep_memcpy": [
-        "LOG"
-    ],
-    "obj_rep_memmove": [
-        "LOG"
-    ],
-    "obj_rep_memset": [
-        "LOG"
-    ],
-    "obj_norep_persist": [
-        "SUPPRESS_UNUSED",
-        "LOG"
-    ],
-    "obj_norep_flush": [
-        "SUPPRESS_UNUSED",
-        "LOG"
-    ],
-    "obj_norep_drain": [
-        "LOG"
-    ],
-    "obj_norep_memcpy": [
-        "LOG"
-    ],
-    "obj_norep_memmove": [
-        "LOG"
-    ],
-    "obj_norep_memset": [
-        "LOG"
-    ],
-    "obj_replica_init_local": [
-        "obj_nopmem_memset",
-        "obj_nopmem_memmove",
-        "pmem_memcpy",
-        "obj_msync_nofail",
         "LOG",
-        "VALGRIND_ADD_TO_GLOBAL_TX_IGNORE",
-        "obj_drain_empty",
-        "pmem_memmove",
-        "pmem_memset",
-        "pmem_drain",
+        "SUPPRESS_UNUSED",
+        "pmem_flush",
+        "obj_msync_nofail",
+        "pmem_memcpy",
         "obj_nopmem_memcpy"
     ],
+    "obj_rep_drain": [
+        "LOG",
+        "pmem_drain",
+        "obj_drain_empty"
+    ],
+    "obj_rep_memcpy": [
+        "LOG",
+        "pmem_memcpy",
+        "obj_nopmem_memcpy"
+    ],
+    "obj_rep_memmove": [
+        "LOG",
+        "pmem_memmove",
+        "obj_nopmem_memmove"
+    ],
+    "obj_rep_memset": [
+        "LOG",
+        "pmem_memset",
+        "obj_nopmem_memset"
+    ],
+    "obj_norep_persist": [
+        "LOG",
+        "SUPPRESS_UNUSED",
+        "pmem_persist",
+        "obj_msync_nofail"
+    ],
+    "obj_norep_flush": [
+        "LOG",
+        "SUPPRESS_UNUSED",
+        "pmem_flush",
+        "obj_msync_nofail"
+    ],
+    "obj_norep_drain": [
+        "LOG",
+        "pmem_drain",
+        "obj_drain_empty"
+    ],
+    "obj_norep_memcpy": [
+        "LOG",
+        "pmem_memcpy",
+        "obj_nopmem_memcpy"
+    ],
+    "obj_norep_memmove": [
+        "LOG",
+        "pmem_memmove",
+        "obj_nopmem_memmove"
+    ],
+    "obj_norep_memset": [
+        "LOG",
+        "pmem_memset",
+        "obj_nopmem_memset"
+    ],
+    "obj_replica_init_local": [
+        "obj_msync_nofail",
+        "pmem_drain",
+        "LOG",
+        "obj_nopmem_memset",
+        "pmem_memmove",
+        "pmem_memset",
+        "obj_drain_empty",
+        "obj_nopmem_memcpy",
+        "obj_nopmem_memmove",
+        "VALGRIND_ADD_TO_GLOBAL_TX_IGNORE",
+        "pmem_memcpy"
+    ],
     "obj_msync_nofail": [
-        "pmem_msync",
-        "FATAL"
+        "FATAL",
+        "pmem_msync"
     ],
     "obj_nopmem_memcpy": [
         "obj_msync_nofail",
-        "pmem_memcpy",
-        "LOG"
+        "LOG",
+        "pmem_memcpy"
     ],
     "obj_nopmem_memmove": [
+        "LOG",
         "pmem_memmove",
-        "obj_msync_nofail",
-        "LOG"
+        "obj_msync_nofail"
     ],
     "obj_nopmem_memset": [
+        "LOG",
         "pmem_memset",
-        "obj_msync_nofail",
-        "LOG"
+        "obj_msync_nofail"
     ],
     "obj_descr_create": [
-        "LOG",
-        "strncpy",
         "memset",
-        "palloc_init",
-        "util_checksum",
-        "lane_init_data",
         "pmemops_xpersist",
+        "LOG",
+        "ASSERTeq",
+        "lane_init_data",
         "ERR",
-        "pmemops_persist",
+        "util_checksum",
         "pmemops_memset",
-        "ASSERTeq"
+        "strncpy",
+        "palloc_init",
+        "pmemops_persist"
     ],
     "lane_init_data": [
-        "lane_get_layout",
-        "OBJ_PTR_TO_OFF",
         "ulog_construct",
-        "pmemops_xpersist"
+        "pmemops_xpersist",
+        "OBJ_PTR_TO_OFF",
+        "lane_get_layout"
     ],
     "ulog_construct": [
-        "pmemops_xflush",
-        "CACHELINE_ALIGN",
         "VALGRIND_REMOVE_FROM_TX",
-        "memset",
         "OBJ_PTR_TO_OFF",
-        "VALGRIND_ADD_TO_TX",
+        "memset",
+        "pmemops_memset",
         "SIZEOF_ULOG",
         "ulog_by_offset",
-        "ALIGN_DOWN",
+        "VALGRIND_ADD_TO_TX",
+        "pmemops_xflush",
+        "CACHELINE_ALIGN",
         "ASSERTne",
-        "pmemops_memset"
+        "ALIGN_DOWN"
     ],
     "palloc_init": [
         "heap_init"
     ],
     "heap_init": [
-        "heap_max_zone",
         "heap_write_header",
         "VALGRIND_DO_MAKE_MEM_NOACCESS",
-        "VALGRIND_DO_MAKE_MEM_UNDEFINED",
         "ZID_TO_ZONE",
+        "VALGRIND_DO_MAKE_MEM_UNDEFINED",
+        "pmemops_memset",
         "pmemops_persist",
-        "pmemops_memset"
+        "heap_max_zone"
     ],
     "heap_write_header": [
         "util_checksum"
     ],
     "obj_runtime_init": [
-        "stats_delete",
-        "LOG",
-        "VALGRIND_DO_MAKE_MEM_NOACCESS",
-        "util_mutex_init",
-        "obj_pool_init",
-        "VALGRIND_REMOVE_PMEM_MAPPING",
         "pmemobj_get_uuid_lo",
-        "util_mutex_destroy",
-        "ctl_delete",
+        "LOG",
         "tx_params_new",
-        "tx_params_delete",
-        "palloc_heap_end",
-        "pmemops_persist",
-        "obj_runtime_cleanup_common",
-        "ravl_new_sized",
-        "stats_new",
-        "operation_user_buffer_range_cmp",
-        "obj_ctl_init_and_load",
         "ERR",
-        "obj_runtime_init_common",
-        "critnib_insert",
-        "RANGE_NONE",
+        "stats_delete",
         "critnib_remove",
-        "ASSERTne"
+        "tx_params_delete",
+        "pmemops_persist",
+        "palloc_heap_end",
+        "ASSERTne",
+        "obj_runtime_init_common",
+        "ravl_new_sized",
+        "VALGRIND_DO_MAKE_MEM_NOACCESS",
+        "obj_ctl_init_and_load",
+        "RANGE_NONE",
+        "obj_runtime_cleanup_common",
+        "stats_new",
+        "obj_pool_init",
+        "critnib_insert",
+        "util_mutex_init",
+        "operation_user_buffer_range_cmp",
+        "VALGRIND_REMOVE_PMEM_MAPPING",
+        "util_mutex_destroy",
+        "ctl_delete"
     ],
     "tx_params_new": [
         "Malloc"
     ],
     "stats_new": [
-        "VALGRIND_ADD_TO_GLOBAL_TX_IGNORE",
-        "Zalloc",
-        "ERR",
         "Free",
-        "Malloc"
+        "Malloc",
+        "ERR",
+        "Zalloc",
+        "VALGRIND_ADD_TO_GLOBAL_TX_IGNORE"
     ],
     "obj_runtime_init_common": [
         "lane_boot",
@@ -2201,43 +2233,43 @@
     ],
     "lane_boot": [
         "lane_init",
+        "Free",
+        "Malloc",
+        "ERR",
+        "Zalloc",
         "lane_destroy",
         "VALGRIND_ADD_TO_GLOBAL_TX_IGNORE",
-        "Zalloc",
-        "ERR",
-        "lane_get_layout",
-        "Free",
-        "Malloc"
+        "lane_get_layout"
     ],
     "lane_init": [
-        "pfree",
-        "lane_redo_extend",
-        "ASSERTne",
-        "operation_delete",
         "operation_new",
-        "lane_undo_extend"
+        "pfree",
+        "operation_delete",
+        "lane_redo_extend",
+        "lane_undo_extend",
+        "ASSERTne"
     ],
     "operation_new": [
-        "VEC_INIT",
-        "ulog_rebuild_next_vec",
-        "VECQ_INIT",
-        "operation_transient_drain",
-        "operation_log_transient_init",
         "operation_transient_memcpy",
-        "ulog_capacity",
+        "ulog_rebuild_next_vec",
+        "operation_transient_drain",
         "operation_delete",
         "operation_transient_clean",
+        "VEC_INIT",
         "Zalloc",
         "ERR",
-        "operation_log_persistent_init"
+        "operation_log_persistent_init",
+        "VECQ_INIT",
+        "ulog_capacity",
+        "operation_log_transient_init"
     ],
     "operation_transient_clean": [
         "SUPPRESS_UNUSED",
         "VALGRIND_SET_CLEAN"
     ],
     "operation_transient_memcpy": [
-        "SUPPRESS_UNUSED",
-        "memcpy"
+        "memcpy",
+        "SUPPRESS_UNUSED"
     ],
     "operation_transient_drain": [
         "SUPPRESS_UNUSED"
@@ -2247,99 +2279,99 @@
         "ERR"
     ],
     "operation_log_persistent_init": [
-        "memset",
         "Zalloc",
-        "ERR"
+        "ERR",
+        "memset"
     ],
     "lane_redo_extend": [
-        "pmalloc_construct",
         "lane_ulog_constructor",
+        "pmalloc_construct",
         "SIZEOF_ALIGNED_ULOG"
     ],
     "pmalloc_construct": [
-        "pmalloc_operation_hold_type",
         "pmalloc_operation_release",
-        "palloc_operation"
+        "palloc_operation",
+        "pmalloc_operation_hold_type"
     ],
     "lane_ulog_constructor": [
+        "ulog_construct",
         "OBJ_PTR_TO_OFF",
-        "ALIGN_DOWN",
-        "ulog_construct"
+        "ALIGN_DOWN"
     ],
     "pfree": [
-        "pmalloc_operation_hold_type",
         "ASSERTeq",
         "pmalloc_operation_release",
-        "palloc_operation"
+        "palloc_operation",
+        "pmalloc_operation_hold_type"
     ],
     "lane_undo_extend": [
-        "pmalloc_construct",
         "lane_ulog_constructor",
+        "pmalloc_construct",
         "SIZEOF_ALIGNED_ULOG"
     ],
     "lane_recover_and_section_boot": [
-        "pmalloc_boot",
-        "operation_resume",
+        "ulog_recover",
         "operation_finish",
+        "pmalloc_boot",
         "operation_process",
         "SIZEOF_ULOG",
-        "ulog_recover",
-        "lane_get_layout",
-        "COMPILE_ERROR_ON"
+        "COMPILE_ERROR_ON",
+        "operation_resume",
+        "lane_get_layout"
     ],
     "ulog_recover": [
         "ulog_process",
-        "ulog_clobber",
+        "LOG",
         "ulog_recovery_needed",
-        "LOG"
+        "ulog_clobber"
     ],
     "ulog_recovery_needed": [
-        "ulog_checksum",
         "ulog_base_nbytes",
+        "ulog_checksum",
         "MIN"
     ],
     "ulog_base_nbytes": [
-        "ulog_entry_valid",
-        "ulog_entry_size"
+        "ulog_entry_size",
+        "ulog_entry_valid"
     ],
     "ulog_entry_valid": [
-        "util_checksum_seq",
-        "util_checksum_compute",
         "ulog_entry_type",
-        "ulog_entry_size"
+        "ulog_entry_size",
+        "util_checksum_seq",
+        "util_checksum_compute"
     ],
     "util_checksum_seq": [
-        "abort",
-        "le32toh"
+        "le32toh",
+        "abort"
     ],
     "pmalloc_boot": [
-        "palloc_boot",
         "palloc_heap_cleanup",
-        "palloc_buckets_init",
-        "palloc_heap_vg_open"
+        "palloc_heap_vg_open",
+        "palloc_boot",
+        "palloc_buckets_init"
     ],
     "palloc_boot": [
         "heap_boot"
     ],
     "heap_boot": [
-        "heap_max_zone",
         "heap_arenas_init",
-        "alloc_class_collection_new",
-        "Free",
         "heap_arena_new",
+        "alloc_class_collection_new",
         "heap_get_procs",
-        "VEC_PUSH_BACK",
-        "heap_zone_update_if_needed",
+        "Malloc",
         "arena_thread_assignment_init",
+        "arena_thread_assignment_fini",
+        "Free",
+        "heap_arenas_fini",
+        "ERR",
         "Zalloc",
         "util_mutex_init",
         "alloc_class_collection_delete",
-        "ERR",
-        "pmemops_persist",
+        "heap_zone_update_if_needed",
+        "VEC_PUSH_BACK",
         "VALGRIND_DO_CREATE_MEMPOOL",
-        "heap_arenas_fini",
-        "Malloc",
-        "arena_thread_assignment_fini"
+        "pmemops_persist",
+        "heap_max_zone"
     ],
     "arena_thread_assignment_init": [
         "os_tls_key_create",
@@ -2347,121 +2379,121 @@
         "heap_thread_arena_destructor"
     ],
     "os_tls_key_create": [
-        "COMPILE_ERROR_ON",
-        "pthread_key_create"
+        "pthread_key_create",
+        "COMPILE_ERROR_ON"
     ],
     "heap_thread_arena_destructor": [
-        "os_mutex_unlock",
+        "os_mutex_lock",
         "heap_arena_thread_detach",
-        "os_mutex_lock"
+        "os_mutex_unlock"
     ],
     "alloc_class_collection_new": [
-        "LOG",
-        "alloc_class_by_run",
+        "Malloc",
         "memset",
         "critnib_new",
-        "Zalloc",
-        "alloc_class_collection_delete",
+        "LOG",
         "alloc_class_new",
+        "Zalloc",
         "ASSERTeq",
-        "Malloc"
+        "alloc_class_by_run",
+        "alloc_class_collection_delete"
     ],
     "alloc_class_new": [
-        "critnib_insert",
-        "LOG",
-        "RUN_CLASS_KEY_PACK",
         "alloc_class_find_first_free_slot",
-        "ASSERT",
-        "alloc_class_reservation_clear",
-        "ERR",
-        "memblock_run_bitmap",
         "Free",
         "Malloc",
-        "SIZE_TO_CLASS_MAP_INDEX"
+        "critnib_insert",
+        "RUN_CLASS_KEY_PACK",
+        "LOG",
+        "ASSERT",
+        "SIZE_TO_CLASS_MAP_INDEX",
+        "ERR",
+        "memblock_run_bitmap",
+        "alloc_class_reservation_clear"
     ],
     "alloc_class_find_first_free_slot": [
         "LOG"
     ],
     "alloc_class_reservation_clear": [
+        "LOG",
         "ASSERT",
-        "util_bool_compare_and_swap64",
-        "LOG"
+        "util_bool_compare_and_swap64"
     ],
     "heap_get_procs": [
         "sysconf",
         "LOG"
     ],
     "heap_arenas_init": [
-        "VEC_INIT",
         "util_mutex_init",
+        "VEC_INIT",
         "VEC_RESERVE"
     ],
     "heap_arena_new": [
-        "alloc_class_by_id",
         "heap_arena_delete",
-        "bucket_locked_new",
-        "container_new_seglists",
+        "alloc_class_by_id",
         "Zalloc",
         "ERR",
-        "COMPILE_ERROR_ON"
+        "container_new_seglists",
+        "COMPILE_ERROR_ON",
+        "bucket_locked_new"
     ],
     "bucket_locked_new": [
-        "bucket_init",
-        "util_mutex_init",
-        "ASSERTne",
         "Free",
-        "Malloc"
+        "Malloc",
+        "util_mutex_init",
+        "bucket_init",
+        "ASSERTne"
     ],
     "bucket_init": [
         "Zalloc"
     ],
     "container_new_seglists": [
-        "Malloc",
-        "VECQ_INIT"
+        "VECQ_INIT",
+        "Malloc"
     ],
     "heap_zone_update_if_needed": [
-        "ZID_TO_ZONE",
         "zone_calc_size_idx",
+        "ZID_TO_ZONE",
         "heap_zone_init"
     ],
     "palloc_heap_vg_open": [
-        "heap_vg_open",
-        "palloc_vg_register_alloc"
+        "palloc_vg_register_alloc",
+        "heap_vg_open"
     ],
     "heap_vg_open": [
-        "heap_max_zone",
         "memblock_rebuild_state",
-        "VALGRIND_DO_MAKE_MEM_DEFINED",
         "VALGRIND_DO_MAKE_MEM_NOACCESS",
-        "ASSERT",
-        "VALGRIND_DO_MAKE_MEM_UNDEFINED",
-        "ASSERTne",
         "ZID_TO_ZONE",
+        "VALGRIND_DO_MAKE_MEM_UNDEFINED",
+        "ASSERT",
+        "VALGRIND_DO_MAKE_MEM_DEFINED",
+        "heap_max_zone",
+        "ASSERTne",
         "huge_vg_init",
         "run_vg_init"
     ],
     "palloc_vg_register_alloc": [
-        "VALGRIND_DO_MAKE_MEM_DEFINED",
         "VALGRIND_DO_MEMPOOL_ALLOC",
+        "VALGRIND_DO_MAKE_MEM_DEFINED",
         "block_reinit_header"
     ],
     "palloc_buckets_init": [
         "heap_buckets_init"
     ],
     "heap_buckets_init": [
-        "alloc_class_by_id",
         "heap_arena_delete",
         "heap_create_alloc_class_buckets",
+        "alloc_class_by_id",
+        "VEC_FOREACH",
         "bucket_locked_new",
-        "container_new_ravl",
-        "VEC_FOREACH"
+        "container_new_ravl"
     ],
     "heap_create_alloc_class_buckets": [
+        "bucket_locked_delete",
         "VEC_ARR",
-        "bucket_locked_new",
-        "container_new_seglists",
         "VEC_FOREACH_BY_POS",
-        "bucket_locked_delete"
+        "container_new_seglists",
+        "bucket_locked_new"
     ],
     "container_new_ravl": [
         "container_compare_memblocks",
@@ -2481,26 +2513,26 @@
         "heap_end"
     ],
     "heap_end": [
-        "ASSERT",
-        "ZID_TO_ZONE"
+        "ZID_TO_ZONE",
+        "ASSERT"
     ],
     "obj_pool_init": [
-        "util_bool_compare_and_swap64",
-        "LOG",
         "critnib_delete",
+        "util_bool_compare_and_swap64",
         "critnib_new",
+        "LOG",
         "FATAL"
     ],
     "obj_ctl_init_and_load": [
-        "ctl_load_config_from_file",
-        "debug_ctl_register",
-        "LOG",
-        "ctl_delete",
         "pmalloc_ctl_register",
         "tx_ctl_register",
-        "ctl_new",
-        "ctl_load_config_from_string",
+        "LOG",
         "stats_ctl_register",
+        "ctl_new",
+        "ctl_load_config_from_file",
+        "debug_ctl_register",
+        "ctl_load_config_from_string",
+        "ctl_delete",
         "os_getenv"
     ],
     "ctl_new": [
@@ -2517,94 +2549,94 @@
         "CTL_REGISTER_MODULE"
     ],
     "ctl_load_config_from_string": [
+        "ctl_load_config",
+        "Free",
         "LOG",
         "Strdup",
-        "ERR",
-        "Free",
-        "ctl_load_config"
+        "ERR"
     ],
     "ctl_load_config": [
+        "ERR",
         "ctl_parse_query",
-        "ctl_query",
         "strtok_r",
-        "ASSERTne",
-        "ERR"
+        "ctl_query",
+        "ASSERTne"
     ],
     "ctl_parse_query": [
         "strtok_r"
     ],
     "ctl_query": [
-        "LOG",
-        "ctl_delete_indexes",
-        "PMDK_SLIST_INIT",
-        "ctl_find_node",
         "CTL_NODE",
+        "LOG",
         "out",
         "ERR",
+        "ctl_find_node",
+        "PMDK_SLIST_INIT",
+        "ctl_delete_indexes",
         "ctl_exec_query_read",
         "ctl_exec_query_write"
     ],
     "ctl_find_node": [
         "Free",
+        "strtol",
+        "Malloc",
         "LOG",
         "PMDK_SLIST_INSERT_HEAD",
-        "strtol",
-        "strtok_r",
         "Strdup",
         "strcmp",
-        "Malloc"
+        "strtok_r"
     ],
     "CTL_NODE": [
-        "CTL_LEAF_RW",
-        "CTL_LEAF_WO",
-        "CTL_LEAF_RO",
-        "CTL_LEAF_RUNNABLE",
         "STATS_CTL_LEAF",
+        "CTL_LEAF_RO",
+        "CTL_LEAF_RW",
+        "CTL_LEAF_RUNNABLE",
         "CTL_INDEXED",
-        "CTL_CHILD"
+        "CTL_CHILD",
+        "CTL_LEAF_WO"
     ],
     "ctl_delete_indexes": [
-        "PMDK_SLIST_REMOVE_HEAD",
         "PMDK_SLIST_EMPTY",
+        "Free",
         "PMDK_SLIST_FIRST",
-        "Free"
+        "PMDK_SLIST_REMOVE_HEAD"
     ],
     "ctl_load_config_from_file": [
+        "ctl_load_config",
         "Free",
+        "os_fopen",
+        "isspace",
         "LOG",
         "fclose",
-        "isspace",
-        "Zalloc",
-        "fgetc",
         "ERR",
-        "fseek",
-        "os_fopen",
-        "ctl_load_config",
-        "ftell"
+        "Zalloc",
+        "ftell",
+        "fgetc",
+        "fseek"
     ],
     "obj_runtime_cleanup_common": [
-        "lane_section_cleanup",
-        "lane_cleanup"
+        "lane_cleanup",
+        "lane_section_cleanup"
     ],
     "pmemobj_ctl_get": [
         "pmemobj_ctl_getU"
     ],
     "pmemobj_ctl_getU": [
-        "ctl_query",
-        "LOG"
+        "LOG",
+        "ctl_query"
     ],
     "pmemobj_ctl_set": [
-        "PMEMOBJ_API_START",
+        "pmemobj_ctl_setU",
         "PMEMOBJ_API_END",
-        "pmemobj_ctl_setU"
+        "PMEMOBJ_API_START"
     ],
     "pmemobj_ctl_setU": [
-        "ctl_query",
-        "LOG"
+        "LOG",
+        "ctl_query"
     ],
     "pmemobj_defer_free": [
-        "ASSERT",
         "palloc_defer_free",
+        "ASSERT",
         "OID_IS_NULL"
     ],
     "palloc_defer_free": [
@@ -2624,36 +2656,36 @@
         "Last_errormsg_get"
     ],
     "Last_errormsg_get": [
-        "malloc",
         "Last_errormsg_key_alloc",
-        "os_tls_set",
         "os_tls_get",
-        "FATAL"
+        "FATAL",
+        "os_tls_set",
+        "malloc"
     ],
     "Last_errormsg_key_alloc": [
         "_Last_errormsg_key_alloc"
     ],
     "os_once": [
-        "pthread_once",
-        "COMPILE_ERROR_ON"
+        "COMPILE_ERROR_ON",
+        "pthread_once"
     ],
     "pmemobj_flush": [
         "pmemops_flush",
         "LOG"
     ],
     "pmemobj_free": [
-        "PMEMOBJ_API_START",
         "OBJ_OID_IS_VALID",
         "PMEMOBJ_API_END",
-        "pmemobj_pool_by_oid",
-        "LOG",
         "obj_free",
+        "LOG",
         "ASSERT",
+        "PMEMOBJ_API_START",
+        "pmemobj_pool_by_oid",
         "ASSERTne"
     ],
     "pmemobj_pool_by_oid": [
-        "critnib_get",
-        "LOG"
+        "LOG",
+        "critnib_get"
     ],
     "obj_free": [
         "operation_add_entry",
@@ -2663,157 +2695,157 @@
         "ASSERTne"
     ],
     "pmemobj_memcpy_persist": [
-        "PMEMOBJ_API_START",
-        "PMEMOBJ_API_END",
         "pmemops_memcpy",
-        "LOG"
+        "LOG",
+        "PMEMOBJ_API_END",
+        "PMEMOBJ_API_START"
     ],
     "pmemobj_open": [
-        "PMEMOBJ_API_START",
         "pmemobj_openU",
-        "PMEMOBJ_API_END"
+        "PMEMOBJ_API_END",
+        "PMEMOBJ_API_START"
     ],
     "pmemobj_openU": [
-        "obj_open_common",
-        "LOG"
+        "LOG",
+        "obj_open_common"
     ],
     "obj_open_common": [
-        "obj_vg_boot",
-        "obj_pool_open",
-        "obj_descr_check",
-        "LOG",
-        "obj_runtime_init",
-        "obj_replicas_fini",
-        "os_mutex_unlock",
+        "obj_check_basic",
+        "obj_replicas_init",
         "obj_replicas_check_basic",
+        "LOG",
+        "obj_descr_check",
+        "obj_pool_open",
+        "obj_vg_boot",
+        "os_mutex_unlock",
+        "ERR",
+        "obj_replicas_fini",
+        "util_poolset_fdclose",
+        "obj_runtime_init",
         "obj_pool_close",
         "os_mutex_lock",
-        "util_poolset_fdclose",
-        "obj_get_nlanes",
-        "obj_replicas_init",
-        "ERR",
-        "obj_check_basic"
+        "obj_get_nlanes"
     ],
     "obj_pool_open": [
+        "util_pool_open",
         "LOG",
         "ASSERT",
-        "util_pool_open",
         "ERR",
         "obj_pool_close"
     ],
     "util_pool_open": [
-        "util_replica_check",
         "util_poolset_free",
+        "util_replica_open",
         "util_poolset_files_local",
+        "util_replica_close",
         "LOG",
-        "util_poolset_close",
-        "util_read_compat_features",
-        "badblocks_check_poolset",
         "ASSERT",
         "util_unmap_all_hdrs",
-        "util_replica_open",
-        "util_replica_close",
         "ERR",
+        "badblocks_check_poolset",
+        "util_replica_check",
+        "util_poolset_create_set",
+        "util_read_compat_features",
         "badblocks_recovery_file_exists",
-        "util_poolset_create_set"
+        "util_poolset_close"
     ],
     "util_read_compat_features": [
+        "util_unmap_hdr",
+        "util_part_fdclose",
         "util_part_open",
         "LOG",
-        "util_unmap_hdr",
-        "util_map_hdr",
-        "util_part_fdclose"
+        "util_map_hdr"
     ],
     "badblocks_recovery_file_exists": [
+        "Free",
         "PART",
         "LOG",
-        "badblocks_recovery_file_alloc",
         "util_file_exists",
-        "Free"
+        "badblocks_recovery_file_alloc"
     ],
     "badblocks_recovery_file_alloc": [
-        "LOG",
-        "strlen",
+        "Malloc",
         "strcat",
-        "strcpy",
+        "LOG",
         "ERR",
         "sprintf",
-        "Malloc"
+        "strcpy",
+        "strlen"
     ],
     "util_replica_open": [
-        "util_replica_open_local",
-        "LOG"
+        "LOG",
+        "util_replica_open_local"
     ],
     "util_replica_open_local": [
-        "util_replica_set_is_pmem",
-        "util_replica_check_map_sync",
-        "VALGRIND_REGISTER_PMEM_MAPPING",
-        "LOG",
-        "util_replica_force_page_allocation",
-        "ERR",
-        "util_map_hint",
-        "util_map_part",
-        "munmap",
-        "ALIGN_DOWN",
-        "ASSERTne",
-        "util_map_hdr",
         "VALGRIND_REGISTER_PMEM_FILE",
+        "util_replica_force_page_allocation",
+        "util_replica_set_is_pmem",
         "util_unmap_hdr",
+        "LOG",
         "util_unmap_parts",
+        "util_map_hint",
+        "ERR",
+        "ASSERTeq",
         "util_unmap_part",
-        "ASSERTeq"
+        "VALGRIND_REGISTER_PMEM_MAPPING",
+        "munmap",
+        "util_map_hdr",
+        "util_map_part",
+        "util_replica_check_map_sync",
+        "ASSERTne",
+        "ALIGN_DOWN"
     ],
     "util_replica_check": [
-        "REPN",
-        "IGNORE_SDS",
-        "PART",
-        "LOG",
-        "shutdown_state_add_part",
-        "shutdown_state_init",
+        "shutdown_state_check",
         "REPP",
-        "HDR",
-        "shutdown_state_set_dirty",
-        "ASSERTne",
+        "REP",
+        "PART",
+        "memcmp",
+        "LOG",
+        "shutdown_state_init",
+        "REPN",
         "ERR",
         "util_header_check",
-        "memcmp",
-        "shutdown_state_check",
-        "REP"
+        "shutdown_state_set_dirty",
+        "HDR",
+        "shutdown_state_add_part",
+        "IGNORE_SDS",
+        "ASSERTne"
     ],
     "util_header_check": [
-        "HDRN",
-        "LOG",
-        "util_checksum",
+        "REP",
         "HDRP",
+        "HDRN",
         "memcpy",
+        "LOG",
         "util_convert2h_hdr_nocheck",
-        "HDR",
+        "memcmp",
+        "util_poolset_check_header_options",
         "POOL_HDR_CSUM_END_OFF",
-        "ASSERTne",
         "ERR",
         "util_feature_check",
-        "memcmp",
+        "HDR",
+        "util_checksum",
         "util_check_arch_flags",
-        "util_poolset_check_header_options",
-        "REP"
+        "ASSERTne"
     ],
     "util_convert2h_hdr_nocheck": [
-        "le64toh",
         "le16toh",
-        "le32toh"
+        "le32toh",
+        "le64toh"
     ],
     "util_feature_check": [
-        "util_get_unknown_features",
         "ERR",
-        "LOG"
+        "LOG",
+        "util_get_unknown_features"
     ],
     "util_get_unknown_features": [
         "util_get_not_masked_bits"
     ],
     "util_check_arch_flags": [
+        "ERR",
         "util_is_zeroed",
-        "util_get_arch_flags",
-        "ERR"
+        "util_get_arch_flags"
     ],
     "util_poolset_check_header_options": [
         "ERR",
@@ -2821,76 +2853,76 @@
     ],
     "shutdown_state_check": [
         "le64toh",
-        "LOG",
-        "util_checksum",
         "util_is_zeroed",
         "shutdown_state_reinit",
-        "ERR"
+        "LOG",
+        "ERR",
+        "util_checksum"
     ],
     "shutdown_state_reinit": [
-        "htole64",
-        "FLUSH_SDS",
         "LOG",
+        "shutdown_state_checksum",
         "shutdown_state_init",
-        "shutdown_state_checksum"
+        "FLUSH_SDS",
+        "htole64"
     ],
     "util_unmap_all_hdrs": [
-        "util_unmap_hdr",
-        "LOG"
+        "LOG",
+        "util_unmap_hdr"
     ],
     "obj_pool_close": [
         "util_poolset_close"
     ],
     "obj_replicas_init": [
         "memset",
-        "obj_replica_fini",
-        "ERR",
         "obj_replica_init",
-        "VALGRIND_REMOVE_PMEM_MAPPING"
+        "ERR",
+        "VALGRIND_REMOVE_PMEM_MAPPING",
+        "obj_replica_fini"
     ],
     "obj_replica_fini": [
         "LOG"
     ],
     "obj_descr_check": [
-        "util_checksum",
-        "strncmp",
         "ERR",
-        "LOG"
+        "LOG",
+        "strncmp",
+        "util_checksum"
     ],
     "obj_check_basic": [
-        "obj_check_basic_local",
-        "LOG"
+        "LOG",
+        "obj_check_basic_local"
     ],
     "obj_check_basic_local": [
-        "palloc_heap_check",
-        "lane_check",
         "ERR",
-        "LOG"
+        "LOG",
+        "palloc_heap_check",
+        "lane_check"
     ],
     "lane_check": [
-        "lane_get_layout",
         "ulog_check",
-        "LOG"
+        "LOG",
+        "lane_get_layout"
     ],
     "palloc_heap_check": [
         "heap_check"
     ],
     "heap_check": [
-        "heap_max_zone",
         "heap_verify_zone",
-        "ERR",
         "ZID_TO_ZONE",
+        "ERR",
+        "heap_max_zone",
         "heap_verify_header"
     ],
     "heap_verify_header": [
-        "util_checksum",
+        "ERR",
         "memcmp",
-        "ERR"
+        "util_checksum"
     ],
     "heap_verify_zone": [
-        "heap_verify_chunk_header",
+        "ERR",
         "heap_verify_zone_header",
-        "ERR"
+        "heap_verify_chunk_header"
     ],
     "heap_verify_zone_header": [
         "ERR"
@@ -2900,139 +2932,141 @@
     ],
     "obj_replicas_check_basic": [
         "ERR",
-        "obj_check_basic"
+        "obj_check_basic",
+        "pmem_memcpy",
+        "obj_nopmem_memcpy"
     ],
     "obj_vg_boot": [
+        "LOG",
         "os_getenv",
-        "obj_vg_check_no_undef",
-        "LOG"
+        "obj_vg_check_no_undef"
     ],
     "obj_vg_check_no_undef": [
-        "VALGRIND_CHECK_MEM_IS_ADDRESSABLE",
+        "VALGRIND_CHECK_MEM_IS_DEFINED",
         "LOG",
-        "VALGRIND_CHECK_MEM_IS_UNDEFINED",
-        "VALGRIND_CHECK_MEM_IS_UNADDRESSABLE",
         "VALGRIND_PRINTF",
-        "VALGRIND_CHECK_MEM_IS_DEFINED"
+        "VALGRIND_CHECK_MEM_IS_ADDRESSABLE",
+        "VALGRIND_CHECK_MEM_IS_UNDEFINED",
+        "VALGRIND_CHECK_MEM_IS_UNADDRESSABLE"
     ],
     "obj_replicas_fini": [
         "obj_replica_fini"
     ],
     "pmemobj_reserve": [
-        "PMEMOBJ_API_START",
+        "LOG",
         "PMEMOBJ_API_END",
-        "palloc_reserve",
-        "LOG"
+        "PMEMOBJ_API_START",
+        "palloc_reserve"
     ],
     "palloc_reserve": [
         "palloc_reservation_create",
         "COMPILE_ERROR_ON"
     ],
     "pmemobj_root": [
-        "PMEMOBJ_API_START",
+        "LOG",
         "PMEMOBJ_API_END",
         "pmemobj_root_construct",
-        "LOG"
+        "PMEMOBJ_API_START"
     ],
     "pmemobj_root_construct": [
-        "PMEMOBJ_API_START",
         "PMEMOBJ_API_END",
-        "pmemobj_mutex_lock_nofail",
         "LOG",
         "pmemobj_mutex_unlock_nofail",
         "ERR",
-        "obj_alloc_root"
+        "obj_alloc_root",
+        "PMEMOBJ_API_START",
+        "pmemobj_mutex_lock_nofail"
     ],
     "obj_alloc_root": [
+        "OBJ_OFF_TO_PTR",
         "operation_add_entry",
         "LOG",
         "constructor_zrealloc_root",
         "pmalloc_operation_release",
         "palloc_operation",
-        "pmalloc_operation_hold",
-        "OBJ_OFF_TO_PTR"
+        "pmalloc_operation_hold"
     ],
     "constructor_zrealloc_root": [
         "VALGRIND_REMOVE_FROM_TX",
         "LOG",
-        "constructor_realloc",
         "VALGRIND_ADD_TO_TX",
+        "constructor_realloc",
         "ASSERTne"
     ],
     "constructor_realloc": [
+        "LOG",
         "pmemops_memset",
-        "ASSERTne",
-        "LOG"
+        "ASSERTne"
     ],
     "pmemobj_tx_abort": [
-        "PMEMOBJ_API_START",
+        "obj_tx_abort",
         "PMEMOBJ_API_END",
-        "obj_tx_abort"
+        "PMEMOBJ_API_START"
     ],
     "obj_tx_abort": [
-        "obj_tx_callback",
         "tx_abort",
+        "ASSERT_TX_STAGE_WORK",
         "lane_release",
+        "util_is_zeroed",
         "LOG",
+        "get_tx",
         "PMDK_SLIST_NEXT",
+        "ASSERT",
         "PMDK_SLIST_FIRST",
         "longjmp",
-        "ASSERT",
-        "util_is_zeroed",
-        "get_tx",
         "ERR",
         "ASSERT_IN_TX",
-        "ASSERT_TX_STAGE_WORK"
+        "obj_tx_callback"
     ],
     "tx_abort": [
         "VEC_ARR",
+        "LOG",
+        "get_tx",
+        "tx_clean_range",
         "palloc_cancel",
         "ravl_delete_cb",
-        "LOG",
         "VEC_SIZE",
-        "get_tx",
-        "tx_abort_set",
-        "tx_clean_range"
+        "tx_abort_set"
     ],
     "tx_abort_set": [
-        "LOG",
         "operation_finish",
+        "pmemops_drain",
+        "LOG",
         "ulog_foreach_entry",
-        "tx_undo_entry_apply",
-        "pmemops_drain"
+        "tx_undo_entry_apply"
     ],
     "tx_undo_entry_apply": [
-        "ulog_entry_type",
-        "tx_restore_range",
         "SUPPRESS_UNUSED",
+        "ulog_entry_type",
+        "get_tx",
         "ASSERT",
-        "get_tx"
+        "tx_restore_range"
     ],
     "tx_restore_range": [
-        "PMDK_SLIST_REMOVE_HEAD",
-        "ulog_entry_offset",
-        "Free",
-        "PMDK_SLIST_INIT",
-        "PMDK_SLIST_FOREACH",
-        "PMDK_SLIST_INSERT_HEAD",
-        "tx_remove_range",
-        "PMDK_SLIST_FIRST",
         "pmemops_memcpy",
-        "ASSERT",
-        "PMDK_SLIST_EMPTY",
         "OBJ_OFF_TO_PTR",
-        "COMPILE_ERROR_ON",
+        "PMDK_SLIST_FOREACH",
+        "Free",
         "Malloc",
-        "FATAL"
+        "tx_remove_range",
+        "PMDK_SLIST_INSERT_HEAD",
+        "ASSERT",
+        "PMDK_SLIST_FIRST",
+        "ulog_entry_offset",
+        "FATAL",
+        "COMPILE_ERROR_ON",
+        "PMDK_SLIST_REMOVE_HEAD",
+        "PMDK_SLIST_EMPTY",
+        "PMDK_SLIST_INIT"
     ],
     "tx_remove_range": [
-        "LOG",
         "PMDK_SLIST_REMOVE",
-        "PMDK_SLIST_NEXT",
-        "PMDK_SLIST_FIRST",
-        "PMDK_SLIST_INSERT_HEAD",
         "Free",
         "Malloc",
+        "LOG",
+        "PMDK_SLIST_NEXT",
+        "PMDK_SLIST_INSERT_HEAD",
+        "PMDK_SLIST_FIRST",
         "FATAL"
     ],
     "tx_clean_range": [
@@ -3045,18 +3079,18 @@
         "PMDK_SLIST_FIRST"
     ],
     "pmemobj_tx_add_range": [
-        "PMEMOBJ_API_START",
         "OBJ_OID_IS_VALID",
+        "ASSERT_TX_STAGE_WORK",
         "PMEMOBJ_API_END",
         "obj_tx_fail_err",
         "LOG",
-        "tx_abort_on_failure_flag",
-        "ASSERT",
         "get_tx",
-        "pmemobj_tx_add_common",
+        "ASSERT",
         "ERR",
+        "pmemobj_tx_add_common",
         "ASSERT_IN_TX",
-        "ASSERT_TX_STAGE_WORK"
+        "tx_abort_on_failure_flag",
+        "PMEMOBJ_API_START"
     ],
     "tx_abort_on_failure_flag": [
         "PMDK_SLIST_FIRST"
@@ -3065,74 +3099,74 @@
         "obj_tx_abort"
     ],
     "pmemobj_tx_add_common": [
-        "obj_tx_fail_err",
-        "LOG",
-        "pmemobj_tx_merge_flags",
-        "MAX",
+        "pmemobj_tx_add_snapshot",
         "ravl_remove",
         "tx_lane_ranges_insert_def",
+        "ravl_find",
+        "obj_tx_fail_err",
+        "LOG",
         "ASSERT",
-        "ravl_data",
-        "ERR",
-        "pmemobj_tx_add_snapshot",
         "ASSERTeq",
-        "ravl_find"
+        "ERR",
+        "ravl_data",
+        "pmemobj_tx_merge_flags",
+        "MAX"
     ],
     "tx_lane_ranges_insert_def": [
-        "SUPPRESS_UNUSED",
         "ravl_emplace_copy",
-        "FATAL",
-        "LOG"
+        "LOG",
+        "SUPPRESS_UNUSED",
+        "FATAL"
     ],
     "pmemobj_tx_add_snapshot": [
+        "vg_verify_initialized",
+        "OBJ_OFF_TO_PTR",
+        "palloc_set_value",
         "tx_action_add",
         "operation_add_buffer",
-        "VALGRIND_ADD_TO_TX",
-        "palloc_set_value",
-        "OBJ_OFF_TO_PTR",
-        "vg_verify_initialized"
+        "VALGRIND_ADD_TO_TX"
     ],
     "vg_verify_initialized": [
-        "SUPPRESS_UNUSED",
         "VALGRIND_PRINTF",
+        "SUPPRESS_UNUSED",
         "VALGRIND_CHECK_MEM_IS_DEFINED"
     ],
     "tx_action_add": [
         "tx_action_reserve",
-        "VEC_BACK",
-        "VEC_INC_BACK"
+        "VEC_INC_BACK",
+        "VEC_BACK"
     ],
     "tx_action_reserve": [
         "VEC_SIZE",
-        "MIN",
-        "operation_reserve"
+        "operation_reserve",
+        "MIN"
     ],
     "operation_reserve": [
-        "ulog_reserve",
-        "ERR"
+        "ERR",
+        "ulog_reserve"
     ],
     "ulog_reserve": [
+        "ulog_next",
         "LOG",
-        "VEC_PUSH_BACK",
         "ulog_by_offset",
-        "ASSERTne",
         "VEC_FOREACH",
-        "ulog_next"
+        "VEC_PUSH_BACK",
+        "ASSERTne"
     ],
     "palloc_set_value": [
         "SUPPRESS_UNUSED"
     ],
     "operation_add_buffer": [
-        "operation_reserve",
-        "ALIGN_UP",
-        "operation_add_buffer",
+        "ulog_next",
         "ulog_entry_size",
+        "ALIGN_UP",
         "ASSERT",
+        "operation_add_buffer",
         "ulog_entry_buf_create",
-        "MIN",
-        "ASSERTne",
+        "operation_reserve",
         "ulog_clobber_entry",
-        "ulog_next"
+        "MIN",
+        "ASSERTne"
     ],
     "ulog_clobber_entry": [
         "VALGRIND_REMOVE_FROM_TX",
@@ -3141,86 +3175,86 @@
         "CACHELINE_ALIGN"
     ],
     "ulog_entry_buf_create": [
+        "VALGRIND_MAKE_MEM_DEFINED",
+        "pmemops_memcpy",
+        "VALGRIND_REMOVE_FROM_TX",
+        "util_checksum_seq",
+        "memset",
+        "memcpy",
+        "pmemops_drain",
+        "ULOG_OPERATION",
+        "ASSERT",
+        "VALGRIND_ADD_TO_TX",
         "alloca",
         "ulog_entry_valid",
-        "ULOG_OPERATION",
-        "VALGRIND_REMOVE_FROM_TX",
-        "memset",
-        "VALGRIND_ADD_TO_TX",
-        "pmemops_memcpy",
-        "memcpy",
-        "ASSERT",
-        "pmemops_drain",
         "IS_CACHELINE_ALIGNED",
         "MIN",
-        "ALIGN_DOWN",
-        "util_checksum_seq",
-        "VALGRIND_MAKE_MEM_DEFINED"
+        "ALIGN_DOWN"
     ],
     "pmemobj_tx_add_range_direct": [
-        "PMEMOBJ_API_START",
+        "ASSERT_TX_STAGE_WORK",
         "PMEMOBJ_API_END",
         "obj_tx_fail_err",
         "LOG",
-        "tx_abort_on_failure_flag",
         "get_tx",
         "OBJ_PTR_FROM_POOL",
-        "pmemobj_tx_add_common",
         "ERR",
+        "pmemobj_tx_add_common",
         "ASSERT_IN_TX",
-        "ASSERT_TX_STAGE_WORK"
+        "tx_abort_on_failure_flag",
+        "PMEMOBJ_API_START"
     ],
     "pmemobj_tx_begin": [
-        "va_start",
-        "LOG",
-        "memset",
-        "PMDK_SLIST_INIT",
-        "obj_tx_abort",
-        "add_to_tx_and_lock",
-        "va_end",
-        "PMDK_SLIST_INSERT_HEAD",
-        "memcpy",
-        "FATAL",
-        "ravl_new_sized",
-        "tx_range_def_cmp",
-        "lane_hold",
-        "get_tx",
-        "ERR",
-        "va_arg",
-        "Malloc",
-        "operation_start",
-        "VEC_INIT",
-        "obj_tx_fail_err",
-        "PMDK_SLIST_FIRST",
-        "ASSERT",
         "cb",
-        "ASSERTne"
+        "LOG",
+        "PMDK_SLIST_FIRST",
+        "ERR",
+        "tx_range_def_cmp",
+        "ASSERTne",
+        "ravl_new_sized",
+        "Malloc",
+        "memset",
+        "get_tx",
+        "va_arg",
+        "add_to_tx_and_lock",
+        "operation_start",
+        "va_end",
+        "PMDK_SLIST_INIT",
+        "obj_tx_fail_err",
+        "obj_tx_abort",
+        "PMDK_SLIST_INSERT_HEAD",
+        "VEC_INIT",
+        "memcpy",
+        "ASSERT",
+        "va_start",
+        "FATAL",
+        "lane_hold"
     ],
     "add_to_tx_and_lock": [
-        "pmemobj_rwlock_wrlock",
-        "LOG",
         "PMDK_SLIST_FOREACH",
-        "pmemobj_mutex_lock",
+        "Free",
+        "Malloc",
+        "memcmp",
+        "LOG",
+        "pmemobj_rwlock_wrlock",
         "PMDK_SLIST_INSERT_HEAD",
         "ASSERT",
         "ERR",
-        "memcmp",
-        "Free",
-        "Malloc"
+        "pmemobj_mutex_lock"
     ],
     "pmemobj_mutex_lock": [
+        "pmemobj_pool_by_ptr",
         "util_alignof",
         "LOG",
-        "pmemobj_pool_by_ptr",
-        "os_mutex_lock",
         "get_mutex",
-        "ASSERTeq"
+        "ASSERTeq",
+        "os_mutex_lock"
     ],
     "pmemobj_pool_by_ptr": [
-        "tx_get_pop",
+        "LOG",
         "critnib_find_le",
         "OBJ_PTR_FROM_POOL",
-        "LOG"
+        "tx_get_pop"
     ],
     "tx_get_pop": [
         "get_tx"
@@ -3230,99 +3264,99 @@
         "load"
     ],
     "find_le": [
-        "find_successor",
-        "to_leaf",
-        "slice_index",
-        "is_leaf",
         "find_le",
-        "load"
+        "is_leaf",
+        "slice_index",
+        "load",
+        "to_leaf",
+        "find_successor"
     ],
     "find_successor": [
-        "is_leaf",
-        "to_leaf"
+        "to_leaf",
+        "is_leaf"
     ],
     "get_mutex": [
         "likely",
         "util_alignof",
-        "RECORD_LOCK",
         "LOG",
-        "os_mutex_init",
         "ASSERTeq",
+        "VALGRIND_REMOVE_PMEM_MAPPING",
+        "os_mutex_init",
         "COMPILE_ERROR_ON",
-        "VALGRIND_REMOVE_PMEM_MAPPING"
+        "RECORD_LOCK"
     ],
     "os_mutex_init": [
-        "COMPILE_ERROR_ON",
-        "pthread_mutex_init"
+        "pthread_mutex_init",
+        "COMPILE_ERROR_ON"
     ],
     "pmemobj_rwlock_wrlock": [
+        "pmemobj_pool_by_ptr",
+        "os_rwlock_wrlock",
         "util_alignof",
         "LOG",
-        "pmemobj_pool_by_ptr",
         "get_rwlock",
-        "os_rwlock_wrlock",
         "ASSERTeq"
     ],
     "get_rwlock": [
         "likely",
-        "util_alignof",
-        "RECORD_LOCK",
-        "LOG",
         "os_rwlock_init",
+        "util_alignof",
+        "LOG",
         "ASSERTeq",
+        "VALGRIND_REMOVE_PMEM_MAPPING",
         "COMPILE_ERROR_ON",
-        "VALGRIND_REMOVE_PMEM_MAPPING"
+        "RECORD_LOCK"
     ],
     "os_rwlock_init": [
-        "COMPILE_ERROR_ON",
-        "pthread_rwlock_init"
+        "pthread_rwlock_init",
+        "COMPILE_ERROR_ON"
     ],
     "os_rwlock_wrlock": [
         "pthread_rwlock_wrlock"
     ],
     "pmemobj_tx_commit": [
-        "PMEMOBJ_API_START",
-        "obj_tx_callback",
-        "VEC_FOREACH_BY_PTR",
-        "VEC_ARR",
-        "operation_add_user_buffer",
-        "tx_post_commit",
-        "LOG",
-        "lane_release",
-        "PMEMOBJ_API_END",
-        "PMDK_SLIST_NEXT",
-        "PMDK_SLIST_FIRST",
-        "ASSERT",
-        "pmemops_drain",
-        "VEC_SIZE",
-        "get_tx",
-        "palloc_publish",
-        "ASSERT_IN_TX",
         "ASSERT_TX_STAGE_WORK",
+        "lane_release",
+        "VEC_ARR",
+        "PMEMOBJ_API_END",
+        "pmemops_drain",
+        "LOG",
+        "get_tx",
+        "PMDK_SLIST_NEXT",
+        "ASSERT",
+        "PMDK_SLIST_FIRST",
+        "operation_add_user_buffer",
+        "VEC_SIZE",
+        "tx_pre_commit",
+        "ASSERT_IN_TX",
         "operation_start",
-        "tx_pre_commit"
+        "PMEMOBJ_API_START",
+        "VEC_FOREACH_BY_PTR",
+        "palloc_publish",
+        "obj_tx_callback",
+        "tx_post_commit"
     ],
     "tx_pre_commit": [
-        "tx_flush_range",
         "ravl_delete_cb",
-        "LOG"
+        "LOG",
+        "tx_flush_range"
     ],
     "tx_flush_range": [
-        "pmemops_xflush",
         "OBJ_OFF_TO_PTR",
-        "VALGRIND_REMOVE_FROM_TX"
+        "VALGRIND_REMOVE_FROM_TX",
+        "pmemops_xflush"
     ],
     "operation_add_user_buffer": [
         "OBJ_PTR_TO_OFF",
-        "VALGRIND_ADD_TO_TX",
+        "VEC_BACK",
+        "operation_set_any_user_buffer",
         "ulog_construct",
         "VEC_PUSH_BACK",
         "ulog_by_offset",
+        "VALGRIND_ADD_TO_TX",
         "VEC_SIZE",
-        "operation_set_any_user_buffer",
-        "ASSERTne",
         "pmemops_persist",
-        "VEC_BACK"
+        "ASSERTne"
     ],
     "palloc_publish": [
         "palloc_exec_actions"
@@ -3331,45 +3365,45 @@
         "operation_finish"
     ],
     "pmemobj_tx_end": [
-        "PMDK_SLIST_REMOVE_HEAD",
-        "obj_tx_callback",
-        "LOG",
-        "release_and_free_tx_locks",
-        "PMDK_SLIST_FIRST",
-        "PMDK_SLIST_EMPTY",
-        "get_tx",
-        "cb",
-        "ASSERTeq",
         "VEC_DELETE",
         "Free",
+        "release_and_free_tx_locks",
+        "LOG",
+        "get_tx",
+        "cb",
         "obj_tx_abort",
-        "FATAL"
+        "PMDK_SLIST_FIRST",
+        "ASSERTeq",
+        "PMDK_SLIST_REMOVE_HEAD",
+        "PMDK_SLIST_EMPTY",
+        "FATAL",
+        "obj_tx_callback"
     ],
     "release_and_free_tx_locks": [
-        "PMDK_SLIST_REMOVE_HEAD",
+        "Free",
         "LOG",
         "pmemobj_rwlock_unlock",
-        "PMDK_SLIST_FIRST",
         "ASSERT",
-        "PMDK_SLIST_EMPTY",
+        "PMDK_SLIST_FIRST",
         "ERR",
-        "Free",
-        "pmemobj_mutex_unlock"
+        "PMDK_SLIST_REMOVE_HEAD",
+        "pmemobj_mutex_unlock",
+        "PMDK_SLIST_EMPTY"
     ],
     "pmemobj_mutex_unlock": [
+        "pmemobj_pool_by_ptr",
         "util_alignof",
         "LOG",
-        "pmemobj_pool_by_ptr",
-        "os_mutex_unlock",
         "get_mutex",
-        "ASSERTeq"
+        "ASSERTeq",
+        "os_mutex_unlock"
     ],
     "pmemobj_rwlock_unlock": [
+        "pmemobj_pool_by_ptr",
+        "os_rwlock_unlock",
         "util_alignof",
         "LOG",
-        "pmemobj_pool_by_ptr",
         "get_rwlock",
-        "os_rwlock_unlock",
         "ASSERTeq"
     ],
     "os_rwlock_unlock": [
@@ -3379,100 +3413,100 @@
         "pmemobj_tx_xfree"
     ],
     "pmemobj_tx_xfree": [
-        "VEC_FOREACH_BY_PTR",
-        "PMEMOBJ_API_END",
         "LOG",
-        "ravl_data",
-        "OBJ_OFF_TO_PTR",
-        "ASSERT_TX_STAGE_WORK",
-        "VALGRIND_REMOVE_FROM_TX",
-        "OBJ_OID_IS_NULL",
-        "OBJ_OID_IS_VALID",
-        "get_tx",
-        "VALGRIND_SET_CLEAN",
         "ERR",
+        "VEC_FOREACH_BY_PTR",
+        "OBJ_OID_IS_NULL",
+        "VALGRIND_REMOVE_FROM_TX",
+        "ASSERT_TX_STAGE_WORK",
+        "ravl_find",
+        "get_tx",
+        "tx_action_add",
+        "VALGRIND_SET_CLEAN",
         "VEC_ERASE_BY_PTR",
+        "OBJ_OID_IS_VALID",
+        "OBJ_OFF_TO_PTR",
+        "PMEMOBJ_API_END",
+        "obj_tx_fail_err",
         "palloc_defer_free",
+        "tx_abort_on_failure_flag",
+        "ASSERT_IN_TX",
         "PMEMOBJ_API_START",
         "palloc_cancel",
-        "obj_tx_fail_err",
-        "tx_action_add",
         "ravl_remove",
-        "tx_abort_on_failure_flag",
         "ASSERT",
-        "ASSERT_IN_TX",
-        "ravl_find"
+        "ravl_data"
     ],
     "pmemobj_tx_publish": [
         "pmemobj_tx_xpublish"
     ],
     "pmemobj_tx_xpublish": [
-        "PMEMOBJ_API_START",
+        "ASSERT_TX_STAGE_WORK",
         "PMEMOBJ_API_END",
         "obj_tx_fail_err",
-        "tx_action_reserve",
-        "tx_abort_on_failure_flag",
-        "VEC_PUSH_BACK",
         "get_tx",
+        "tx_action_reserve",
         "ERR",
+        "tx_abort_on_failure_flag",
         "ASSERT_IN_TX",
-        "ASSERT_TX_STAGE_WORK"
+        "PMEMOBJ_API_START",
+        "VEC_PUSH_BACK"
     ],
     "pmemobj_tx_stage": [
-        "get_tx",
-        "LOG"
+        "LOG",
+        "get_tx"
     ],
     "pmemobj_tx_xadd_range": [
-        "PMEMOBJ_API_START",
         "OBJ_OID_IS_VALID",
+        "ASSERT_TX_STAGE_WORK",
         "PMEMOBJ_API_END",
         "obj_tx_fail_err",
         "LOG",
-        "tx_abort_on_failure_flag",
-        "ASSERT",
         "get_tx",
-        "pmemobj_tx_add_common",
+        "ASSERT",
         "ERR",
+        "pmemobj_tx_add_common",
         "ASSERT_IN_TX",
-        "ASSERT_TX_STAGE_WORK"
+        "tx_abort_on_failure_flag",
+        "PMEMOBJ_API_START"
     ],
     "pmemobj_tx_xalloc": [
-        "PMEMOBJ_API_START",
-        "PMEMOBJ_API_END",
-        "LOG",
-        "tx_abort_on_failure_flag",
-        "obj_tx_fail_null",
-        "get_tx",
-        "ALLOC_ARGS",
-        "ERR",
-        "ASSERT_IN_TX",
-        "tx_alloc_common",
         "ASSERT_TX_STAGE_WORK",
-        "constructor_tx_alloc"
+        "PMEMOBJ_API_END",
+        "ALLOC_ARGS",
+        "constructor_tx_alloc",
+        "LOG",
+        "get_tx",
+        "ERR",
+        "obj_tx_fail_null",
+        "tx_abort_on_failure_flag",
+        "ASSERT_IN_TX",
+        "PMEMOBJ_API_START",
+        "tx_alloc_common"
     ],
     "obj_tx_fail_null": [
         "obj_tx_abort"
     ],
     "tx_alloc_common": [
+        "tx_lane_ranges_insert_def",
+        "tx_action_remove",
         "LOG",
         "tx_action_add",
-        "ARENA_ID_FROM_FLAG",
-        "tx_lane_ranges_insert_def",
-        "obj_tx_fail_null",
-        "ERR",
-        "tx_action_remove",
         "CLASS_ID_FROM_FLAG",
+        "ERR",
+        "obj_tx_fail_null",
+        "ARENA_ID_FROM_FLAG",
         "palloc_reserve"
     ],
     "tx_action_remove": [
         "VEC_POP_BACK"
     ],
     "constructor_tx_alloc": [
-        "LOG",
-        "memset",
-        "VALGRIND_ADD_TO_TX",
-        "memcpy",
         "SUPPRESS_UNUSED",
+        "memset",
+        "memcpy",
+        "LOG",
+        "VALGRIND_ADD_TO_TX",
         "ASSERTne"
     ],
     "core_init": [
@@ -3558,5 +3592,31 @@
         "ctl__arenas_assignment_type_write",
         "ctl__desc_write",
         "ctl__enabled_write"
+    ],
+    "pmemops_xpersist": [
+        "obj_rep_persist",
+        "obj_norep_persist"
+    ],
+    "pmemops_xflush": [
+        "obj_rep_persist",
+        "obj_norep_persist"
+    ],
+    "pmemops_drain": [
+        "obj_rep_drain",
+        "obj_norep_drain",
+        "operation_transient_drain"
+    ],
+    "pmemops_memcpy": [
+        "obj_rep_memcpy",
+        "obj_norep_memcpy",
+        "operation_transient_memcpy"
+    ],
+    "pmemops_memmove": [
+        "obj_rep_memmove",
+        "obj_norep_memmove"
+    ],
+    "pmemops_memset": [
+        "obj_rep_memset",
+        "obj_norep_memset"
     ]
 }
