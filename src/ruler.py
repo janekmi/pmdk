@@ -26,7 +26,7 @@ def main():
                         size = funcs[func]['size']
                 else:
                         size = 0
-                print(f'{size} {func}')
+                print(f"{size}\t{func}")
 
 if __name__ == '__main__':
         main()
