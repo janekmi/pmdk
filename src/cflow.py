@@ -103,6 +103,8 @@ API = [
         'pmemobj_xalloc',
         'pmemobj_zalloc',
         'pmemobj_zrealloc',
+        "pmemobj_xflush",
+        "pmemobj_xpersist",
 ]
 
 DEAD_END = [
@@ -287,6 +289,50 @@ def function_pointers(calls):
 
         calls = dict_extend(calls, 'ctl_query', ['ctl_exec_query_read', 'ctl_exec_query_write'])
         
+        # pmem_ops
+        persist_all = ['obj_rep_persist', 'obj_norep_persist']
+        flush_all = ['obj_rep_flush', 'obj_norep_flush', 'operation_transient_clean', '']
+        drain_all = ['obj_rep_drain', 'obj_norep_drain', 'operation_transient_drain']
+        memcpy_all = ['obj_rep_memcpy', 'obj_norep_memcpy', 'operation_transient_memcpy']
+        memmove_all = ['obj_rep_memmove', 'obj_norep_memmove']
+        memset_all = ['obj_rep_memset', 'obj_norep_memset']
+
+        calls = dict_extend(calls, 'pmemops_xpersist', persist_all)
+        calls = dict_extend(calls, 'pmemops_xflush', persist_all)
+        calls = dict_extend(calls, 'pmemops_drain', drain_all)
+        calls = dict_extend(calls, 'pmemops_memcpy', memcpy_all)
+        calls = dict_extend(calls, 'pmemops_memmove', memmove_all)
+        calls = dict_extend(calls, 'pmemops_memset', memset_all)
+        calls = dict_extend(calls, 'ulog_entry_apply', persist_all + flush_all)
+
+        # per-replica functions
+        persist_local_all = ['pmem_persist', 'obj_msync_nofail']
+        flush_local_all = ['pmem_flush', 'obj_msync_nofail']
+        drain_local_all = ['pmem_drain', 'obj_drain_empty']
+        memcpy_local_all = ['pmem_memcpy', 'obj_nopmem_memcpy']
+        memmove_local_all = ['pmem_memmove', 'obj_nopmem_memmove']
+        memset_local_all = ['pmem_memset', 'obj_nopmem_memset']
+
+        calls = dict_extend(calls, 'obj_norep_persist', persist_local_all)
+        calls = dict_extend(calls, 'obj_rep_persist', persist_local_all)
+
+        calls = dict_extend(calls, 'obj_norep_flush', flush_local_all)
+        calls = dict_extend(calls, 'obj_rep_flush', flush_local_all)
+
+        calls = dict_extend(calls, 'obj_norep_drain', drain_local_all)
+        calls = dict_extend(calls, 'obj_rep_drain', drain_local_all)
+
+        calls = dict_extend(calls, 'obj_norep_memcpy', memcpy_local_all)
+        calls = dict_extend(calls, 'obj_rep_memcpy', memcpy_local_all)
+        calls = dict_extend(calls, 'obj_rep_flush', memcpy_local_all)
+        calls = dict_extend(calls, 'obj_replicas_check_basic', memcpy_local_all)
+
+        calls = dict_extend(calls, 'obj_norep_memmove', memmove_local_all)
+        calls = dict_extend(calls, 'obj_rep_memmove', memmove_local_all)
+
+        calls = dict_extend(calls, 'obj_norep_memset', memset_local_all)
+        calls = dict_extend(calls, 'obj_rep_memset', memset_local_all)
+
         return calls
 
 def is_reachable(func, calls):
@@ -384,7 +430,7 @@ def validate(funcs, calls):
                         continue
                 if len(callers) == 0:
                         no_api_connection[k] = v['size']
-        # dump(no_api_connection, 'no_api_connection')
+        dump(no_api_connection, 'no_api_connection')
         assert(len(no_api_connection) == 0)
 
 def generate_call_stacks(func, funcs, rcalls):
@@ -476,8 +522,23 @@ def generate_all_call_stacks(funcs, calls):
         print(len(call_stacks))
         call_stacks.sort(reverse=True, key=call_stack_key)
         dump(call_stacks, 'call_stacks_all')
-        # XXX
-        # call_stacks = list(filter(lambda call_stack: re.search('^pmem_(mem|persist|flush|drain)', call_stack['stack'][0]), call_stacks))
+
+        # Filter out NDCTL-related
+        call_stacks = list(filter(lambda call_stack: re.search('^ndctl_', call_stack['stack'][-1]), call_stacks))
+        # call_stacks = list(filter(lambda call_stack: not (
+        #         (call_stack['stack'][0] in ['pmemobj_create', 'pmemobj_open', 'pmemobj_alloc', 'pmemobj_free', 'pmemobj_reserve', 'pmemobj_root', 'pmemobj_tx_xalloc'] and
+        #          ('pmem2_region_namespace' in call_stack['stack'] or 'pmem2_device_dax_size' in call_stack['stack'] or 'pmem2_device_dax_alignment' in call_stack['stack'])) or
+        #         (call_stack['stack'][0] in ['pmemobj_open', 'pmemobj_create', 'pmemobj_close'] and ('pmem2_get_region_id' in call_stack['stack']))
+        #         ), call_stacks))
+        print(len(call_stacks))
+        dump(call_stacks, 'call_stacks_ndctl')
+
+        # call_stacks = list(filter(lambda call_stack: re.search('^pmem_(mem|persist|flush|drain)', call_stack['stack'][-1]), call_stacks))
+        # call_stacks = list(filter(lambda call_stack: not (
+        #         (call_stack['stack'][0] in ['pmemobj_create', 'pmemobj_open', 'pmemobj_alloc', 'pmemobj_root', 'pmemobj_free'] and 'palloc_operation' in call_stack['stack']) or
+        #         ('ulog_entry_buf_create' in call_stack['stack']) or
+        #         ('heap_init' in call_stack['stack'])
+        #         ), call_stacks))
         # print(len(call_stacks))
         # call_stacks.sort(reverse=True, key=call_stack_key)
         # dump(call_stacks, 'call_stacks_pmem_ops')
