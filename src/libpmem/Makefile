@@ -68,5 +68,5 @@ include ../Makefile.inc
 
 include $(PMEM2)/$(ARCH)/flags.inc
 
-CFLAGS += -I.
+CFLAGS += -I. -fstack-usage
 LIBS += -pthread
