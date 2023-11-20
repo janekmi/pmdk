@@ -182,6 +182,7 @@
         "util_str2pmempool_feature",
         "util_unlink_flock",
         "util_uuid_to_string",
-        "util_write_all"
+        "util_write_all",
+        "VALGRIND_PRINTF_BACKTRACE"
     ]
 }
