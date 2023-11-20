@@ -315,7 +315,8 @@ def generate_call_stacks_calling_apis(apis_called_internally: List[str], rcalls:
 
 def generate_call_stacks_basic(func: str, stack_usage: StackUsage, rcalls: RCalls, api: API) -> List[CallStack]:
         size = 0
-        if func.find("ndctl_", 0) == 0:
+        ndctl_exceptions = ['ndctl_match_devdax', 'ndctl_match_fsdax']
+        if func.find("ndctl_", 0) == 0 and func not in ndctl_exceptions:
                 size = NDCTL_CALL_STACK_ESTIMATE
         elif func.find("daxctl_", 0) == 0:
                 size = DAXCTL_CALL_STACK_ESTIMATE
