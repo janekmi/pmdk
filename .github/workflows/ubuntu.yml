@@ -3,6 +3,8 @@ name: Ubuntu
 
 on:
   workflow_call:
+  push:
+  workflow_dispatch:
 
 env:
   GITHUB_REPO: pmem/pmdk
@@ -41,3 +43,16 @@ jobs:
         env:
           TEST_BUILD: ${{ matrix.TEST_BUILD }}
         run: cd $WORKDIR && ./build-CI.sh
+        continue-on-error: true
+        id: build
+
+      - name: Archive logs
+        if: steps.build.outcome != 'success'
+        uses: actions/upload-artifact@v4.2.0
+        with:
+          name: logs-${{ matrix.TEST_BUILD }}
+          path: ${{env.HOST_WORKDIR}}/src/test/**/*.log
+
+      - name: Exit code
+        run: |
+          [ "${{steps.build.outcome}}" != "success" ] && exit 1
