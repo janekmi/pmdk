@@ -56,3 +56,4 @@ jobs:
       - name: Exit code
         run: |
           [ "${{steps.build.outcome}}" != "success" ] && exit 1
+          exit 0
