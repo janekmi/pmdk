@@ -45,4 +45,4 @@ class TEST3(t.Test):
 
     def run(self, ctx):
         testfile = path.join(ctx.testdir, 'testfile3')
-        ctx.exec('obj_tx_add_range', testfile, '0')
+        ctx.exec('obj_tx_add_range', testfile, '0', expected_exitcode=1)
