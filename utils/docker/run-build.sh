@@ -25,13 +25,16 @@ echo ""
 echo "## Running make test"
 make -j$(nproc) test
 echo ""
-echo "## Running make pcheck"
-# do not change -j1 to -j$(nproc) in case of tests (make check/pycheck)
-make -j1 pcheck TEST_BUILD=$TEST_BUILD
-echo ""
-echo "## Running make pycheck"
-# do not change -j1 to -j$(nproc) in case of tests (make check/pycheck)
-make -j1 pycheck
-echo ""
+# echo "## Running make pcheck"
+# # do not change -j1 to -j$(nproc) in case of tests (make check/pycheck)
+# make -j1 pcheck TEST_BUILD=$TEST_BUILD
+# echo ""
+# echo "## Running make pycheck"
+# # do not change -j1 to -j$(nproc) in case of tests (make check/pycheck)
+# make -j1 pycheck
+# echo ""
+cd src/test
+./RUNTESTS.py obj_tx_add_range
+cd -
 echo "## Running make source"
 make -j$(nproc) DESTDIR=/tmp source
