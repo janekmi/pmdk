@@ -14,6 +14,28 @@
 
 /* tests */
 
+#ifdef NO_LOG_FUNCTION
+
+/*
+ * Check:
+ * - if Core_log_function == 0:
+ *   - the log function is not called
+ */
+static int
+test_no_log_function(const struct test_case *tc, int argc, char *argv[])
+{
+	/* Pass the message all the way to the logging function. */
+	core_log_set_threshold(CORE_LOG_THRESHOLD, CORE_LOG_LEVEL_ERROR);
+
+	bool call_log_function = false;
+
+	test_log_function_call_helper(CORE_LOG_LEVEL_ERROR, call_log_function);
+
+	return NO_ARGS_CONSUMED;
+}
+
+#else
+
 /*
  * Check:
  * - CORE_LOG_LEVEL_ERROR_LAST -> CORE_LOG_LEVEL_ERROR
@@ -199,6 +221,16 @@ test_happy_day(const struct test_case *tc, int argc, char *argv[])
 	return NO_ARGS_CONSUMED;
 }
 
+#endif /* NO_LOG_FUNCTION */
+
+#ifdef NO_LOG_FUNCTION
+#undef LOG_SET_PMEMCORE_FUNC
+#define LOG_SET_PMEMCORE_FUNC
+
+static struct test_case test_cases[] = {
+	TEST_CASE(test_no_log_function),
+};
+#else
 static struct test_case test_cases[] = {
 	TEST_CASE(test_CORE_LOG_LEVEL_ERROR_LAST),
 	TEST_CASE(test_vsnprintf_fail),
@@ -208,6 +240,7 @@ static struct test_case test_cases[] = {
 	TEST_CASE(test_level_gt_threshold),
 	TEST_CASE(test_happy_day),
 };
+#endif /* NO_LOG_FUNCTION */
 
 #define NTESTS ARRAY_SIZE(test_cases)
 
@@ -215,9 +248,13 @@ int
 main(int argc, char *argv[])
 {
 	START(argc, argv, "core_log");
+#ifdef NO_LOG_FUNCTION
+	TEST_CASE_PROCESS(argc, argv, test_cases, NTESTS);
+#else
 	core_log_set_function(CORE_LOG_USE_DEFAULT_FUNCTION, NULL);
 	openlog(NULL, LOG_NDELAY, LOG_USER);
 	TEST_CASE_PROCESS(argc, argv, test_cases, NTESTS);
 	closelog();
+#endif /* NO_LOG_FUNCTION */
 	DONE(NULL);
 }
