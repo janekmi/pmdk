@@ -1,0 +1,68 @@
+name: PMEM Benchmark
+
+on:
+  push:
+
+jobs:
+  prep:
+    name: Prepare
+    runs-on: [self-hosted, benchmark]
+    permissions:
+      contents: read
+    steps:
+      - name: Clone the git repo
+        uses: actions/checkout@v4
+        with:
+          ref: pmem-benchmark
+          fetch-depth: 1
+
+      # - name: Install dependencies
+      #   run: sudo apt-get install libndctl-dev libdaxctl-dev pandoc
+
+      # - name: Test prepare
+      #   uses: ./.github/actions/pmem_test_prepare
+
+      # - name: Save cache
+      #   uses: actions/cache/save@v4
+      #   with:
+      #     key: Benchmark-Build
+      #     path: '*'
+
+      - name: Restore cache
+        uses: actions/cache/restore@v4
+        with:
+          key: Benchmark-Build
+          path: '*'
+          fail-on-cache-miss: true
+
+
+  run:
+    name: Run
+    runs-on: [self-hosted, benchmark]
+    needs: prep
+    strategy:
+      matrix:
+        # BENCHMARK: [pmembench_obj_gen, pmembench_obj_lanes]
+        BENCHMARK: [perf]
+    steps:
+      - name: Benchmark
+        uses: ./.github/actions/pmem_benchmark_run
+        with:
+          benchmark: ${{ matrix.BENCHMARK }}
+          pmembench_extra_args: obj_tx_alloc_small_v_thread obj_pmalloc_small_v_threads obj_rbtree_map_insert obj_hashmap_tx_map_insert
+
+  repack:
+    name: Repack
+    runs-on: ubuntu-latest
+    needs: run
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: csvs
+
+      - name: Upload all as a single artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: all_csvs
+          path: csvs/**/*
