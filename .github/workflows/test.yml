@@ -27,9 +27,6 @@ jobs:
 
   Call-RPM-Build:
     needs: Variables
-    runs-on: ubuntu-latest
-    env:
-      Variable: ${{ needs.Variables.outputs.Variable }}
     uses: janekmi/daos/.github/workflows/test.yml@test
     with:
       VARIABLE: ${{ needs.Variables.outputs.Variable }}
