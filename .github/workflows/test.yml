@@ -30,4 +30,4 @@ jobs:
       Variable: ${{ needs.Variables.outputs.Variable }}
     steps:
       - run: |
-        echo $Variable
+          echo $Variable
