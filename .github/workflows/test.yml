@@ -28,6 +28,7 @@ jobs:
   Call-RPM-Build:
     name: Build RPM
     needs: Variables
+    runs-on: ubuntu-latest
     env:
       Variable: ${{ needs.Variables.outputs.Variable }}
     steps:
