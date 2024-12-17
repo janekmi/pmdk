@@ -26,11 +26,10 @@ jobs:
       - run: date # nop
 
   Call-RPM-Build:
-    name: Build RPM
     needs: Variables
     runs-on: ubuntu-latest
     env:
       Variable: ${{ needs.Variables.outputs.Variable }}
-    steps:
-      - run: |
-          echo $Variable
+    uses: janekmi/daos/.github/workflows/test.yml
+    with:
+      VARIABLE: ${{ needs.Variables.outputs.Variable }}
