@@ -31,5 +31,5 @@ jobs:
   Call-RPM-Build:
     # needs: Variables
     uses: janekmi/daos/.github/workflows/test.yml@test
-    with:
-      VARIABLE: ${{ env.Variable }}
+    # with:
+    #   VARIABLE: ${{ env.Variable }}
