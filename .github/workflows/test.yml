@@ -13,15 +13,15 @@ jobs:
     # in the Call-RPM-Build job but the above issue prevents it
     name: Compute outputs
     runs-on: ubuntu-latest
-    env:
+    # env:
       # see https://github.com/organizations/daos-stack/settings/variables/actions for
       # the organizational defaults values for these variables
       # TODO: we really need to define a list of supported versions (ideally it's no more than 2)
       #       build is done on the lowest version and test on the highest with a "sanity test"
       #       stage done on all versions in the list ecept the highest
-      Variable: ${{ vars.Variable }}
+      # Variable: ${{ vars.Variable }}
     outputs:
-      Variable: ${{ env.Variable }}
+      Variable: ${{ vars.Variable }}
     steps:
       - run: date # nop
 
