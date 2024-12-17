@@ -22,6 +22,8 @@ jobs:
       Variable: ${{ vars.Variable }}
     outputs:
       Variable: ${{ env.Variable }}
+    steps:
+      - run: date # nop
 
   Call-RPM-Build:
     name: Build RPM
