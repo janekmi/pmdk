@@ -7,6 +7,8 @@
 
 #include "last_error_msg.h"
 #include "unittest.h"
+#include "shutdown_state.h"
+#include "set.h"
 
 #include "core_log_common.h"
 
@@ -102,6 +104,52 @@ FUNC_MOCK_NONSTATIC(custom_log_function, void, enum core_log_level level,
 FUNC_MOCK_RUN_DEFAULT {
 	_FUNC_REAL(custom_log_function)(level, file_name, line_no,
 		function_name, message);
+}
+FUNC_MOCK_END
+
+
+int os_part_deep_common(struct pool_replica *rep, unsigned partidx, void *addr,
+	size_t len, int flush);
+/*
+ * os_part_deep_common -- XXX temporally workaround until we will have pmem2
+ *		integrated with common
+ */
+int
+os_part_deep_common(struct pool_replica *rep, unsigned partidx, void *addr,
+	size_t len, int flush)
+{
+	return 0;
+}
+
+int
+pmem2_source_delete(struct pmem2_source **src)
+{
+	ASSERT(false);
+	return PMEM2_E_NOSUPP;
+}
+
+int
+pmem2_source_from_fd(struct pmem2_source **src, int fd)
+{
+	ASSERT(false);
+	return PMEM2_E_NOSUPP;
+}
+
+/* pool_sds - SDS read from the pool header (persistent) */
+static struct shutdown_state Pool_sds;
+/*
+ * SDS calculated ad hoc considering all the involved PMem DIMMs their UUIDs and
+ * USCs (volatile)
+ */
+static struct shutdown_state Curr_sds;
+static struct pool_replica Rep;
+
+FUNC_MOCK(shutdown_state_reinit, void, struct shutdown_state *curr_sds,
+	struct shutdown_state *pool_sds, struct pool_replica *rep)
+FUNC_MOCK_RUN_DEFAULT {
+	ASSERTeq(curr_sds, &Curr_sds);
+	ASSERTeq(pool_sds, &Pool_sds);
+	ASSERTeq(rep, &Rep);
 }
 FUNC_MOCK_END
 

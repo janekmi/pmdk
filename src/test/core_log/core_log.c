@@ -234,6 +234,17 @@ test_set_custom_function(const struct test_case *tc, int argc, char *argv[])
 	return test_happy_day_helper(custom_log_function);
 }
 
+#include "shutdown_state.h"
+
+static int
+test_sds(const struct test_case *tc, int argc, char *argv[])
+{
+	struct shutdown_state sds = {0};
+	int rc = shutdown_state_check(&sds, &sds, NULL);
+	UT_ASSERTeq(rc, 0);
+	return 0;
+}
+
 static struct test_case test_cases[] = {
 	TEST_CASE(test_CORE_LOG_LEVEL_ERROR_LAST),
 	TEST_CASE(test_vsnprintf_fail),
@@ -243,6 +254,7 @@ static struct test_case test_cases[] = {
 	TEST_CASE(test_level_gt_threshold),
 	TEST_CASE(test_happy_day),
 	TEST_CASE(test_set_custom_function),
+	TEST_CASE(test_sds),
 };
 
 #define NTESTS ARRAY_SIZE(test_cases)

@@ -16,7 +16,8 @@ require_build_type debug
 
 setup
 
-expect_normal_exit ./util_sds_check test_case_1
+GDB="gdbserver localhost:2345"
+expect_normal_exit $GDB ./util_sds_check test_case_1
 
 check
 

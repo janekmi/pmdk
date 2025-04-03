@@ -8,4 +8,5 @@ BUILD_STATIC_NONDEBUG=n
 LIBPMEMCORE=internal-debug
 
 include ../Makefile.inc
+CFLAGS += -DNONSTATIC_REINIT -Wno-unused-variable
 LDFLAGS += $(call extract_funcs, ../core_log/core_log_common.c)

@@ -23,7 +23,8 @@ EX_LIBPMEM2=$(EXAMPLES_DIR)/libpmem2
 EX_LIBPMEMOBJ=$(EXAMPLES_DIR)/libpmemobj
 EX_PMREORDER=$(EXAMPLES_DIR)/pmreorder
 
-UT = ../unittest/libut.a
+UT =
+# ../unittest/libut.a
 LIBS += $(UT) $(LIBUUID)
 
 ifeq ($(USE_LIBUNWIND),y)

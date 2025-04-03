@@ -160,10 +160,10 @@ shutdown_state_clear_dirty(struct shutdown_state *sds, struct pool_replica *rep)
 }
 
 /*
- * shutdown_state_reinit -- (internal) reinitializes shutdown_state struct
+ * shutdown_state_reinit2 -- (internal) reinitializes shutdown_state struct
  */
-static void
-shutdown_state_reinit(struct shutdown_state *curr_sds,
+int
+shutdown_state_reinit2(struct shutdown_state *curr_sds,
 	struct shutdown_state *pool_sds, struct pool_replica *rep)
 {
 	LOG(3, "curr_sds %p, pool_sds %p", curr_sds, pool_sds);
@@ -175,6 +175,8 @@ shutdown_state_reinit(struct shutdown_state *curr_sds,
 	FLUSH_SDS(pool_sds, rep);
 
 	shutdown_state_checksum(pool_sds, rep);
+
+	return 0;
 }
 
 /*
@@ -188,7 +190,7 @@ shutdown_state_check(struct shutdown_state *curr_sds,
 
 	if (util_is_zeroed(pool_sds, sizeof(*pool_sds)) &&
 			!util_is_zeroed(curr_sds, sizeof(*curr_sds))) {
-		shutdown_state_reinit(curr_sds, pool_sds, rep);
+		shutdown_state_reinit2(curr_sds, pool_sds, rep);
 		return 0;
 	}
 
@@ -205,7 +207,7 @@ shutdown_state_check(struct shutdown_state *curr_sds,
 		/* the program was killed during opening or closing the pool */
 		CORE_LOG_WARNING(
 			"incorrect checksum - SDS will be reinitialized");
-		shutdown_state_reinit(curr_sds, pool_sds, rep);
+		shutdown_state_reinit2(curr_sds, pool_sds, rep);
 		return 0;
 	}
 
@@ -218,14 +220,14 @@ shutdown_state_check(struct shutdown_state *curr_sds,
 		 */
 		CORE_LOG_WARNING(
 			"the pool was not closed - SDS will be reinitialized");
-		shutdown_state_reinit(curr_sds, pool_sds, rep);
+		shutdown_state_reinit2(curr_sds, pool_sds, rep);
 		return 0;
 	}
 	if (dirty == 0) {
 		/* an ADR failure but the pool was closed */
 		CORE_LOG_WARNING(
 			"an ADR failure was detected but the pool was closed - SDS will be reinitialized");
-		shutdown_state_reinit(curr_sds, pool_sds, rep);
+		shutdown_state_reinit2(curr_sds, pool_sds, rep);
 		return 0;
 	}
 	/* an ADR failure - the pool might be corrupted */

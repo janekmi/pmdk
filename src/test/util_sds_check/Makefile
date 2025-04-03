@@ -6,16 +6,21 @@
 #
 TOP = ../../..
 vpath %.c $(TOP)/src/common/
-vpath %.c $(TOP)/src/test/unittest/
+vpath %.c $(TOP)/src/core/
+vpath %.c $(TOP)/src/libpmem2/
+
+BUILD_STATIC_DEBUG=n
+BUILD_STATIC_NONDEBUG=n
 
 TARGET = util_sds_check
 OBJS = util_sds_check.o\
-	shutdown_state.o
-
-LIBPMEM2=y
+	shutdown_state.o\
+	usc_none.o\
+	util.o\
+	alloc.o os_posix.o os_thread_posix.o
 
 include ../Makefile.inc
 
-CFLAGS += -Wall -Wextra -Wno-unused-parameter -Wno-ignored-qualifiers
+CFLAGS += -DDEBUG -DNONSTATIC_REINIT
 
 LDFLAGS += $(call extract_funcs, util_sds_check.c)
